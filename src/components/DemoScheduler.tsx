@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Clock, User, Mail, Building, CheckCircle, ArrowLeft, ArrowRight, Zap } from 'lucide-react';
+import { Calendar, Clock, User, Mail, Building, CheckCircle, ArrowLeft, ArrowRight, Zap, Rocket, Briefcase, Building2, Globe, Flag, HandHeart, GraduationCap, HeartPulse } from 'lucide-react';
 
 interface ContactData {
   orgType: string;
@@ -210,15 +210,15 @@ export const DemoScheduler: React.FC = () => {
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                       {(Object.entries(orgTypeLabels) as [string, string][]).map(([key, label]) => {
                         const isSelected = contactData.orgType === key;
-                        const orgMeta: Record<string, { desc: string; color: string }> = {
-                          startup:    { desc: 'Early-stage',    color: '#3b82f6' },
-                          sme:        { desc: '10–250 staff',   color: '#8b5cf6' },
-                          corporate:  { desc: '250–5K staff',   color: '#E87722' },
-                          enterprise: { desc: '5K+ staff',      color: '#f59e0b' },
-                          government: { desc: 'Public sector',  color: '#10b981' },
-                          ngo:        { desc: 'Non-profit',     color: '#06b6d4' },
-                          education:  { desc: 'Schools & unis', color: '#ec4899' },
-                          healthcare: { desc: 'Hospitals',      color: '#ef4444' },
+                        const orgMeta: Record<string, { desc: string; color: string; icon: React.ReactNode }> = {
+                          startup:    { desc: 'Early-stage',    color: '#3b82f6', icon: <Rocket    size={20} strokeWidth={1.8}/> },
+                          sme:        { desc: '10–250 staff',   color: '#8b5cf6', icon: <Briefcase size={20} strokeWidth={1.8}/> },
+                          corporate:  { desc: '250–5K staff',   color: '#E87722', icon: <Building2 size={20} strokeWidth={1.8}/> },
+                          enterprise: { desc: '5K+ staff',      color: '#f59e0b', icon: <Globe     size={20} strokeWidth={1.8}/> },
+                          government: { desc: 'Public sector',  color: '#10b981', icon: <Flag      size={20} strokeWidth={1.8}/> },
+                          ngo:        { desc: 'Non-profit',     color: '#06b6d4', icon: <HandHeart size={20} strokeWidth={1.8}/> },
+                          education:  { desc: 'Schools & unis', color: '#ec4899', icon: <GraduationCap size={20} strokeWidth={1.8}/> },
+                          healthcare: { desc: 'Hospitals',      color: '#ef4444', icon: <HeartPulse size={20} strokeWidth={1.8}/> },
                         };
                         const meta = orgMeta[key];
                         return (
@@ -245,12 +245,15 @@ export const DemoScheduler: React.FC = () => {
                               }
                             }}
                           >
-                            {/* Emoji icon */}
+                            {/* Lucide icon */}
                             <div
-                              className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center text-xl transition-transform duration-200 group-hover:scale-110"
-                              style={{ background: isSelected ? `${meta.color}25` : 'rgba(255,255,255,0.05)' }}
+                              className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center transition-transform duration-200 group-hover:scale-110"
+                              style={{
+                                background: isSelected ? `${meta.color}25` : 'rgba(255,255,255,0.05)',
+                                color: isSelected ? meta.color : 'rgba(255,255,255,0.55)',
+                              }}
                             >
-                              {orgTypeEmojis[key]}
+                              {meta.icon}
                             </div>
 
                             {/* Label */}
@@ -295,94 +298,105 @@ export const DemoScheduler: React.FC = () => {
                   >
                     {/* Selected Org Badge */}
                     {contactData.orgType && (
-                      <div className="selection-badge inline-flex items-center gap-2 bg-[#E87722]/12 border border-[#E87722]/35 rounded-full px-3.5 py-1.5 text-xs text-white font-inter">
-                        <span>{orgTypeEmojis[contactData.orgType]}</span>
-                        <span className="font-semibold">{orgTypeLabels[contactData.orgType]}</span>
-                        <button 
+                      <div className="inline-flex items-center gap-2 bg-[#E87722]/10 border border-[#E87722]/30 rounded-full px-3 py-1.5 text-xs text-white font-inter">
+                        <span className="font-semibold text-[#E87722]">{orgTypeLabels[contactData.orgType]}</span>
+                        <button
                           type="button"
                           onClick={() => setCurrentStep(0)}
-                          className="w-4.5 h-4.5 rounded-full bg-white/10 hover:bg-[#E87722] text-neutral-300 hover:text-white flex items-center justify-center transition-colors text-[9px]"
-                        >
-                          ✕
-                        </button>
+                          className="w-4 h-4 rounded-full bg-white/10 hover:bg-[#E87722] flex items-center justify-center transition-colors text-[9px] text-white/60 hover:text-white"
+                        >✕</button>
                       </div>
                     )}
 
-                    <div className="contact-question text-xl md:text-2xl font-bold text-white leading-tight">
+                    <div className="text-xl md:text-2xl font-bold text-white leading-tight">
                       What's your primary security focus?
                     </div>
-                    <div className="contact-subquestion text-sm text-neutral-400 font-inter">
-                      Pick the area that matters most to you right now.
+                    <div className="text-sm text-white/40 font-inter">
+                      Pick the area that matters most — we'll auto-advance when you choose.
                     </div>
 
                     <div className="grid sm:grid-cols-2 gap-3">
-                      <button
-                        type="button"
-                        onClick={() => handleFocusSelect('cloud')}
-                        className={`option-card p-4.5 rounded-xl border text-left transition-all ${
-                          contactData.focus === 'cloud'
-                            ? 'bg-[#E87722]/15 border-[#E87722] ring-2 ring-[#E87722]/20'
-                            : 'bg-white/4 border-white/10 hover:bg-white/8 hover:border-white/20'
-                        }`}
-                      >
-                        <div className="option-card-title text-sm font-bold text-white flex items-center gap-2 mb-1">
-                          ☁️ Cloud Security
-                        </div>
-                        <div className="text-[11px] text-neutral-400 leading-relaxed font-inter">
-                          AWS, Azure, or GCP posture management and misconfiguration detection.
-                        </div>
-                      </button>
+                      {[
+                        {
+                          key: 'cloud',
+                          label: 'Cloud Security',
+                          desc: 'AWS, Azure, or GCP posture management and misconfiguration detection.',
+                          color: '#3b82f6',
+                          icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg>,
+                        },
+                        {
+                          key: 'pentest',
+                          label: 'Pen Testing',
+                          desc: 'Web & API vulnerability testing, including IDOR, XSS, and logic flaws.',
+                          color: '#8b5cf6',
+                          icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="11" y1="8" x2="11" y2="14"/><line x1="8" y1="11" x2="14" y2="11"/></svg>,
+                        },
+                        {
+                          key: 'attack-paths',
+                          label: 'Attack Paths',
+                          desc: 'Link vulnerabilities into complete attack chains and prioritize remediation.',
+                          color: '#E87722',
+                          icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>,
+                        },
+                        {
+                          key: 'full',
+                          label: 'Full Platform',
+                          desc: 'End-to-end security across cloud, apps, identities, and APIs.',
+                          color: '#10b981',
+                          icon: <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+                        },
+                      ].map(item => {
+                        const isSelected = contactData.focus === item.key;
+                        return (
+                          <button
+                            key={item.key}
+                            type="button"
+                            onClick={() => {
+                              setContactData(prev => ({ ...prev, focus: item.key }));
+                              setTimeout(() => setCurrentStep(2), 320);
+                            }}
+                            className="group relative flex items-start gap-3 p-4 rounded-xl border text-left transition-all duration-200"
+                            style={{
+                              background: isSelected ? `${item.color}18` : 'rgba(255,255,255,0.03)',
+                              borderColor: isSelected ? item.color : 'rgba(255,255,255,0.08)',
+                              boxShadow: isSelected ? `0 0 20px ${item.color}22` : 'none',
+                            }}
+                            onMouseEnter={e => { if (!isSelected) { const el = e.currentTarget as HTMLElement; el.style.background = 'rgba(255,255,255,0.06)'; el.style.borderColor = 'rgba(255,255,255,0.16)'; }}}
+                            onMouseLeave={e => { if (!isSelected) { const el = e.currentTarget as HTMLElement; el.style.background = 'rgba(255,255,255,0.03)'; el.style.borderColor = 'rgba(255,255,255,0.08)'; }}}
+                          >
+                            {/* Icon */}
+                            <div
+                              className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 transition-transform duration-200 group-hover:scale-110"
+                              style={{
+                                background: isSelected ? `${item.color}25` : 'rgba(255,255,255,0.05)',
+                                color: isSelected ? item.color : 'rgba(255,255,255,0.5)',
+                              }}
+                            >
+                              {item.icon}
+                            </div>
 
-                      <button
-                        type="button"
-                        onClick={() => handleFocusSelect('pentest')}
-                        className={`option-card p-4.5 rounded-xl border text-left transition-all ${
-                          contactData.focus === 'pentest'
-                            ? 'bg-[#E87722]/15 border-[#E87722] ring-2 ring-[#E87722]/20'
-                            : 'bg-white/4 border-white/10 hover:bg-white/8 hover:border-white/20'
-                        }`}
-                      >
-                        <div className="option-card-title text-sm font-bold text-white flex items-center gap-2 mb-1">
-                          🔍 Pen Testing
-                        </div>
-                        <div className="text-[11px] text-neutral-400 leading-relaxed font-inter">
-                          Web & API vulnerability testing, including IDOR, XSS, and logic flaws.
-                        </div>
-                      </button>
+                            {/* Text */}
+                            <div className="flex-1 min-w-0">
+                              <div className="font-bold text-sm text-white mb-0.5">{item.label}</div>
+                              <div className="text-[11px] text-white/40 font-inter leading-relaxed">{item.desc}</div>
+                            </div>
 
-                      <button
-                        type="button"
-                        onClick={() => handleFocusSelect('attack-paths')}
-                        className={`option-card p-4.5 rounded-xl border text-left transition-all ${
-                          contactData.focus === 'attack-paths'
-                            ? 'bg-[#E87722]/15 border-[#E87722] ring-2 ring-[#E87722]/20'
-                            : 'bg-white/4 border-white/10 hover:bg-white/8 hover:border-white/20'
-                        }`}
-                      >
-                        <div className="option-card-title text-sm font-bold text-white flex items-center gap-2 mb-1">
-                          🎯 Attack Paths
-                        </div>
-                        <div className="text-[11px] text-neutral-400 leading-relaxed font-inter">
-                          Link vulnerabilities into complete attack chains and prioritize remediation.
-                        </div>
-                      </button>
-
-                      <button
-                        type="button"
-                        onClick={() => handleFocusSelect('full')}
-                        className={`option-card p-4.5 rounded-xl border text-left transition-all ${
-                          contactData.focus === 'full'
-                            ? 'bg-[#E87722]/15 border-[#E87722] ring-2 ring-[#E87722]/20'
-                            : 'bg-white/4 border-white/10 hover:bg-white/8 hover:border-white/20'
-                        }`}
-                      >
-                        <div className="option-card-title text-sm font-bold text-white flex items-center gap-2 mb-1">
-                          🛡️ Full Platform
-                        </div>
-                        <div className="text-[11px] text-neutral-400 leading-relaxed font-inter">
-                          End-to-end security across cloud, apps, identities, and APIs.
-                        </div>
-                      </button>
+                            {/* Selected check */}
+                            {isSelected && (
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className="absolute top-3 right-3 w-5 h-5 rounded-full flex items-center justify-center shrink-0"
+                                style={{ background: item.color }}
+                              >
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                                  <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                              </motion.div>
+                            )}
+                          </button>
+                        );
+                      })}
                     </div>
                   </motion.div>
                 )}
