@@ -196,31 +196,89 @@ export const DemoScheduler: React.FC = () => {
                     animate={{ opacity: 1, x: 0 }}
                     exit={{ opacity: 0, x: -10 }}
                     transition={{ duration: 0.25 }}
-                    className="space-y-4"
+                    className="space-y-5"
                   >
-                    <div className="contact-question text-xl md:text-2xl font-bold text-white leading-tight">
-                      What type of organization are you?
+                    <div>
+                      <div className="text-xl md:text-2xl font-bold text-white leading-tight mb-1.5">
+                        What type of organization are you?
+                      </div>
+                      <div className="text-sm text-white/40 font-inter">
+                        This helps us tailor the demo to your operational realities.
+                      </div>
                     </div>
-                    <div className="contact-subquestion text-sm text-neutral-400 font-inter">
-                      This helps us tailor the demo to your operational realities.
-                    </div>
-                    
-                    <div className="org-grid-compact grid grid-cols-2 gap-2.5">
-                      {Object.entries(orgTypeLabels).map(([key, label]) => (
-                        <button
-                          key={key}
-                          type="button"
-                          onClick={() => handleOrgTypeSelect(key)}
-                          className={`option-card flex items-center gap-2.5 p-3.5 rounded-xl border text-left transition-all ${
-                            contactData.orgType === key
-                              ? 'bg-[#E87722]/15 border-[#E87722] ring-2 ring-[#E87722]/20'
-                              : 'bg-white/4 border-white/10 hover:bg-white/8 hover:border-white/20'
-                          }`}
-                        >
-                          <span className="text-lg shrink-0">{orgTypeEmojis[key]}</span>
-                          <span className="text-sm font-semibold text-white font-sans">{label}</span>
-                        </button>
-                      ))}
+
+                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                      {(Object.entries(orgTypeLabels) as [string, string][]).map(([key, label]) => {
+                        const isSelected = contactData.orgType === key;
+                        const orgMeta: Record<string, { desc: string; color: string }> = {
+                          startup:    { desc: 'Early-stage',    color: '#3b82f6' },
+                          sme:        { desc: '10–250 staff',   color: '#8b5cf6' },
+                          corporate:  { desc: '250–5K staff',   color: '#E87722' },
+                          enterprise: { desc: '5K+ staff',      color: '#f59e0b' },
+                          government: { desc: 'Public sector',  color: '#10b981' },
+                          ngo:        { desc: 'Non-profit',     color: '#06b6d4' },
+                          education:  { desc: 'Schools & unis', color: '#ec4899' },
+                          healthcare: { desc: 'Hospitals',      color: '#ef4444' },
+                        };
+                        const meta = orgMeta[key];
+                        return (
+                          <button
+                            key={key}
+                            type="button"
+                            onClick={() => handleOrgTypeSelect(key)}
+                            className="group relative flex flex-col items-center gap-2 p-3 sm:p-4 rounded-2xl border text-center transition-all duration-200"
+                            style={{
+                              background: isSelected ? `${meta.color}18` : 'rgba(255,255,255,0.03)',
+                              borderColor: isSelected ? meta.color : 'rgba(255,255,255,0.08)',
+                              boxShadow: isSelected ? `0 0 20px ${meta.color}22` : 'none',
+                            }}
+                            onMouseEnter={e => {
+                              if (!isSelected) {
+                                (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.06)';
+                                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.16)';
+                              }
+                            }}
+                            onMouseLeave={e => {
+                              if (!isSelected) {
+                                (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.03)';
+                                (e.currentTarget as HTMLElement).style.borderColor = 'rgba(255,255,255,0.08)';
+                              }
+                            }}
+                          >
+                            {/* Emoji icon */}
+                            <div
+                              className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl flex items-center justify-center text-xl transition-transform duration-200 group-hover:scale-110"
+                              style={{ background: isSelected ? `${meta.color}25` : 'rgba(255,255,255,0.05)' }}
+                            >
+                              {orgTypeEmojis[key]}
+                            </div>
+
+                            {/* Label */}
+                            <div className="font-semibold text-white text-xs sm:text-sm leading-tight">
+                              {label}
+                            </div>
+
+                            {/* Descriptor */}
+                            <div className="text-[10px] font-inter leading-none" style={{ color: isSelected ? meta.color : 'rgba(255,255,255,0.3)' }}>
+                              {meta.desc}
+                            </div>
+
+                            {/* Selected checkmark */}
+                            {isSelected && (
+                              <motion.div
+                                initial={{ scale: 0 }}
+                                animate={{ scale: 1 }}
+                                className="absolute top-2 right-2 w-5 h-5 rounded-full flex items-center justify-center"
+                                style={{ background: meta.color }}
+                              >
+                                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="3.5" strokeLinecap="round" strokeLinejoin="round">
+                                  <polyline points="20 6 9 17 4 12"/>
+                                </svg>
+                              </motion.div>
+                            )}
+                          </button>
+                        );
+                      })}
                     </div>
                   </motion.div>
                 )}

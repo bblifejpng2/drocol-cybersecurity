@@ -15,23 +15,22 @@ import { SectionNav } from './components/SectionNav';
 
 function App() {
   const [activeSection, setActiveSection] = useState<string>('home');
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [loading, setLoading] = useState(true);
+
+  // Site is intentionally dark-only — no theme toggle needed
+  const theme: 'light' | 'dark' = 'dark';
+  const toggleTheme = () => {};
+
+  // Apply dark theme to document root permanently
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', 'dark');
+  }, []);
 
   // Page load animation
   useEffect(() => {
     const timer = setTimeout(() => setLoading(false), 5000);
     return () => clearTimeout(timer);
   }, []);
-
-  // Apply theme class to html element
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
-  };
 
   useEffect(() => {
     const sectionIds = ['home', 'threats', 'features', 'attack-path', 'integrations', 'contact'];
@@ -73,9 +72,7 @@ function App() {
   return (
     <>
       {loading && <PageTransition />}
-      <div className={`min-h-screen text-neutral-900 selection:bg-[#E87722]/30 selection:text-[#E87722] antialiased overflow-x-hidden theme-transition ${
-        theme === 'light' ? 'bg-[#F3EDE2]' : 'bg-[#0B0B0B]'
-      }`}>
+      <div className="min-h-screen bg-[#080808] text-white selection:bg-[#E87722]/30 selection:text-[#E87722] antialiased overflow-x-hidden">
         {/* Scroll Navigation Controls */}
         <SectionNav activeSection={activeSection} onSectionChange={setActiveSection} />
 

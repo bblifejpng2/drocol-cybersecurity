@@ -49,7 +49,7 @@ export const PageTransition: React.FC = () => {
               </g>
             </svg>
           </motion.div>
-          
+
           {/* Company name - stays static */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
@@ -64,7 +64,7 @@ export const PageTransition: React.FC = () => {
               TECHNOLOGIES LIMITED
             </div>
           </motion.div>
-          
+
           <motion.div
             initial={{ width: 0 }}
             animate={{ width: 140 }}
