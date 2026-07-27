@@ -312,17 +312,16 @@ export const ThreatDashboard: React.FC = () => {
 
               {activeNode && activeSignal && (
                 <div
-                  style={{
-                    left: `${activeNode.x}%`, top: `${activeNode.y}%`,
-                    transform: `translate(${activeNode.x > 60 ? '-115%' : '20%'}, calc(-50% - 54px))`,
-                  }}
                   className="absolute z-20 pointer-events-none rounded-xl border p-3 max-w-[180px]"
                   style={{
+                    left: `${activeNode.x}%`,
+                    top: `${activeNode.y}%`,
+                    transform: `translate(${activeNode.x > 60 ? '-115%' : '20%'}, calc(-50% - 54px))`,
                     background: 'rgba(12,12,12,0.95)',
                     borderColor: 'rgba(232,119,34,0.3)',
                     boxShadow: '0 8px 32px rgba(0,0,0,0.6)',
                     backdropFilter: 'blur(12px)',
-                  } as React.CSSProperties}
+                  }}
                 >
                   <div className="flex items-center gap-1.5 text-[11px] font-bold text-[#E87722] mb-1.5 uppercase tracking-wider">
                     <AlertTriangle size={11}/>

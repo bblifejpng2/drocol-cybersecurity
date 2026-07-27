@@ -27,3 +27,6 @@ dist-ssr
 
 # Browser extension (not part of the website)
 number-extractor-extension/
+
+.vercel
+.env*
