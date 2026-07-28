@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, X, Check } from 'lucide-react';
 import { moduleData, ModuleData } from '../lib/data';
@@ -12,11 +12,14 @@ const moduleAccents = [
   { color: '#f59e0b', glow: 'rgba(245,158,11,0.25)', bg: 'linear-gradient(135deg, rgba(245,158,11,0.12) 0%, rgba(245,158,11,0.04) 100%)', border: 'rgba(245,158,11,0.2)' },
 ];
 
+const GAP = 20; // 4 * 4px = 16px on mobile, 5 * 4px = 20px on desktop — use 20 as safe value
+
 export const FeaturesCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [selectedModule, setSelectedModule] = useState<ModuleData | null>(null);
   const [selectedModuleIndex, setSelectedModuleIndex] = useState(0);
   const [visibleCount, setVisibleCount] = useState(3);
+  const [containerWidth, setContainerWidth] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const touchStartRef = useRef<number>(0);
 
@@ -25,11 +28,21 @@ export const FeaturesCarousel: React.FC = () => {
       if (window.innerWidth >= 1024) setVisibleCount(3);
       else if (window.innerWidth >= 768) setVisibleCount(2);
       else setVisibleCount(1);
+      if (containerRef.current) {
+        setContainerWidth(containerRef.current.offsetWidth);
+      }
     };
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Calculate exact pixel offset for the carousel
+  const xOffset = useMemo(() => {
+    if (containerWidth === 0) return 0;
+    const cardWidth = (containerWidth - GAP * (visibleCount - 1)) / visibleCount;
+    return currentIndex * (cardWidth + GAP);
+  }, [currentIndex, containerWidth, visibleCount]);
 
   const maxIndex = Math.max(0, moduleData.length - visibleCount);
   const handlePrev = () => setCurrentIndex(prev => Math.max(0, prev - 1));
@@ -109,17 +122,18 @@ export const FeaturesCarousel: React.FC = () => {
         >
           <motion.div
             className="flex gap-4 md:gap-5"
-            animate={{ x: `-${currentIndex * (100 / visibleCount + (visibleCount === 3 ? 0.5 : visibleCount === 2 ? 0.8 : 0))}%` }}
+            animate={{ x: -xOffset }}
             transition={{ type: 'spring', stiffness: 300, damping: 32 }}
           >
             {moduleData.map((module, index) => {
               const accent = moduleAccents[index % moduleAccents.length];
+              const cardWidth = visibleCount === 1 ? '100%' : visibleCount === 2 ? 'calc(50% - 10px)' : 'calc(33.333% - 12px)';
               return (
                 <div
                   key={index}
                   className="group flex-shrink-0 flex flex-col rounded-2xl overflow-hidden border transition-all duration-500 cursor-default"
                   style={{
-                    width: `calc(${100 / visibleCount}% - ${(20 * (visibleCount - 1)) / visibleCount}px)`,
+                    width: cardWidth,
                     background: 'rgba(255,255,255,0.03)',
                     borderColor: 'rgba(255,255,255,0.07)',
                     boxShadow: '0 0 0 0 transparent',
