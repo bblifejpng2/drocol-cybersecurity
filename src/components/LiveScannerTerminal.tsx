@@ -242,7 +242,7 @@ export const LiveScannerTerminal: React.FC = () => {
 
           {/* Right Column: Live Terminal Feed */}
           <div>
-            <div className="terminal-window bg-black border border-white/10 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl">
+            <div className="terminal-window bg-black border border-white/10 rounded-xl sm:rounded-2xl overflow-hidden shadow-2xl min-h-[500px] sm:min-h-0">
               
               {/* Terminal Header */}
               <div className="terminal-header bg-neutral-950 px-3 sm:px-5 py-2.5 sm:py-3.5 flex items-center justify-between border-b border-white/5">

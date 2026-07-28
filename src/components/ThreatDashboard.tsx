@@ -124,7 +124,7 @@ export const ThreatDashboard: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-3 flex flex-col rounded-2xl overflow-hidden border"
+            className="lg:col-span-3 flex flex-col rounded-2xl overflow-hidden border min-h-[300px]"
             style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.07)', boxShadow: '0 0 0 1px rgba(255,255,255,0.03), 0 24px 60px rgba(0,0,0,0.4)' }}
           >
             {/* Panel header */}
@@ -164,7 +164,7 @@ export const ThreatDashboard: React.FC = () => {
             </div>
 
             {/* Table */}
-            <div className="overflow-x-auto flex-grow">
+            <div className="overflow-x-auto overflow-y-hidden flex-grow" style={{ maxHeight: '340px' }}>
               <table className="w-full border-collapse" style={{ tableLayout: 'fixed' }}>
                 <thead>
                   <tr style={{ borderBottom: '1px solid rgba(255,255,255,0.05)' }}>
@@ -220,7 +220,7 @@ export const ThreatDashboard: React.FC = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="lg:col-span-2 flex flex-col rounded-2xl overflow-hidden border"
+            className="lg:col-span-2 flex flex-col rounded-2xl overflow-hidden border min-h-[300px]"
             style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.07)', boxShadow: '0 0 0 1px rgba(255,255,255,0.03), 0 24px 60px rgba(0,0,0,0.4)' }}
           >
             {/* Panel header */}

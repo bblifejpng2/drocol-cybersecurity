@@ -4,7 +4,7 @@ import { ArrowRight, Shield, Zap } from 'lucide-react';
 
 export const Hero: React.FC = () => {
   return (
-    <section id="home" className="relative min-h-[92vh] flex items-center overflow-hidden bg-[#080808]">
+    <section id="home" className="relative min-h-[92vh] flex items-center overflow-hidden bg-[#F3EDE2]">
 
       {/* ── Aurora background ─────────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -25,11 +25,11 @@ export const Hero: React.FC = () => {
           style={{ background: 'radial-gradient(ellipse, #8b5cf6 0%, transparent 70%)', filter: 'blur(80px)' }}/>
         {/* Fine dot grid */}
         <div className="absolute inset-0 opacity-[0.12]" style={{
-          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, rgba(23,23,23,0.4) 1px, transparent 1px)',
           backgroundSize: '32px 32px',
         }}/>
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#080808] to-transparent"/>
+        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#F3EDE2] to-transparent"/>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full relative z-10 py-20 md:py-28">
@@ -47,25 +47,25 @@ export const Hero: React.FC = () => {
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className="inline-flex items-center gap-2.5 mb-8 px-4 py-2 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-sm"
+              className="inline-flex items-center gap-2.5 mb-8 px-4 py-2 rounded-full border border-neutral-900/10 bg-neutral-900/[0.04] backdrop-blur-sm"
             >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E87722] opacity-75"/>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E87722]"/>
               </span>
-              <span className="text-[11px] font-inter font-semibold tracking-widest text-white/70 uppercase">Protecting 250+ Nigerian Organizations</span>
+              <span className="text-[11px] font-inter font-semibold tracking-widest text-neutral-600 uppercase">Protecting 250+ Nigerian Organizations</span>
             </motion.div>
 
             {/* Headline */}
-            <h1 className="text-5xl sm:text-6xl md:text-[80px] font-bold leading-[1.0] tracking-[-0.03em] mb-6 text-white font-sans">
+            <h1 className="text-5xl sm:text-6xl md:text-[80px] font-bold leading-[1.0] tracking-[-0.03em] mb-6 text-neutral-900 font-sans">
               Enterprise<br/>
-              <span className="text-white/90">Cyber</span><span className="text-transparent bg-clip-text" style={{
+              <span className="text-neutral-900">Cyber</span><span className="text-transparent bg-clip-text" style={{
                 backgroundImage: 'linear-gradient(90deg, #E87722 0%, #F5A623 60%, #E87722 100%)',
               }}>security</span><br/>
-              <span className="italic font-light text-white/60 text-4xl sm:text-5xl md:text-[64px] tracking-[-0.02em]">Made Intelligent.</span>
+              <span className="italic font-light text-neutral-500 text-4xl sm:text-5xl md:text-[64px] tracking-[-0.02em]">Made Intelligent.</span>
             </h1>
 
-            <p className="text-base md:text-lg text-white/50 max-w-lg mb-10 font-inter leading-relaxed">
+            <p className="text-base md:text-lg text-neutral-600 max-w-lg mb-10 font-inter leading-relaxed">
               Real-time threat detection, attack path analysis, and developer-ready APIs. Built by Nigerians, for Nigerian enterprises.
             </p>
 
@@ -83,7 +83,7 @@ export const Hero: React.FC = () => {
               <a
                 href="#features"
                 onClick={(e) => { e.preventDefault(); document.getElementById('features')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm text-white/80 border border-white/10 bg-white/[0.04] backdrop-blur-sm hover:bg-white/[0.08] hover:text-white transition-all duration-300"
+                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm text-neutral-700 border border-neutral-900/10 bg-neutral-900/[0.04] backdrop-blur-sm hover:bg-neutral-900/[0.08] hover:text-neutral-900 transition-all duration-300"
               >
                 Learn About Us
               </a>
@@ -92,28 +92,28 @@ export const Hero: React.FC = () => {
             {/* Trust stats row */}
             <div className="flex flex-wrap items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-neutral-900/[0.06] border border-neutral-900/10 flex items-center justify-center">
                   <Shield size={14} className="text-[#E87722]"/>
                 </div>
                 <div>
-                  <div className="text-white font-semibold text-xs">99.98% Uptime</div>
-                  <div className="text-white/40 text-[11px] font-inter">SLA guaranteed</div>
+                  <div className="text-neutral-900 font-semibold text-xs">99.98% Uptime</div>
+                  <div className="text-neutral-500 text-[11px] font-inter">SLA guaranteed</div>
                 </div>
               </div>
-              <div className="w-px h-8 bg-white/10"/>
+              <div className="w-px h-8 bg-neutral-900/10"/>
               <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-white/[0.06] border border-white/10 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-lg bg-neutral-900/[0.06] border border-neutral-900/10 flex items-center justify-center">
                   <Zap size={14} className="text-[#E87722]"/>
                 </div>
                 <div>
-                  <div className="text-white font-semibold text-xs">45M+ Threats</div>
-                  <div className="text-white/40 text-[11px] font-inter">Blocked this month</div>
+                  <div className="text-neutral-900 font-semibold text-xs">45M+ Threats</div>
+                  <div className="text-neutral-500 text-[11px] font-inter">Blocked this month</div>
                 </div>
               </div>
-              <div className="w-px h-8 bg-white/10"/>
+              <div className="w-px h-8 bg-neutral-900/10"/>
               <div className="flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"/>
-                <span className="text-white/50 text-[11px] font-inter font-medium">24/7 Nigerian Support</span>
+                <span className="text-neutral-600 text-[11px] font-inter font-medium">24/7 Nigerian Support</span>
               </div>
             </div>
           </motion.div>
@@ -132,8 +132,8 @@ export const Hero: React.FC = () => {
                 style={{ background: 'radial-gradient(ellipse, rgba(232,119,34,0.3) 0%, transparent 70%)', filter: 'blur(20px)' }}/>
 
               {/* Main image card */}
-              <div className="relative rounded-2xl overflow-hidden border border-white/10"
-                style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.05) 0%, rgba(255,255,255,0.02) 100%)', boxShadow: '0 32px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1)' }}>
+              <div className="relative rounded-2xl overflow-hidden border border-neutral-900/10"
+                style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 100%)', boxShadow: '0 32px 80px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.5)' }}>
                 <img
                   src="/17851250071b80.png"
                   alt="Drocol layered security intelligence visualization"

@@ -10,7 +10,7 @@ export const PartnerMarquee: React.FC = () => {
   });
 
   return (
-    <section className="relative bg-[#080808] py-16 md:py-24 overflow-hidden">
+    <section className="relative bg-[#F3EDE2] py-16 md:py-24 overflow-hidden">
 
       {/* ── Background ─────────────────────────────────── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -19,10 +19,10 @@ export const PartnerMarquee: React.FC = () => {
           backgroundRepeat: 'repeat', backgroundSize: '128px',
         }}/>
         <div className="absolute inset-0 opacity-[0.07]" style={{
-          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.3) 1px, transparent 1px)',
+          backgroundImage: 'radial-gradient(circle, rgba(23,23,23,0.3) 1px, transparent 1px)',
           backgroundSize: '32px 32px',
         }}/>
-        <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.07) 50%, transparent)' }}/>
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(23,23,23,0.07) 50%, transparent)' }}/>
         <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.1) 50%, transparent)' }}/>
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] rounded-full opacity-[0.04]"
           style={{ background: 'radial-gradient(ellipse, #E87722 0%, transparent 70%)', filter: 'blur(80px)' }}/>
@@ -41,13 +41,13 @@ export const PartnerMarquee: React.FC = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-[#E87722]"/>
               <span className="text-[11px] font-inter font-semibold tracking-widest text-[#E87722] uppercase">Strategic Partners</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-white leading-[1.05]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-neutral-900 leading-[1.05]">
               Our Trusted<br/>
               <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #E87722, #F5A623)' }}>
                 Ecosystem.
               </span>
             </h2>
-            <p className="text-white/40 mt-4 max-w-md font-inter text-sm leading-relaxed">
+            <p className="text-neutral-600 mt-4 max-w-md font-inter text-sm leading-relaxed">
               Proudly partnering with Redream Solutions to deliver world-class cybersecurity solutions across Africa.
             </p>
           </motion.div>
@@ -66,11 +66,11 @@ export const PartnerMarquee: React.FC = () => {
               { icon: <Users size={14} className="text-[#E87722]"/>, label: '5+', sub: 'Active Partners' },
             ].map((stat, i) => (
               <div key={i} className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border"
-                style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.07)' }}>
+                style={{ background: 'rgba(255,255,255,0.6)', borderColor: 'rgba(23,23,23,0.08)' }}>
                 {stat.icon}
                 <div>
-                  <div className="text-white font-bold text-sm leading-none">{stat.label}</div>
-                  <div className="text-white/35 text-[10px] font-inter mt-0.5">{stat.sub}</div>
+                  <div className="text-neutral-900 font-bold text-sm leading-none">{stat.label}</div>
+                  <div className="text-neutral-500 text-[10px] font-inter mt-0.5">{stat.sub}</div>
                 </div>
               </div>
             ))}
@@ -82,9 +82,9 @@ export const PartnerMarquee: React.FC = () => {
       <div className="relative w-full overflow-hidden py-2 z-10">
         {/* Edge fades */}
         <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to right, #080808, transparent)' }}/>
+          style={{ background: 'linear-gradient(to right, #F3EDE2, transparent)' }}/>
         <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to left, #080808, transparent)' }}/>
+          style={{ background: 'linear-gradient(to left, #F3EDE2, transparent)' }}/>
 
         <div className="marquee-outer flex w-[200%]">
           {[1, 2].map(track => (
@@ -95,18 +95,18 @@ export const PartnerMarquee: React.FC = () => {
                   className="group relative flex items-center gap-3 md:gap-4 px-4 md:px-5 py-3 md:py-4 rounded-2xl border transition-all duration-300 cursor-default shrink-0"
                   style={{
                     minWidth: '240px',
-                    background: 'rgba(255,255,255,0.025)',
-                    borderColor: 'rgba(255,255,255,0.07)',
+                    background: 'rgba(255,255,255,0.6)',
+                    borderColor: 'rgba(23,23,23,0.08)',
                   }}
                   onMouseEnter={e => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = 'rgba(232,119,34,0.25)';
-                    el.style.background = 'rgba(232,119,34,0.04)';
+                    el.style.borderColor = 'rgba(232,119,34,0.35)';
+                    el.style.background = 'rgba(232,119,34,0.06)';
                   }}
                   onMouseLeave={e => {
                     const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = 'rgba(255,255,255,0.07)';
-                    el.style.background = 'rgba(255,255,255,0.025)';
+                    el.style.borderColor = 'rgba(23,23,23,0.08)';
+                    el.style.background = 'rgba(255,255,255,0.6)';
                   }}
                 >
                   {/* Logo mark */}
@@ -120,7 +120,7 @@ export const PartnerMarquee: React.FC = () => {
 
                   {/* Info */}
                   <div className="min-w-0">
-                    <div className="font-bold text-white text-sm leading-tight truncate">{partner.name}</div>
+                    <div className="font-bold text-neutral-900 text-sm leading-tight truncate">{partner.name}</div>
                     <div className="font-mono text-[10px] text-[#E87722]/80 mt-0.5 truncate">{partner.handle}</div>
                   </div>
 
@@ -146,11 +146,11 @@ export const PartnerMarquee: React.FC = () => {
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.2 }}
           className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-5 md:px-6 py-4 md:py-5 rounded-2xl border"
-          style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.07)' }}
+          style={{ background: 'rgba(255,255,255,0.6)', borderColor: 'rgba(23,23,23,0.08)' }}
         >
           <div>
-            <div className="text-white font-semibold text-sm">Become a partner</div>
-            <div className="text-white/40 font-inter text-xs mt-0.5">Join our ecosystem and help secure African enterprises together.</div>
+            <div className="text-neutral-900 font-semibold text-sm">Become a partner</div>
+            <div className="text-neutral-500 font-inter text-xs mt-0.5">Join our ecosystem and help secure African enterprises together.</div>
           </div>
           <a
             href="#contact"
