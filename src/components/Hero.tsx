@@ -57,7 +57,7 @@ export const Hero: React.FC = () => {
             </motion.div>
 
             {/* Headline */}
-            <h1 className="text-5xl sm:text-6xl md:text-[80px] font-bold leading-[1.0] tracking-[-0.03em] mb-6 text-neutral-950 font-sans">
+            <h1 className="text-5xl sm:text-6xl md:text-[80px] font-bold leading-[1.0] tracking-[-0.03em] mb-6 text-neutral-900 font-sans">
               Enterprise<br/>
               <span className="text-neutral-900">Cyber</span><span className="text-transparent bg-clip-text" style={{
                 backgroundImage: 'linear-gradient(90deg, #E87722 0%, #F5A623 60%, #E87722 100%)',

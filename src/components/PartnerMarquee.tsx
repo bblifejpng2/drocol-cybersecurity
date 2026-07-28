@@ -41,7 +41,7 @@ export const PartnerMarquee: React.FC = () => {
               <span className="w-1.5 h-1.5 rounded-full bg-[#E87722]"/>
               <span className="text-[11px] font-inter font-semibold tracking-widest text-[#E87722] uppercase">Strategic Partners</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-neutral-950 leading-[1.05]">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-neutral-900 leading-[1.05]">
               Our Trusted<br/>
               <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #E87722, #F5A623)' }}>
                 Ecosystem.
