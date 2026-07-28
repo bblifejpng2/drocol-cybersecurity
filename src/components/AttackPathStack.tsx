@@ -40,10 +40,10 @@ export const AttackPathStack: React.FC = () => {
         </div>
 
         {/* Interactive Grid */}
-        <div className="how-it-works-grid grid grid-cols-[minmax(0,1fr)_minmax(140px,1.3fr)_minmax(0,1fr)] gap-2 sm:gap-6 lg:gap-8 items-center">
+        <div className="how-it-works-grid grid grid-cols-1 lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-center">
           
           {/* Left Column: Stages 1-3 */}
-          <div className="how-it-works-columns flex flex-col gap-2 sm:gap-3 lg:gap-4">
+          <div className="how-it-works-columns order-2 lg:order-1 flex flex-col gap-2 sm:gap-3 lg:gap-4 min-w-0">
             {attackStages.slice(0, 3).map((stage) => {
               const isActive = activeLayer === stage.layerIndex;
               return (
@@ -74,7 +74,7 @@ export const AttackPathStack: React.FC = () => {
           </div>
 
           {/* Center Column: 3D Stack Visualization */}
-          <div className="flex items-center justify-center py-6 sm:py-8 lg:py-0">
+          <div className="order-1 lg:order-2 flex items-center justify-center py-6 sm:py-8 lg:py-0 min-w-0">
             <div className="layer-stack-container relative w-full max-w-[200px] h-[200px] sm:max-w-[260px] sm:h-[260px] md:max-w-[280px] md:h-[280px]">
               <div className="layer-stack w-full h-full relative transform-style-3d rotate-x-60 rotate-z-[-45deg]">
                 {attackStages.map((stage) => {
@@ -118,7 +118,7 @@ export const AttackPathStack: React.FC = () => {
           </div>
 
           {/* Right Column: Stages 4-6 */}
-          <div className="how-it-works-columns flex flex-col gap-2 sm:gap-3 lg:gap-4">
+          <div className="how-it-works-columns order-3 flex flex-col gap-2 sm:gap-3 lg:gap-4 min-w-0">
             {attackStages.slice(3, 6).map((stage) => {
               const isActive = activeLayer === stage.layerIndex;
               return (
