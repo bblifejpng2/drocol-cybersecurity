@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Twitter, Linkedin, Github } from 'lucide-react';
+import { Twitter, Linkedin, Github, ArrowRight } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const [isSpinning, setIsSpinning] = useState(false);
@@ -7,196 +7,177 @@ export const Footer: React.FC = () => {
   const handleLogoClick = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsSpinning(true);
-    const homeSection = document.getElementById('home');
-    if (homeSection) {
-      homeSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    setTimeout(() => {
-      setIsSpinning(false);
-    }, 900);
+    document.getElementById('home')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    setTimeout(() => setIsSpinning(false), 900);
   };
 
+  const navScroll = (id: string) => (e: React.MouseEvent) => {
+    e.preventDefault();
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
+  const cols = [
+    {
+      heading: 'Product',
+      links: [
+        { label: 'Cloud Security',  id: 'features' },
+        { label: 'Pen Testing',     id: 'features' },
+        { label: 'Attack Paths',    id: 'attack-path' },
+        { label: 'Integrations',    id: 'integrations' },
+      ],
+    },
+    {
+      heading: 'Company',
+      links: [
+        { label: 'Careers',  id: '' },
+        { label: 'Blog',     id: '' },
+        { label: 'Contact',  id: 'contact' },
+      ],
+    },
+    {
+      heading: 'Legal',
+      links: [
+        { label: 'Privacy Policy',       id: '' },
+        { label: 'Terms of Service',     id: '' },
+        { label: 'Security Disclosure',  id: '' },
+        { label: 'NDPR Compliance',      id: '' },
+      ],
+    },
+  ];
+
   return (
-    <footer className="bg-[#141414] py-12 md:py-16 border-t border-white/5">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-10 mb-10">
-          
-          {/* Column 1: Logo & Info */}
-          <div className="col-span-2 md:col-span-1">
-            <a 
-              href="#home" 
-              onClick={handleLogoClick} 
-              className="logo-container dark footer-logo mb-5 inline-flex items-center gap-3 select-none no-underline"
-            >
-              <div className={`logo-mark w-10 h-10 relative flex-shrink-0 ${isSpinning ? 'spin-once' : ''}`} title="Click to spin">
-                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 100" fill="none" className="w-full h-full object-contain block origin-center transition-all duration-400">
-                  <defs>
-                    <filter id="footerGlow" x="-40%" y="-40%" width="180%" height="180%">
-                      <feGaussianBlur stdDeviation="1.3" result="blur" />
-                      <feMerge>
-                        <feMergeNode in="blur" />
-                        <feMergeNode in="SourceGraphic" />
-                      </feMerge>
-                    </filter>
-                  </defs>
-                  {/* Connecting lines */}
-                  <path d="M60 15A39 39 0 0 1 94 73 M94 73A39 39 0 0 1 26 73 M26 73A39 39 0 0 1 60 15" stroke="#f5f5f5" strokeWidth="3.5" strokeLinecap="round" opacity=".95"/>
-                  {/* Top security shield */}
-                  <g transform="translate(60 15)" filter="url(#footerGlow)">
-                    <path d="M0-12 11-7.5V3.5 C11 9.5 6 14.3 0 17 C-6 14.3-11 9.5-11 3.5v-11Z" fill="#f5f5f5"/>
-                    <circle r="6.1" fill="#111" />
-                    <path d="M3.2-3.3 C2-4.5-2.6-4.8-3-1.8 C-3.4.8 3.1.1 3 3 C2.9 5.8-1.7 5.5-3.3 4.2 M0-6v12" stroke="#fff" strokeWidth="1.6" strokeLinecap="round"/>
-                  </g>
-                  {/* Internet shield */}
-                  <g transform="translate(94 73)" filter="url(#footerGlow)">
-                    <path d="M0-12 11-7.5V3.5 C11 9.5 6 14.3 0 17 C-6 14.3-11 9.5-11 3.5v-11Z" fill="#ff6a00"/>
-                    <circle r="6.2" fill="#fff" />
-                    <circle r="5" fill="none" stroke="#ff6a00" strokeWidth="1.1"/>
-                    <path d="M-5 0H5 M-4.2-2.5h8.4 M-4.2 2.5h8.4 M0-5c-2.2 2.4-2.2 7.6 0 10 M0-5c2.2 2.4 2.2 7.6 0 10" stroke="#ff6a00" strokeWidth=".9" strokeLinecap="round"/>
-                  </g>
-                  {/* Eye shield */}
-                  <g transform="translate(26 73)" filter="url(#footerGlow)">
-                    <path d="M0-12 11-7.5V3.5 C11 9.5 6 14.3 0 17 C-6 14.3-11 9.5-11 3.5v-11Z" fill="#93a4b8"/>
-                    <circle r="6.2" fill="#0f1720" />
-                    <path d="M-5 0 C-2.7-4.2 2.7-4.2 5 0 C2.7 4.2-2.7 4.2-5 0Z" fill="none" stroke="#78c7ef" stroke-width="1.1"/>
-                    <circle r="2" fill="#78c7ef" />
-                    <circle r=".8" fill="#e9f8ff" />
-                  </g>
-                </svg>
-              </div>
-              <div className="logo-wordmark-wrap h-10 flex items-center">
-                <svg viewBox="0 0 260 78" xmlns="http://www.w3.org/2000/svg" aria-label="Drocol Technologies Limited" className="h-full w-auto block">
-                  <text className="wordmark-text fill-white font-bold tracking-tighter" x="0" y="44" fontSize="52">Drocol</text>
-                  <rect className="wordmark-o-accent fill-[#FF6A00] origin-center" x="125.5" y="27.5" width="7" height="7" rx="1.5" ry="1.5" />
-                  <text className="wordmark-sub-text fill-[#FF6A00] font-sans font-semibold tracking-[3.5px]" x="0" y="65" fontSize="9.5">TECHNOLOGIES LIMITED</text>
-                </svg>
-              </div>
-            </a>
-            <p className="text-sm text-neutral-500 font-inter leading-relaxed mt-4">
-              Enterprise cybersecurity, built in Lagos for Africa.
-            </p>
-          </div>
+    <footer className="relative bg-[#060606] overflow-hidden">
 
-          {/* Column 2: Product */}
-          <div>
-            <h4 className="text-white font-semibold mb-5 font-sans text-sm tracking-wide uppercase">Product</h4>
-            <ul className="space-y-3 text-sm text-neutral-400 font-inter">
-              <li>
-                <a 
-                  href="#features" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById('features')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }}
-                  className="hover:text-[#E87722] transition-colors"
-                >
-                  Cloud Security
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#features" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById('features')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }}
-                  className="hover:text-[#E87722] transition-colors"
-                >
-                  Pen Testing
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#attack-path" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById('attack-path')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }}
-                  className="hover:text-[#E87722] transition-colors"
-                >
-                  Attack Paths
-                </a>
-              </li>
-              <li>
-                <a 
-                  href="#integrations" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById('integrations')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }}
-                  className="hover:text-[#E87722] transition-colors"
-                >
-                  Integrations
-                </a>
-              </li>
-            </ul>
-          </div>
+      {/* ── Background ─────────────────────────────────── */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+        {/* Noise */}
+        <div className="absolute inset-0 opacity-[0.025]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
+          backgroundRepeat: 'repeat', backgroundSize: '128px',
+        }}/>
+        {/* Top separator with orange accent */}
+        <div className="absolute top-0 inset-x-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06) 30%, rgba(232,119,34,0.2) 50%, rgba(255,255,255,0.06) 70%, transparent)' }}/>
+        {/* Subtle bottom-center glow */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] opacity-[0.04]"
+          style={{ background: 'radial-gradient(ellipse, #E87722 0%, transparent 70%)', filter: 'blur(60px)' }}/>
+      </div>
 
-          {/* Column 3: Company */}
-          <div>
-            <h4 className="text-white font-semibold mb-5 font-sans text-sm tracking-wide uppercase">Company</h4>
-            <ul className="space-y-3 text-sm text-neutral-400 font-inter">
-              <li><a href="#" className="hover:text-[#E87722] transition-colors">Careers</a></li>
-              <li><a href="#" className="hover:text-[#E87722] transition-colors">Blog</a></li>
-              <li>
-                <a 
-                  href="#contact" 
-                  onClick={(e) => {
-                    e.preventDefault();
-                    document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  }}
-                  className="hover:text-[#E87722] transition-colors"
-                >
-                  Contact
-                </a>
-              </li>
-            </ul>
-          </div>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
-          {/* Column 4: Legal */}
-          <div>
-            <h4 className="text-white font-semibold mb-5 font-sans text-sm tracking-wide uppercase">Legal</h4>
-            <ul className="space-y-3 text-sm text-neutral-400 font-inter">
-              <li><a href="#" className="hover:text-[#E87722] transition-colors">Privacy Policy</a></li>
-              <li><a href="#" className="hover:text-[#E87722] transition-colors">Terms of Service</a></li>
-              <li><a href="#" className="hover:text-[#E87722] transition-colors">Security Disclosure</a></li>
-              <li><a href="#" className="hover:text-[#E87722] transition-colors">NDPR Compliance</a></li>
-            </ul>
+        {/* ── Top CTA Banner ─────────────────────────────── */}
+        <div className="py-14 md:py-20 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
+            <div className="max-w-xl">
+              <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-white leading-[1.05] mb-3">
+                Ready to secure your<br/>
+                <span className="text-transparent bg-clip-text italic font-light"
+                  style={{ backgroundImage: 'linear-gradient(90deg, #E87722, #F5A623)' }}>
+                  enterprise stack?
+                </span>
+              </h2>
+              <p className="text-white/40 font-inter text-sm leading-relaxed">
+                Join 250+ Nigerian organizations that trust Drocol to protect their most critical infrastructure.
+              </p>
+            </div>
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <a
+                href="#contact"
+                onClick={navScroll('contact')}
+                className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300"
+                style={{ background: 'linear-gradient(135deg, #E87722 0%, #F5A623 100%)', boxShadow: '0 0 0 1px rgba(232,119,34,0.3), 0 8px 24px rgba(232,119,34,0.2)' }}
+              >
+                Book a Demo
+                <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
+              </a>
+              <a
+                href="#features"
+                onClick={navScroll('features')}
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white/70 border border-white/10 bg-white/[0.03] hover:bg-white/[0.07] hover:text-white transition-all duration-300"
+              >
+                Explore Features
+              </a>
+            </div>
           </div>
-
         </div>
 
-        {/* Divider */}
-        <div className="h-[1px] bg-white/5 mb-8"></div>
+        {/* ── Main Footer Grid ────────────────────────────── */}
+        <div className="py-12 md:py-16 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
 
-        {/* Footer Bottom */}
-        <div className="flex flex-col sm:flex-row justify-between items-center gap-4">
-          <p className="text-xs sm:text-sm text-neutral-500 font-inter text-center md:text-left">
+          {/* Brand column */}
+          <div className="col-span-2 md:col-span-1">
+            <a
+              href="#home"
+              onClick={handleLogoClick}
+              className="inline-flex items-center mb-6 select-none no-underline"
+              style={{ gap: '0.4cm' }}
+              aria-label="Drocol Technologies Limited"
+            >
+              <img src="/drocol-icon.svg" alt="" aria-hidden="true"
+                style={{ height: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
+                draggable={false}/>
+              <img src="/drocol-wordmark.svg" alt="Drocol"
+                style={{ height: '26px', width: 'auto', objectFit: 'contain', display: 'block' }}
+                draggable={false}/>
+            </a>
+            <p className="text-white/35 font-inter text-sm leading-relaxed mb-6">
+              Enterprise cybersecurity,<br/>built in Lagos for Africa.
+            </p>
+            {/* Social icons */}
+            <div className="flex gap-2">
+              {[
+                { icon: <Twitter size={15}/>, label: 'Twitter' },
+                { icon: <Linkedin size={15}/>, label: 'LinkedIn' },
+                { icon: <Github size={15}/>, label: 'GitHub' },
+              ].map(({ icon, label }) => (
+                <a
+                  key={label}
+                  href="#"
+                  aria-label={label}
+                  className="w-8 h-8 rounded-lg border flex items-center justify-center text-white/40 transition-all duration-200"
+                  style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' }}
+                  onMouseEnter={e => { const el = e.currentTarget; el.style.background = '#E87722'; el.style.borderColor = '#E87722'; el.style.color = '#fff'; }}
+                  onMouseLeave={e => { const el = e.currentTarget; el.style.background = 'rgba(255,255,255,0.03)'; el.style.borderColor = 'rgba(255,255,255,0.08)'; el.style.color = 'rgba(255,255,255,0.4)'; }}
+                >
+                  {icon}
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* Nav columns */}
+          {cols.map(col => (
+            <div key={col.heading}>
+              <h4 className="font-mono text-[10px] font-bold tracking-widest uppercase text-white/25 mb-5">{col.heading}</h4>
+              <ul className="space-y-3">
+                {col.links.map(link => (
+                  <li key={link.label}>
+                    <a
+                      href={link.id ? `#${link.id}` : '#'}
+                      onClick={link.id ? navScroll(link.id) : undefined}
+                      className="text-sm text-white/40 font-inter transition-colors duration-150 hover:text-white"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
+
+        {/* ── Bottom Bar ─────────────────────────────────── */}
+        <div className="py-6 border-t flex flex-col sm:flex-row items-center justify-between gap-3"
+          style={{ borderColor: 'rgba(255,255,255,0.05)' }}>
+          <p className="text-[11px] text-white/25 font-inter">
             © 2026 Drocol Technologies Ltd. RC: 1742893. Made with ❤️ in Lagos.
           </p>
-          <div className="flex gap-3">
-            <a 
-              href="#" 
-              className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#E87722] hover:border-[#E87722] text-white transition-all duration-300"
-              aria-label="Twitter link"
-            >
-              <Twitter size={16} />
-            </a>
-            <a 
-              href="#" 
-              className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#E87722] hover:border-[#E87722] text-white transition-all duration-300"
-              aria-label="LinkedIn link"
-            >
-              <Linkedin size={16} />
-            </a>
-            <a 
-              href="#" 
-              className="w-9 h-9 rounded-full bg-white/5 border border-white/10 flex items-center justify-center hover:bg-[#E87722] hover:border-[#E87722] text-white transition-all duration-300"
-              aria-label="GitHub link"
-            >
-              <Github size={16} />
-            </a>
+          <div className="flex items-center gap-4">
+            {['Privacy', 'Terms', 'Security'].map(item => (
+              <a key={item} href="#" className="text-[11px] text-white/25 hover:text-white/50 font-inter transition-colors duration-150">
+                {item}
+              </a>
+            ))}
           </div>
         </div>
 

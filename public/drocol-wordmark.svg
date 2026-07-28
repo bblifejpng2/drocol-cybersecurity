@@ -1,0 +1,106 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 100" fill="none" shape-rendering="geometricPrecision">
+  <!--
+    DROCOL — 100% custom vector wordmark
+    ══════════════════════════════════════════════════════════════════
+
+    Design system:
+      Canvas height : 100px
+      Cap line      : y = 8
+      Baseline      : y = 92
+      x-height      : y = 30  (lowercase ascent for r, o, c, l)
+      Stroke weight : 8.5px
+      Corner radius : 10–14px throughout (squircle feel)
+      Linecap       : round
+      Linejoin      : round
+      Color         : #f5f5f5 (near-white, not pure white — softer)
+      Accent        : #ff6e19 (orange square inside last 'o')
+
+    Glyph advance widths (left-edge to next left-edge):
+      D  : 0    → 76px   (cap height, wide rounded rectangular counter)
+      r  : 88   → 50px   (x-height, open shoulder, minimal arm)
+      o₁ : 150  → 62px   (x-height, squircle counter, optical circle)
+      c  : 226  → 58px   (x-height, wide-open aperture, balanced exits)
+      o₂ : 298  → 62px   (identical to o₁, hosts orange accent)
+      l  : 374  → 20px   (full cap height, simple rounded stem)
+
+    Total advance : 394px, viewBox width 520 for breathing room.
+
+    ══════════════════════════════════════════════════════════════════
+  -->
+
+  <g stroke="#f5f5f5" stroke-width="11.5" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- ═══════════════════════════════════════════════════════════
+         D  —  Cap height 8→92.  Stem on left, large rounded-rect
+               counter opens to the right.
+               Outer: rect x=8 y=8 w=68 h=84 rx=14
+               Counter removed via inner filled rect (stroke-only means
+               we draw only the outer outline as a closed path with a
+               flattened right-bow so the D feels wide and techy)
+    ═══════════════════════════════════════════════════════════════ -->
+    <path d="
+      M 12 8
+      L 12 92
+      M 12 8
+      Q 12 8  38 8
+      Q 72 8  72 50
+      Q 72 92  38 92
+      L 12 92
+    "/>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         r  —  x-height 30→92.  Vertical stem, short curved arm
+               that exits at ~45° with a blunt rounded terminal.
+               Arm starts at 44% down the stem (y≈52), curls up-right.
+    ═══════════════════════════════════════════════════════════════ -->
+    <line x1="92" y1="30" x2="92" y2="92"/>
+    <path d="
+      M 92 52
+      C 92 36  102 30  120 30
+    "/>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         o₁  —  x-height 30→92.  Squircle — rounded rectangle
+                with rx/ry=14 giving a premium rounded feel,
+                not a circle.
+    ═══════════════════════════════════════════════════════════════ -->
+    <rect x="136" y="30" width="62" height="62" rx="14" ry="14"/>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         c  —  x-height 30→92.  Wide open aperture.
+               Drawn as a squircle with a right-side opening — path
+               starts top-right inner corner, goes CCW around 300°,
+               exits at bottom-right inner corner.
+               Exits at y=38 (top) and y=84 (bottom) for a
+               generous aperture gap.
+    ═══════════════════════════════════════════════════════════════ -->
+    <path d="
+      M 278 38
+      C 278 30  268 30  256 30
+      C 230 30  222 38  222 61
+      C 222 84  230 92  256 92
+      C 268 92  278 92  278 84
+    "/>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         o₂  —  identical squircle to o₁.
+                Hosts orange accent square in the counter center.
+    ═══════════════════════════════════════════════════════════════ -->
+    <rect x="296" y="30" width="62" height="62" rx="14" ry="14"/>
+
+    <!-- ═══════════════════════════════════════════════════════════
+         l  —  Full cap height 8→92.  Single rounded stem.
+               Top cap rounded naturally by linecap="round".
+    ═══════════════════════════════════════════════════════════════ -->
+    <line x1="380" y1="8" x2="380" y2="92"/>
+
+  </g>
+
+  <!-- ═══════════════════════════════════════════════════════════
+       Orange accent — rounded square, centered inside o₂ counter.
+       o₂ inner area center: x=327, y=61
+       Square: 16×16 px, rx=4
+  ═══════════════════════════════════════════════════════════════ -->
+  <rect x="319" y="53" width="16" height="16" rx="4" fill="#ff6e19"/>
+
+</svg>
