@@ -40,7 +40,7 @@ export const AttackPathStack: React.FC = () => {
         </div>
 
         {/* Interactive Grid */}
-        <div className="how-it-works-grid grid lg:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 items-center">
+        <div className="how-it-works-grid grid grid-cols-[minmax(0,1fr)_minmax(140px,1.3fr)_minmax(0,1fr)] gap-2 sm:gap-6 lg:gap-8 items-center">
           
           {/* Left Column: Stages 1-3 */}
           <div className="how-it-works-columns flex flex-col gap-2 sm:gap-3 lg:gap-4">
