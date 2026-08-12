@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { Instagram, Linkedin, ArrowRight } from 'lucide-react';
+import { SpecularButton, specularPrimary, specularOutlineLight } from './SpecularButton';
 
 export const Footer: React.FC = () => {
   const [isSpinning, setIsSpinning] = useState(false);
@@ -82,17 +83,21 @@ export const Footer: React.FC = () => {
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <Link
+              <SpecularButton
+                {...specularPrimary}
+                size="lg"
                 to="/contact"
-                className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300"
-                style={{ background: 'linear-gradient(135deg, #E87722 0%, #F5A623 100%)', boxShadow: '0 0 0 1px rgba(232,119,34,0.3), 0 8px 24px rgba(232,119,34,0.2)' }}
               >
                 Let's talk
-                <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
-              </Link>
-              <Link to="/solutions" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white/70 border border-white/10 bg-white/[0.03] hover:bg-white/[0.07] hover:text-white transition-all duration-300">
+                <ArrowRight size={14} strokeWidth={2.5}/>
+              </SpecularButton>
+              <SpecularButton
+                {...specularOutlineLight}
+                size="lg"
+                to="/solutions"
+              >
                 Explore Solutions
-              </Link>
+              </SpecularButton>
             </div>
           </div>
         </div>

@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, X, Check } from 'lucide-react';
+import { SpecularButton } from './SpecularButton';
 import { moduleData, ModuleData } from '../lib/data';
 
 // Per-module accent colors and gradients — 7 unique colors
@@ -300,14 +301,23 @@ export const FeaturesCarousel: React.FC = () => {
                 </ul>
               </div>
 
-              <a
+              <SpecularButton
+                size="md"
+                radius={14}
+                baseColor={moduleAccents[selectedModuleIndex % moduleAccents.length].color}
+                tint="#ffffff"
+                tintOpacity={0.3}
+                lineColor="rgba(255,255,255,0.3)"
+                textColor="#ffffff"
+                thickness={1}
+                speed={0.35}
+                followMouse
+                proximity={220}
                 href="#contact"
                 onClick={(e) => { e.preventDefault(); closeModal(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-300"
-                style={{ background: `linear-gradient(135deg, ${moduleAccents[selectedModuleIndex % moduleAccents.length].color}, ${moduleAccents[selectedModuleIndex % moduleAccents.length].color}cc)`, boxShadow: `0 4px 20px ${moduleAccents[selectedModuleIndex % moduleAccents.length].glow}` }}
               >
                 Book Demo Setup <ArrowRight size={14} strokeWidth={2.5}/>
-              </a>
+              </SpecularButton>
             </motion.div>
           </div>
         )}

@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Play, Pause, RotateCcw, ShieldAlert, CheckCircle, Terminal, Activity, Zap, Target, AlertTriangle, Info } from 'lucide-react';
+import { SpecularButton, specularPrimary } from './SpecularButton';
 import { terminalLines, TerminalLine } from '../lib/data';
 
 export const LiveScannerTerminal: React.FC = () => {
@@ -206,27 +207,29 @@ export const LiveScannerTerminal: React.FC = () => {
                   placeholder="e.g. my-company.com.ng"
                   className="form-input flex-grow bg-neutral-950 border border-neutral-800 rounded-lg sm:rounded-xl px-3 sm:px-4.5 py-2 sm:py-3 text-white text-xs sm:text-sm font-mono focus:outline-none focus:border-[#E87722] transition-colors"
                 />
-                <button 
+                <SpecularButton
+                  {...specularPrimary}
+                  size="sm"
                   type="submit"
-                  className="btn-accent px-3 sm:px-5 py-2 sm:py-3 rounded-lg sm:rounded-xl text-xs sm:text-sm font-semibold text-white bg-[#E87722] hover:bg-[#F08B3A] transition-all flex items-center gap-1 sm:gap-2"
                 >
                   <Terminal size={16} />
                   Scan
-                </button>
+                </SpecularButton>
               </div>
             </form>
 
             <div className="flex flex-wrap gap-3 sm:gap-4">
-              <a 
-                href="#contact" 
+              <SpecularButton
+                {...specularPrimary}
+                size="sm"
+                href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
                   document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
                 }}
-                className="btn-accent text-xs sm:text-sm px-3 sm:px-5 py-2 sm:py-2.5"
               >
                 Deploy Protection <span className="ml-1 hidden sm:inline">→</span>
-              </a>
+              </SpecularButton>
               <a 
                 href="#features" 
                 onClick={(e) => {

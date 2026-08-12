@@ -2,6 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { SpecularButton, specularPrimary } from './SpecularButton';
 
 const stanzaLines = [
   'Every assessment we perform.',
@@ -62,18 +63,15 @@ export const Vision: React.FC = () => {
             <p className="text-[16px] text-neutral-600 font-inter leading-relaxed mb-10 max-w-[52ch]">
               We're building a company that contributes to the future of cybersecurity through expertise, research, education, and technology.
             </p>
-            <a
+            <SpecularButton
+              {...specularPrimary}
+              size="lg"
               href="/contact"
               onClick={goToContact}
-              className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300"
-              style={{
-                background: 'linear-gradient(135deg, #E87722 0%, #F5A623 100%)',
-                boxShadow: '0 0 0 1px rgba(232,119,34,0.3), 0 8px 32px rgba(232,119,34,0.25)',
-              }}
             >
               Let's talk
-              <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
-            </a>
+              <ArrowRight size={14} strokeWidth={2.5}/>
+            </SpecularButton>
           </motion.div>
 
           {/* Right: stanza glass card */}

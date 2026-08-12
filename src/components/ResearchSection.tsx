@@ -1,7 +1,7 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { SpecularButton, specularPrimary } from './SpecularButton';
 
 const chips = [
   'Annual threat reports',
@@ -58,17 +58,14 @@ export const ResearchSection: React.FC = () => {
               <p>Research is part of how we work. We're building a long-term research program focused on emerging threats, industry trends, technical analysis, and practical guidance for organizations operating across Africa.</p>
               <p>Instead of simply consuming knowledge, we're committed to contributing it.</p>
             </div>
-            <Link
+            <SpecularButton
+              {...specularPrimary}
+              size="md"
               to="/contact"
-              className="group inline-flex items-center gap-2 px-5 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-300"
-              style={{
-                background: 'linear-gradient(135deg, #E87722 0%, #F5A623 100%)',
-                boxShadow: '0 0 0 1px rgba(232,119,34,0.3), 0 4px 20px rgba(232,119,34,0.2)',
-              }}
             >
               Get in touch
-              <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
-            </Link>
+              <ArrowRight size={14} strokeWidth={2.5}/>
+            </SpecularButton>
           </motion.div>
 
           {/* Right: chips grid */}

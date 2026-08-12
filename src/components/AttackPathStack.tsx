@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ArrowRight, Shield, AlertCircle, Radio, Lock, EyeOff, CheckCircle, ChevronLeft, ChevronRight, RotateCcw, Sparkles } from 'lucide-react';
+import { SpecularButton, specularPrimary } from './SpecularButton';
 import { attackStages, AttackStage } from '../lib/data';
 
 export const AttackPathStack: React.FC = () => {
@@ -591,16 +592,17 @@ export const AttackPathStack: React.FC = () => {
 
         {/* CTA */}
         <div className="text-center mt-8 sm:mt-12 md:mt-16">
-          <a 
-            href="#contact" 
+          <SpecularButton
+            {...specularPrimary}
+            size="md"
+            href="#contact"
             onClick={(e) => {
               e.preventDefault();
               document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }}
-            className="btn-accent inline-flex items-center gap-2"
           >
             See It In Action <ArrowRight size={14} strokeWidth={2.5} />
-          </a>
+          </SpecularButton>
         </div>
 
       </div>

@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Globe, Users } from 'lucide-react';
+import { SpecularButton, specularPrimary } from './SpecularButton';
 
 export const PartnerMarquee: React.FC = () => {
   const partners = Array(10).fill({
@@ -152,14 +153,15 @@ export const PartnerMarquee: React.FC = () => {
             <div className="text-white font-semibold text-sm">Become a partner</div>
             <div className="text-white/40 font-inter text-xs mt-0.5">Join our ecosystem and help secure African enterprises together.</div>
           </div>
-          <a
+          <SpecularButton
+            {...specularPrimary}
+            size="md"
             href="mailto:hello@drocol.ng?subject=Partnership%20Enquiry%20%E2%80%94%20Drocol%20Technologies&body=Hi%20Drocol%20Team%2C%0A%0AI%20am%20interested%20in%20exploring%20a%20partnership%20with%20Drocol%20Technologies.%0A%0AOrganisation%3A%20%0AContact%20name%3A%20%0AWebsite%3A%20%0A%0APlease%20get%20in%20touch%20at%20your%20earliest%20convenience.%0A%0AThank%20you."
-            className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-xl font-semibold text-sm text-white shrink-0 transition-all duration-300"
-            style={{ background: 'linear-gradient(135deg, #E87722, #F5A623)', boxShadow: '0 4px 16px rgba(232,119,34,0.2)' }}
+            className="shrink-0"
           >
             Partner With Us
-            <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
-          </a>
+            <ArrowRight size={13} strokeWidth={2.5}/>
+          </SpecularButton>
         </motion.div>
       </div>
 

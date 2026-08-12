@@ -2,14 +2,15 @@
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { SpecularButton, specularPrimary, specularOutlineDark } from './SpecularButton';
 
 export const Hero: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="home" className="relative min-h-[100svh] flex items-center overflow-hidden bg-[#F3EDE2]">
+    <section id="home" className="relative flex items-center overflow-hidden bg-[#F3EDE2]">
 
-      <div className="w-full relative z-10 px-5 sm:px-8 md:px-10 max-w-7xl mx-auto py-10 sm:py-16 md:py-24 lg:py-28">
+      <div className="w-full relative z-10 px-5 sm:px-8 md:px-10 max-w-7xl mx-auto pt-6 sm:pt-8 md:pt-10 lg:pt-12 pb-10 sm:pb-14 md:pb-20 lg:pb-24">
 
         {/* ── Mobile: stacked, generous sizes. sm+: side by side ── */}
         <div className="flex flex-col sm:grid sm:grid-cols-2 gap-8 sm:gap-10 lg:gap-20 items-center">
@@ -53,25 +54,23 @@ export const Hero: React.FC = () => {
 
             {/* CTAs */}
             <div className="flex flex-wrap gap-3 mb-5 sm:mb-8">
-              <a
+              <SpecularButton
+                {...specularPrimary}
+                size="lg"
                 href="/contact"
                 onClick={(e) => { e.preventDefault(); navigate('/contact'); }}
-                className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300"
-                style={{
-                  background: 'linear-gradient(135deg, #E87722 0%, #F5A623 100%)',
-                  boxShadow: '0 0 0 1px rgba(232,119,34,0.3), 0 8px 32px rgba(232,119,34,0.25)',
-                }}
               >
                 Let's talk
-                <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
-              </a>
-              <a
+                <ArrowRight size={14} strokeWidth={2.5}/>
+              </SpecularButton>
+              <SpecularButton
+                {...specularOutlineDark}
+                size="lg"
                 href="/solutions"
                 onClick={(e) => { e.preventDefault(); navigate('/solutions'); }}
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-neutral-700 border border-neutral-900/10 bg-neutral-900/[0.04] hover:bg-neutral-900/[0.08] transition-all duration-300"
               >
                 Explore our approach
-              </a>
+              </SpecularButton>
             </div>
 
             <p className="text-[12px] sm:text-[13px] text-neutral-500 font-inter">

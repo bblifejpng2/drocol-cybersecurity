@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Calendar, Clock, User, Mail, Building, CheckCircle, ArrowLeft, ArrowRight, Rocket, Briefcase, Building2, Globe, Flag, HandHeart, GraduationCap, HeartPulse } from 'lucide-react';
+import { SpecularButton, specularPrimary } from './SpecularButton';
 
 interface ContactData {
   orgType: string;
@@ -736,15 +737,17 @@ export const DemoScheduler: React.FC = () => {
                     Back
                   </button>
                 )}
-                <button
+                <SpecularButton
+                  {...specularPrimary}
+                  size="md"
                   type="button"
                   onClick={handleNext}
                   disabled={!isStepValid()}
-                  className="btn-accent flex-grow flex items-center justify-center gap-2 disabled:opacity-30 disabled:cursor-not-allowed"
+                  className="flex-grow"
                 >
                   Continue
                   <ArrowRight size={14} strokeWidth={2.5} />
-                </button>
+                </SpecularButton>
               </div>
             )}
 

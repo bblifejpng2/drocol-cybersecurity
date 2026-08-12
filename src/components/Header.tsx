@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { ArrowRight, X } from 'lucide-react';
+import { X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface HeaderProps {
@@ -153,23 +153,6 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onToggleTh
           {/* ── Right actions ──────────────────────────────────── */}
           <div className="flex items-center gap-2 shrink-0">
 
-            {/* Let's talk CTA */}
-            <a
-              href="/contact"
-              onClick={goTo('contact', '/contact')}
-              className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition-all duration-200 group"
-              style={{
-                background: 'linear-gradient(135deg, #E87722, #F5A623)',
-                boxShadow: '0 0 0 1px rgba(26,26,26,0.08), 0 4px 16px rgba(180,70,10,0.3)',
-                fontFamily: "'Inter', sans-serif",
-              }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px rgba(26,26,26,0.12), 0 6px 24px rgba(180,70,10,0.45)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px rgba(26,26,26,0.08), 0 4px 16px rgba(180,70,10,0.3)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}
-            >
-              Let's talk
-              <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" strokeWidth={2.5}/>
-            </a>
-
             {/* Hamburger */}
             <button
               onClick={toggleMobile}
@@ -258,21 +241,6 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onToggleTh
                 })}
               </nav>
 
-              {/* Divider */}
-              <div className="mx-4 h-px" style={{ background: 'rgba(255,255,255,0.06)' }}/>
-
-              {/* Bottom CTA */}
-              <div className="p-4 flex flex-col gap-2.5">
-                <a
-                  href="/contact"
-                  onClick={e => { goTo('contact', '/contact')(e); closeMobile(); }}
-                  className="flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200"
-                  style={{ background: 'linear-gradient(135deg, #E87722, #F5A623)', boxShadow: '0 4px 16px rgba(232,119,34,0.3)', fontFamily: "'Inter', sans-serif" }}
-                >
-                  Let's talk
-                  <ArrowRight size={14} strokeWidth={2.5}/>
-                </a>
-              </div>
             </motion.div>
           </>
         )}

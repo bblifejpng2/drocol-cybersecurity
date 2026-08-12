@@ -1,6 +1,6 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { SpecularButton, specularPrimary } from './SpecularButton';
 
 /** Compact call-to-action band used at the bottom of sub-pages. */
 export const CtaBand: React.FC = () => {
@@ -32,14 +32,15 @@ export const CtaBand: React.FC = () => {
               Talk to our security team. No pressure, no jargon — just a practical conversation about your security.
             </p>
           </div>
-          <Link
+          <SpecularButton
+            {...specularPrimary}
+            size="lg"
             to="/contact"
-            className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300 shrink-0"
-            style={{ background: 'linear-gradient(135deg, #E87722 0%, #F5A623 100%)', boxShadow: '0 0 0 1px rgba(232,119,34,0.3), 0 8px 24px rgba(232,119,34,0.2)' }}
+            className="shrink-0"
           >
             Let's talk
-            <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
-          </Link>
+            <ArrowRight size={14} strokeWidth={2.5}/>
+          </SpecularButton>
         </div>
       </div>
     </section>

@@ -4,6 +4,7 @@ import {
   Mail, PhoneCall, MapPin, ShieldAlert, Clock, Send,
   MessageSquare, User, Building2, CheckCircle2, Instagram, Linkedin,
 } from 'lucide-react';
+import { SpecularButton, specularPrimary } from '../components/SpecularButton';
 
 interface MessageData {
   name: string;
@@ -303,14 +304,16 @@ export const ContactPage: React.FC = () => {
                       className="w-full rounded-xl px-4 py-3 text-white text-sm bg-white/5 border border-white/10 focus:outline-none focus:border-[#E87722] focus:bg-white/[0.07] focus:ring-2 focus:ring-[#E87722]/20 transition-all placeholder:text-white/30 resize-none"
                     />
                   </div>
-                  <button
+                  <SpecularButton
+                    {...specularPrimary}
+                    size="md"
                     type="submit"
                     disabled={!canSubmit}
-                    className="btn-accent w-full justify-center disabled:opacity-30 disabled:cursor-not-allowed"
+                    className="w-full"
                   >
                     Send Message
                     <Send size={14} strokeWidth={2.5}/>
-                  </button>
+                  </SpecularButton>
                 </motion.form>
               )}
             </AnimatePresence>

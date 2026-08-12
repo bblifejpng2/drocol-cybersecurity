@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Search, BookOpen, Users, Cpu, Terminal, FileCheck, ShieldAlert, Code2 } from 'lucide-react';
+import { SpecularButton } from './SpecularButton';
 
 const steps = [
   {
@@ -380,14 +381,24 @@ export const HowWeHelp: React.FC = () => {
                   </div>
 
                   {/* CTA */}
-                  <a href={`#${step.ctaId}`} onClick={goTo(step.ctaId)}
-                    className="group inline-flex items-center gap-2 px-4 py-2.5 rounded-xl font-semibold text-[13px] text-white transition-all duration-300"
-                    style={{ background: `${step.color}18`, border: `1px solid ${step.color}30` }}
-                    onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = `${step.color}30`; }}
-                    onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = `${step.color}18`; }}>
+                  <SpecularButton
+                    size="sm"
+                    radius={12}
+                    baseColor={`${step.color}22`}
+                    tint={step.color}
+                    tintOpacity={0.4}
+                    lineColor={`${step.color}40`}
+                    textColor="#ffffff"
+                    thickness={1}
+                    speed={0.35}
+                    followMouse
+                    proximity={200}
+                    href={`#${step.ctaId}`}
+                    onClick={goTo(step.ctaId)}
+                  >
                     {step.cta}
-                    <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
-                  </a>
+                    <ArrowRight size={13} strokeWidth={2.5}/>
+                  </SpecularButton>
                 </div>
               </motion.div>
             </AnimatePresence>
