@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Lightbulb } from 'lucide-react';
 import { articles } from '../data/articles';
 import BorderGlow from './BorderGlow';
 
@@ -48,6 +48,38 @@ export const Insights: React.FC = () => {
         {/* Bottom amber pool */}
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[300px] opacity-[0.1]"
           style={{ background: 'radial-gradient(ellipse, #E87722 0%, transparent 70%)', filter: 'blur(80px)' }}/>
+
+        {/* Idea bulb — orange light illuminating the section */}
+        <div className="absolute top-8 left-1/2 -translate-x-1/2 w-[420px] sm:w-[560px] pointer-events-none" aria-hidden="true">
+          {/* halo behind the bulb */}
+          <motion.div
+            animate={{ opacity: [0.5, 0.95, 0.5], scale: [1, 1.06, 1] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute left-1/2 -translate-x-1/2 top-0 -translate-y-1/2 w-40 h-40 rounded-full"
+            style={{ background: 'radial-gradient(circle, rgba(232,119,34,0.45) 0%, rgba(245,166,35,0.12) 45%, transparent 72%)', filter: 'blur(6px)' }}
+          />
+          {/* bulb */}
+          <motion.div
+            animate={{ y: [0, -4, 0] }}
+            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+            className="relative left-1/2 -translate-x-1/2 w-11 h-11 sm:w-12 sm:h-12 rounded-full flex items-center justify-center"
+            style={{
+              background: 'rgba(245,166,35,0.14)',
+              border: '1px solid rgba(245,166,35,0.45)',
+              boxShadow: '0 0 34px rgba(232,119,34,0.75), inset 0 0 14px rgba(245,166,35,0.55)',
+            }}
+          >
+            <Lightbulb size={22} strokeWidth={1.6} className="text-[#F5A623]" fill="rgba(245,166,35,0.35)"/>
+          </motion.div>
+          {/* cone of light spreading down over the section */}
+          <div
+            className="absolute left-1/2 -translate-x-1/2 top-6 w-[240px] sm:w-[340px] h-[460px]"
+            style={{
+              clipPath: 'polygon(36% 0, 64% 0, 100% 100%, 0 100%)',
+              background: 'linear-gradient(to bottom, rgba(232,119,34,0.30), rgba(232,119,34,0.07) 70%, transparent)',
+            }}
+          />
+        </div>
         {/* Noise */}
         <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,

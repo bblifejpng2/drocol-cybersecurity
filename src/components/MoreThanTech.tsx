@@ -1,6 +1,26 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Monitor, UserCheck, GitBranch, Heart } from 'lucide-react';
+import BorderGlow from './BorderGlow';
+
+/* Convert a hex tag color to an HSL string so each card glows in its own hue. */
+function hexToHue(hex: string): string {
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if (!m) return '40 80 80';
+  const r = parseInt(m[1], 16) / 255;
+  const g = parseInt(m[2], 16) / 255;
+  const b = parseInt(m[3], 16) / 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0;
+  if (max !== min) {
+    if (max === r) h = ((g - b) / (max - min)) * 60;
+    else if (max === g) h = 120 + ((b - r) / (max - min)) * 60;
+    else h = 240 + ((r - g) / (max - min)) * 60;
+  }
+  if (h < 0) h += 360;
+  return `${Math.round(h)} 70 55`;
+}
 
 const pillars = [
   {
@@ -79,7 +99,7 @@ export const MoreThanTech: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Pillars */}
+        {/* Pillars — same BorderGlow treatment as the article cards */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-14">
           {pillars.map((p, i) => (
             <motion.div
@@ -88,30 +108,40 @@ export const MoreThanTech: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-60px' }}
               transition={{ duration: 0.6, delay: i * 0.09, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative flex flex-col gap-4 rounded-2xl border border-neutral-900/10 p-6 transition-all duration-300 hover:-translate-y-1"
-              style={{
-                background: 'rgba(255,255,255,0.55)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                boxShadow: '0 4px 24px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.9)',
-              }}
+              className="h-full"
             >
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center"
-                style={{ background: `${p.color}15`, color: p.color }}>
-                {p.icon}
-              </div>
-              <div className="w-6 h-[2px] rounded-full" style={{ background: `linear-gradient(90deg, ${p.color}, ${p.color}60)` }}/>
-              <h3 className="text-[18px] font-bold text-neutral-900 tracking-tight">{p.title}</h3>
-              <p className="text-[14px] text-neutral-600 font-inter leading-relaxed flex-1">{p.body}</p>
-              {/* Example tags */}
-              <div className="flex flex-wrap gap-1.5 pt-1 border-t border-neutral-900/[0.07] mt-auto">
-                {p.examples.map(ex => (
-                  <span key={ex} className="font-mono text-[9px] tracking-wide px-2.5 py-1 rounded-full border"
-                    style={{ color: p.color, background: `${p.color}0d`, borderColor: `${p.color}22` }}>
-                    {ex}
-                  </span>
-                ))}
-              </div>
+              <BorderGlow
+                persistent
+                glowColor={hexToHue(p.color)}
+                backgroundColor="#120F17"
+                borderRadius={18}
+                glowRadius={26}
+                glowIntensity={1.0}
+                coneSpread={25}
+                edgeSensitivity={28}
+                fillOpacity={0.25}
+                colors={[p.color, p.color, p.color]}
+                className="h-full"
+              >
+                <div className="group relative flex flex-col gap-4 p-6 h-full transition-transform duration-300 hover:-translate-y-1">
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center"
+                    style={{ background: `${p.color}15`, color: p.color }}>
+                    {p.icon}
+                  </div>
+                  <div className="w-6 h-[2px] rounded-full" style={{ background: `linear-gradient(90deg, ${p.color}, ${p.color}60)` }}/>
+                  <h3 className="text-[18px] font-bold text-white tracking-tight">{p.title}</h3>
+                  <p className="text-[14px] text-white/60 font-inter leading-relaxed flex-1">{p.body}</p>
+                  {/* Example tags */}
+                  <div className="flex flex-wrap gap-1.5 pt-1 border-t border-white/[0.08] mt-auto">
+                    {p.examples.map(ex => (
+                      <span key={ex} className="font-mono text-[9px] tracking-wide px-2.5 py-1 rounded-full border"
+                        style={{ color: p.color, background: `${p.color}0d`, borderColor: `${p.color}22` }}>
+                        {ex}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </BorderGlow>
             </motion.div>
           ))}
         </div>

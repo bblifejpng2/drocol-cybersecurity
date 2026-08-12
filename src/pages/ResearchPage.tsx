@@ -9,6 +9,7 @@ export const ResearchPage: React.FC = () => {
     <>
       <PageHero
         label="Research"
+        theme="light"
         title={<>Built on research. Applied to the real world.</>}
         intro="A long-term research program focused on emerging threats, industry trends, technical analysis, and practical guidance for organizations operating across Africa."
       />
