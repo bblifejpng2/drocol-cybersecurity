@@ -487,6 +487,7 @@ const useMobileDetection = () => {
 };
 
 const MagicBento = ({
+  cards = cardData,
   textAutoHide = true,
   enableStars = true,
   enableSpotlight = true,
@@ -499,6 +500,7 @@ const MagicBento = ({
   clickEffect = true,
   enableMagnetism = true
 }: {
+  cards?: typeof cardData;
   textAutoHide?: boolean;
   enableStars?: boolean;
   enableSpotlight?: boolean;
@@ -528,7 +530,7 @@ const MagicBento = ({
       )}
 
       <BentoCardGrid gridRef={gridRef}>
-        {cardData.map((card, index) => {
+        {cards.map((card, index) => {
           const baseClassName = `magic-bento-card ${textAutoHide ? 'magic-bento-card--text-autohide' : ''} ${enableBorderGlow ? 'magic-bento-card--border-glow' : ''}`;
           const cardProps = {
             className: baseClassName,

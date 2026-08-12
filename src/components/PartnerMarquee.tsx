@@ -1,14 +1,15 @@
 import React from 'react';
-import { motion } from 'framer-motion';
 import { ArrowRight, Shield, Globe, Users } from 'lucide-react';
 import { SpecularButton, specularPrimary } from './SpecularButton';
 
 export const PartnerMarquee: React.FC = () => {
-  const partners = Array(10).fill({
-    name: 'Redream Solutions',
-    handle: '@redreamsolutions',
-    tagline: 'Technology & Innovation',
-  });
+  const partners = [
+    { name: 'Redream Solutions', handle: '@redreamsolutions', tagline: 'Technology & Innovation' },
+    { name: 'Redream Solutions', handle: '@redreamsolutions', tagline: 'Technology & Innovation' },
+    { name: 'Redream Solutions', handle: '@redreamsolutions', tagline: 'Technology & Innovation' },
+    { name: 'Redream Solutions', handle: '@redreamsolutions', tagline: 'Technology & Innovation' },
+    { name: 'Redream Solutions', handle: '@redreamsolutions', tagline: 'Technology & Innovation' },
+  ];
 
   return (
     <section className="relative bg-[#0F0F0F] py-16 md:py-24 overflow-hidden">
@@ -32,12 +33,7 @@ export const PartnerMarquee: React.FC = () => {
       {/* ── Header ─────────────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12 md:mb-16 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          >
+          <div>
             <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full border border-[#E87722]/20 bg-[#E87722]/[0.06]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E87722]"/>
               <span className="text-[11px] font-inter font-semibold tracking-widest text-[#E87722] uppercase">Strategic Partners</span>
@@ -51,16 +47,10 @@ export const PartnerMarquee: React.FC = () => {
             <p className="text-white/50 mt-4 max-w-md font-inter text-sm leading-relaxed">
               Proudly partnering with Redream Solutions to deliver world-class cybersecurity solutions across Africa.
             </p>
-          </motion.div>
+          </div>
 
           {/* Stats pills */}
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-wrap gap-3"
-          >
+          <div className="flex flex-wrap gap-3">
             {[
               { icon: <Shield size={14} className="text-[#E87722]"/>, label: '250+', sub: 'Organizations Protected' },
               { icon: <Globe size={14} className="text-[#E87722]"/>, label: '12+', sub: 'African Countries' },
@@ -75,65 +65,46 @@ export const PartnerMarquee: React.FC = () => {
                 </div>
               </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </div>
 
-      {/* ── Marquee ─────────────────────────────────────── */}
-      <div className="relative w-full overflow-hidden py-2 z-10">
-        {/* Edge fades */}
-        <div className="absolute left-0 top-0 bottom-0 w-24 md:w-40 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to right, #0F0F0F, transparent)' }}/>
-        <div className="absolute right-0 top-0 bottom-0 w-24 md:w-40 z-10 pointer-events-none"
-          style={{ background: 'linear-gradient(to left, #0F0F0F, transparent)' }}/>
+      {/* ── Static partner grid ────────────────────────── */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-5">
+          {partners.map((partner, index) => (
+            <div
+              key={index}
+              className={`group relative flex flex-row items-center gap-4 px-5 py-5 rounded-2xl border transition-colors duration-300 sm:flex-col sm:items-start ${index > 0 ? 'max-sm:hidden' : ''}`}
+              style={{
+                background: 'rgba(255,255,255,0.04)',
+                borderColor: 'rgba(255,255,255,0.08)',
+              }}
+            >
+              {/* Logo mark */}
+              <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"
+                style={{ background: 'linear-gradient(135deg, #E87722, #F5A623)', boxShadow: '0 4px 16px rgba(232,119,34,0.3)' }}>
+                <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
+                  <path d="M8 6h9c4.4 0 7 2.4 7 6 0 2.5-1.4 4.4-3.6 5.3L24 26h-4.5l-3.2-8H12v8H8V6z" fill="#fff"/>
+                  <path d="M12 10v5h4.5c2 0 3.2-1 3.2-2.5S18.5 10 16.5 10H12z" fill="rgba(255,255,255,0.5)"/>
+                </svg>
+              </div>
 
-        <div className="marquee-outer flex w-[200%]">
-          {[1, 2].map(track => (
-            <div key={track} className="marquee-track flex gap-4 md:gap-5 shrink-0" aria-hidden={track === 2}>
-              {partners.map((partner, index) => (
-                <div
-                  key={`t${track}-${index}`}
-                  className="group relative flex items-center gap-3 md:gap-4 px-4 md:px-5 py-3 md:py-4 rounded-2xl border transition-all duration-300 cursor-default shrink-0"
-                  style={{
-                    minWidth: '240px',
-                    background: 'rgba(255,255,255,0.04)',
-                    borderColor: 'rgba(255,255,255,0.08)',
-                  }}
-                  onMouseEnter={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = 'rgba(232,119,34,0.4)';
-                    el.style.background = 'rgba(232,119,34,0.07)';
-                  }}
-                  onMouseLeave={e => {
-                    const el = e.currentTarget as HTMLElement;
-                    el.style.borderColor = 'rgba(255,255,255,0.08)';
-                    el.style.background = 'rgba(255,255,255,0.04)';
-                  }}
-                >
-                  {/* Logo mark */}
-                  <div className="w-10 h-10 md:w-12 md:h-12 rounded-xl shrink-0 flex items-center justify-center shadow-lg transition-transform duration-300 group-hover:scale-110"
-                    style={{ background: 'linear-gradient(135deg, #E87722, #F5A623)', boxShadow: '0 4px 16px rgba(232,119,34,0.3)' }}>
-                    <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
-                      <path d="M8 6h9c4.4 0 7 2.4 7 6 0 2.5-1.4 4.4-3.6 5.3L24 26h-4.5l-3.2-8H12v8H8V6z" fill="#fff"/>
-                      <path d="M12 10v5h4.5c2 0 3.2-1 3.2-2.5S18.5 10 16.5 10H12z" fill="rgba(255,255,255,0.5)"/>
-                    </svg>
-                  </div>
+              {/* Info */}
+              <div className="min-w-0 flex-1 sm:flex-none">
+                <div className="font-bold text-white text-sm leading-tight truncate">{partner.name}</div>
+                <div className="font-mono text-[10px] text-[#E87722]/70 mt-0.5 truncate">{partner.handle}</div>
+                <div className="hidden sm:block text-white/35 font-inter text-xs mt-2 leading-snug">{partner.tagline}</div>
+              </div>
 
-                  {/* Info */}
-                  <div className="min-w-0">
-                    <div className="font-bold text-white text-sm leading-tight truncate">{partner.name}</div>
-                    <div className="font-mono text-[10px] text-[#E87722]/70 mt-0.5 truncate">{partner.handle}</div>
-                  </div>
-
-                  {/* Verified badge */}
-                  <div className="ml-auto shrink-0 w-5 h-5 rounded-full flex items-center justify-center"
-                    style={{ background: 'rgba(232,119,34,0.15)' }}>
-                    <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E87722" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                      <polyline points="20 6 9 17 4 12"/>
-                    </svg>
-                  </div>
-                </div>
-              ))}
+              {/* Verified badge */}
+              <div className="mt-auto ml-auto sm:ml-0 inline-flex items-center gap-1.5 shrink-0 w-fit rounded-full px-2 py-1"
+                style={{ background: 'rgba(232,119,34,0.12)' }}>
+                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E87722" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                <span className="text-[10px] font-semibold text-[#E87722] tracking-wide uppercase">Verified</span>
+              </div>
             </div>
           ))}
         </div>
@@ -141,11 +112,7 @@ export const PartnerMarquee: React.FC = () => {
 
       {/* ── CTA ─────────────────────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-10 md:mt-12 relative z-10">
-        <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+        <div
           className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-5 md:px-6 py-4 md:py-5 rounded-2xl border"
           style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.09)' }}
         >
@@ -162,27 +129,8 @@ export const PartnerMarquee: React.FC = () => {
             Partner With Us
             <ArrowRight size={13} strokeWidth={2.5}/>
           </SpecularButton>
-        </motion.div>
+        </div>
       </div>
-
-      <style>{`
-        .marquee-outer {
-          display: flex;
-          overflow: hidden;
-          user-select: none;
-        }
-        .marquee-track {
-          display: flex;
-          animation: scrollMarquee 40s linear infinite;
-        }
-        @keyframes scrollMarquee {
-          0%   { transform: translateX(0); }
-          100% { transform: translateX(-100%); }
-        }
-        .marquee-outer:hover .marquee-track {
-          animation-play-state: paused;
-        }
-      `}</style>
     </section>
   );
 };

@@ -1,31 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Search, BookOpen, Users } from 'lucide-react';
+import MagicBento from './MagicBento';
 
-const stages = [
-  {
-    icon: <Search size={22} strokeWidth={1.8}/>,
-    label: 'Understand',
-    body: 'Every engagement begins with understanding your business before evaluating your technology. We learn how you operate and where your real risks lie.',
-    color: '#3b82f6',
-  },
-  {
-    icon: <BookOpen size={22} strokeWidth={1.8}/>,
-    label: 'Discover & Prioritize',
-    body: 'We identify vulnerabilities, misconfigurations, and attack paths that matter most — then focus on what creates the greatest business risk.',
-    color: '#E87722',
-  },
-  {
-    icon: <Users size={22} strokeWidth={1.8}/>,
-    label: 'Improve & Verify',
-    body: "Our work doesn't end with a report. We help you move from findings to measurable improvements, then validate that remediation actually holds.",
-    color: '#10b981',
-  },
+const approachCards = [
+  { color: '#0D0600', label: 'Phase 01', title: 'Understand', description: 'We learn how you operate and where your real risks lie — business context before technology.' },
+  { color: '#0D0600', label: 'Phase 02', title: 'Discover', description: 'We map what attackers can reach: assets, identities, secrets, and the paths between them.' },
+  { color: '#0D0600', label: 'Phase 03', title: 'Prioritize', description: 'Findings ranked by business impact, so the fixes that matter most come first.' },
+  { color: '#0D0600', label: 'Phase 04', title: 'Improve', description: 'Practical remediation guidance — moving from findings to measurable change.' },
+  { color: '#0D0600', label: 'Phase 05', title: 'Verify', description: 'Re-testing and validation to confirm the remediation actually holds.' },
+  { color: '#0D0600', label: 'Phase 06', title: 'Sustain', description: 'Continuous improvement so security keeps pace as your business evolves.' },
 ];
 
 export const Approach: React.FC = () => {
   return (
-    <section id="approach" className="relative bg-[#080808] py-16 sm:py-24 md:py-32 overflow-hidden">
+    <section id="approach" className="relative bg-[#0F0905] py-16 sm:py-24 md:py-32 overflow-hidden">
 
       {/* ── Background: circuit-board lines + dual glow ── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
@@ -76,44 +64,22 @@ export const Approach: React.FC = () => {
           </p>
         </motion.div>
 
-        {/* Stage cards */}
-        <div className="grid sm:grid-cols-3 gap-4 mb-10">
-          {stages.map((stage, i) => (
-            <motion.div
-              key={stage.label}
-              initial={{ opacity: 0, y: 24 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: '-60px' }}
-              transition={{ duration: 0.6, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
-              className="relative flex flex-col gap-5 rounded-2xl border p-6"
-              style={{
-                background: 'rgba(255,255,255,0.03)',
-                borderColor: 'rgba(255,255,255,0.07)',
-              }}
-            >
-              {/* Arrow connector — desktop only */}
-              {i < stages.length - 1 && (
-                <div className="hidden sm:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 text-[#E87722] text-lg font-bold">→</div>
-              )}
-
-              {/* Step number badge */}
-              <div className="flex items-center justify-between">
-                <div className="w-12 h-12 rounded-xl flex items-center justify-center"
-                  style={{ background: `${stage.color}18`, color: stage.color }}>
-                  {stage.icon}
-                </div>
-                <span className="font-mono text-[11px] font-bold text-white/20">0{i + 1}</span>
-              </div>
-
-              <div>
-                <div className="font-mono text-[11px] font-semibold uppercase tracking-widest mb-2"
-                  style={{ color: stage.color }}>
-                  {stage.label}
-                </div>
-                <p className="text-[14px] text-white/55 font-inter leading-relaxed">{stage.body}</p>
-              </div>
-            </motion.div>
-          ))}
+        {/* Bento — the approach at a glance */}
+        <div className="flex justify-center mb-10">
+          <MagicBento
+            textAutoHide
+            enableStars
+            enableSpotlight
+            enableBorderGlow
+            enableTilt={false}
+            enableMagnetism={false}
+            clickEffect
+            spotlightRadius={400}
+            particleCount={12}
+            glowColor="232, 119, 34"
+            disableAnimations={false}
+            cards={approachCards}
+          />
         </div>
 
         {/* Footer note */}
