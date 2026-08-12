@@ -44,6 +44,13 @@ export const ContactPage: React.FC = () => {
 
   const contactCards = [
     {
+      icon: <Mail size={18} strokeWidth={1.8}/>,
+      label: 'General Enquiries',
+      value: 'hello@drocol.ng',
+      href: 'mailto:hello@drocol.ng',
+      desc: 'For project consultations, partnerships and general questions.',
+    },
+    {
       icon: <ShieldAlert size={18} strokeWidth={1.8}/>,
       label: 'Technical Support',
       value: '+234 1 280 4400',
