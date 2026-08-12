@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import PillNav from './PillNav';
-import MetallicPaint from './MetallicPaint';
 
 interface HeaderProps {
   activeSection: string;
@@ -67,26 +66,14 @@ export const Header: React.FC<HeaderProps> = () => {
             className="flex items-center shrink-0 select-none no-underline group"
             style={{ gap: '0.35cm' }}
           >
-            <span
+            <img
+              src="/drocol-icon.png?v=2"
+              alt=""
               aria-hidden="true"
-              className="block transition-transform duration-300 group-hover:scale-[1.03]"
-              style={{ height: '40px', width: '40px', display: 'block' }}
-            >
-              <MetallicPaint
-                imageSrc="/drocol-icon.png?v=2"
-                speed={0.22}
-                scale={3.2}
-                brightness={1.8}
-                contrast={0.6}
-                liquid={0.7}
-                refraction={0.012}
-                lightColor="#E87722"
-                darkColor="#000000"
-                tintColor="#ffffff"
-                waveAmplitude={1.1}
-                mouseAnimation={false}
-              />
-            </span>
+              className="transition-transform duration-300 group-hover:scale-[1.03]"
+              style={{ height: '40px', width: 'auto', objectFit: 'contain', display: 'block' }}
+              draggable={false}
+            />
             <img
               src="/drocol-wordmark-dark.svg?v=1"
               alt="Drocol"

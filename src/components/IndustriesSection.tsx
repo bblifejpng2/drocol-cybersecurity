@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { Landmark, HeartPulse, Code2, Flag, Factory, Briefcase } from 'lucide-react';
+import BorderGlow from './BorderGlow';
 
 const industries = [
   {
@@ -9,6 +10,7 @@ const industries = [
     body: "Nigeria's most regulated sector. Fraud pressure, CBN expectations, and customer trust — all at the same time. Security here must be continuous, not annual.",
     tags: ['CBN Compliance', 'NDPA', 'PCI DSS'],
     color: '#3b82f6',
+    hsl: '217 91 60',
   },
   {
     icon: <HeartPulse size={22} strokeWidth={1.6}/>,
@@ -16,6 +18,7 @@ const industries = [
     body: 'Patient records are among the most sensitive data any organization holds. Protecting them is both a legal duty under the NDPA and a matter of basic trust.',
     tags: ['NDPA', 'HL7 Security'],
     color: '#ef4444',
+    hsl: '0 84 60',
   },
   {
     icon: <Code2 size={22} strokeWidth={1.6}/>,
@@ -23,6 +26,7 @@ const industries = [
     body: 'For SaaS and product companies, security is part of the product. Customers ask hard questions during procurement. Good answers win deals.',
     tags: ['SOC 2', 'ISO 27001'],
     color: '#8b5cf6',
+    hsl: '258 90 66',
   },
   {
     icon: <Flag size={22} strokeWidth={1.6}/>,
@@ -30,6 +34,7 @@ const industries = [
     body: 'Public institutions hold data citizens cannot take back. Securing critical services and legacy systems requires patience, precision, and care.',
     tags: ['NITDA Guidelines', 'Critical Infra'],
     color: '#10b981',
+    hsl: '160 84 39',
   },
   {
     icon: <Factory size={22} strokeWidth={1.6}/>,
@@ -37,6 +42,7 @@ const industries = [
     body: 'As operations connect, operational technology meets the internet. Downtime is expensive. Prevention costs less than recovery.',
     tags: ['OT Security', 'ICS'],
     color: '#f59e0b',
+    hsl: '38 92 50',
   },
   {
     icon: <Briefcase size={22} strokeWidth={1.6}/>,
@@ -44,6 +50,7 @@ const industries = [
     body: 'Law firms, accountants, and consultancies are trusted with client secrets and targeted through email. Confidentiality is the business.',
     tags: ['Email Security', 'NDPA'],
     color: '#06b6d4',
+    hsl: '189 94 43',
   },
 ];
 
@@ -107,48 +114,42 @@ export const IndustriesSection: React.FC = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.55, delay: i * 0.07, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative flex flex-col gap-4 rounded-2xl border border-neutral-900/10 p-6 transition-all duration-300 overflow-hidden"
-              style={{
-                background: 'rgba(255,255,255,0.55)',
-                backdropFilter: 'blur(12px)',
-                WebkitBackdropFilter: 'blur(12px)',
-                boxShadow: '0 4px 24px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.9)',
-              }}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.transform = 'translateY(-4px)';
-                el.style.boxShadow = `0 16px 40px rgba(0,0,0,0.09), 0 0 0 1px ${ind.color}25, inset 0 1px 0 rgba(255,255,255,0.9)`;
-                el.style.borderColor = `${ind.color}25`;
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.transform = 'translateY(0)';
-                el.style.boxShadow = '0 4px 24px rgba(0,0,0,0.05), inset 0 1px 0 rgba(255,255,255,0.9)';
-                el.style.borderColor = 'rgba(23,23,23,0.1)';
-              }}
+              className="h-full"
             >
-              {/* Top accent bar on hover */}
-              <div className="absolute top-0 inset-x-0 h-[2px] rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ background: `linear-gradient(90deg, ${ind.color}, ${ind.color}60)` }}/>
+              <BorderGlow
+                persistent
+                glowColor={ind.hsl}
+                backgroundColor="#ffffff"
+                borderRadius={16}
+                glowRadius={22}
+                glowIntensity={0.9}
+                coneSpread={25}
+                edgeSensitivity={25}
+                fillOpacity={0.3}
+                colors={[ind.color, ind.color, ind.color]}
+                className="h-full"
+              >
+                <div className="flex flex-col gap-4 p-6 h-full">
+                  {/* Icon */}
+                  <div className="w-11 h-11 rounded-xl flex items-center justify-center"
+                    style={{ background: `${ind.color}15`, color: ind.color }}>
+                    {ind.icon}
+                  </div>
 
-              {/* Icon */}
-              <div className="w-11 h-11 rounded-xl flex items-center justify-center transition-all duration-300"
-                style={{ background: `${ind.color}15`, color: ind.color }}>
-                {ind.icon}
-              </div>
+                  <h3 className="text-[18px] font-bold text-neutral-900 tracking-tight">{ind.title}</h3>
+                  <p className="text-[14px] text-neutral-600 font-inter leading-relaxed flex-1">{ind.body}</p>
 
-              <h3 className="text-[18px] font-bold text-neutral-900 tracking-tight">{ind.title}</h3>
-              <p className="text-[14px] text-neutral-600 font-inter leading-relaxed flex-1">{ind.body}</p>
-
-              {/* Compliance tags */}
-              <div className="flex flex-wrap gap-1.5 mt-1">
-                {ind.tags.map(tag => (
-                  <span key={tag} className="font-mono text-[10px] tracking-wide px-2.5 py-1 rounded-full border"
-                    style={{ background: `${ind.color}10`, borderColor: `${ind.color}25`, color: ind.color }}>
-                    {tag}
-                  </span>
-                ))}
-              </div>
+                  {/* Compliance tags */}
+                  <div className="flex flex-wrap gap-1.5 mt-1">
+                    {ind.tags.map(tag => (
+                      <span key={tag} className="font-mono text-[10px] tracking-wide px-2.5 py-1 rounded-full border"
+                        style={{ background: `${ind.color}10`, borderColor: `${ind.color}25`, color: ind.color }}>
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </BorderGlow>
             </motion.div>
           ))}
         </div>

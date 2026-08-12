@@ -217,21 +217,21 @@ export const HowWeHelp: React.FC = () => {
   };
 
   return (
-    <section id="help" className="relative bg-[#080808] py-16 sm:py-24 md:py-32 overflow-hidden">
+    <section id="help" className="relative bg-[#F8EFD2] py-16 sm:py-24 md:py-32 overflow-hidden">
 
       {/* Background */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute inset-0 opacity-[0.04]" style={{
-          backgroundImage: 'repeating-linear-gradient(90deg, rgba(255,255,255,0.15) 0px, rgba(255,255,255,0.15) 1px, transparent 1px, transparent 80px)',
+        <div className="absolute inset-0 opacity-[0.05]" style={{
+          backgroundImage: 'repeating-linear-gradient(90deg, rgba(26,26,26,0.1) 0px, rgba(26,26,26,0.1) 1px, transparent 1px, transparent 80px)',
         }}/>
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] opacity-[0.08]"
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[500px] opacity-[0.14]"
           style={{ background: 'conic-gradient(from 270deg at 50% 0%, transparent 30%, rgba(232,119,34,0.5) 50%, transparent 70%)', filter: 'blur(60px)' }}/>
-        <div className="absolute inset-0 opacity-[0.035]" style={{
+        <div className="absolute inset-0 opacity-[0.05]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: '128px',
         }}/>
         <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.25) 50%, transparent)' }}/>
-        <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.05) 50%, transparent)' }}/>
+        <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(26,26,26,0.08) 50%, transparent)' }}/>
       </div>
 
       <div className="max-w-7xl mx-auto px-5 sm:px-6 relative z-10">
@@ -244,11 +244,11 @@ export const HowWeHelp: React.FC = () => {
             <span className="w-1.5 h-1.5 rounded-full bg-[#E87722]"/>
             <span className="font-mono text-[11px] font-semibold tracking-widest text-[#E87722] uppercase">How we help</span>
           </div>
-          <h2 className="font-sans font-bold tracking-[-0.03em] leading-[1.05] text-white"
+          <h2 className="font-sans font-bold tracking-[-0.03em] leading-[1.05] text-[#1A1A1A]"
             style={{ fontSize: 'clamp(28px, 5vw, 56px)' }}>
             Every organization's<br/>journey is different.
           </h2>
-          <p className="text-white/50 font-inter mt-4 max-w-xl" style={{ fontSize: 'clamp(13px, 1.5vw, 16px)' }}>
+          <p className="text-[#1A1A1A]/60 font-inter mt-4 max-w-xl" style={{ fontSize: 'clamp(13px, 1.5vw, 16px)' }}>
             Our role is to help you understand where you are today and build toward where you need to be tomorrow.
           </p>
         </motion.div>
@@ -264,20 +264,20 @@ export const HowWeHelp: React.FC = () => {
                 <motion.button key={s.num} onClick={() => setActive(i)}
                   className="group w-full text-left rounded-2xl border p-4 sm:p-5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E87722]"
                   style={{
-                    background: isActive ? `${s.color}0e` : 'rgba(255,255,255,0.02)',
-                    borderColor: isActive ? `${s.color}40` : 'rgba(255,255,255,0.06)',
-                    boxShadow: isActive ? `0 0 0 1px ${s.color}20` : 'none',
+                    background: isActive ? `${s.color}10` : 'rgba(255,255,255,0.6)',
+                    borderColor: isActive ? `${s.color}45` : 'rgba(26,26,26,0.1)',
+                    boxShadow: isActive ? `0 0 0 1px ${s.color}25` : 'none',
                   }}>
                   <div className="flex items-center gap-4">
                     {/* Number */}
                     <div className="shrink-0 w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center font-mono font-bold transition-all duration-300"
-                      style={{ background: isActive ? s.color : 'rgba(255,255,255,0.05)', color: isActive ? '#fff' : 'rgba(255,255,255,0.3)', fontSize: 'clamp(11px, 1.4vw, 13px)' }}>
+                      style={{ background: isActive ? s.color : 'rgba(26,26,26,0.06)', color: isActive ? '#fff' : 'rgba(26,26,26,0.4)', fontSize: 'clamp(11px, 1.4vw, 13px)' }}>
                       {s.num}
                     </div>
                     <div className="flex-1 min-w-0">
                       {/* Tag + title row */}
                       <div className="flex items-center gap-2 mb-0.5 flex-wrap">
-                        <span className="font-sans font-bold text-white transition-all duration-300"
+                        <span className="font-sans font-bold text-[#1A1A1A] transition-all duration-300"
                           style={{ fontSize: 'clamp(15px, 1.8vw, 18px)', opacity: isActive ? 1 : 0.6 }}>
                           {s.title}
                         </span>
@@ -286,14 +286,14 @@ export const HowWeHelp: React.FC = () => {
                           {s.tag}
                         </span>
                       </div>
-                      <p className="font-inter text-white/40 transition-all duration-300"
+                      <p className="font-inter text-[#1A1A1A]/55 transition-all duration-300"
                         style={{ fontSize: 'clamp(11px, 1.3vw, 13px)', opacity: isActive ? 1 : 0.6 }}>
                         {s.subtitle}
                       </p>
                     </div>
                     {/* Icon */}
                     <div className="shrink-0 transition-all duration-300"
-                      style={{ color: isActive ? s.color : 'rgba(255,255,255,0.2)' }}>
+                      style={{ color: isActive ? s.color : 'rgba(26,26,26,0.3)' }}>
                       {s.icon}
                     </div>
                   </div>
@@ -304,8 +304,8 @@ export const HowWeHelp: React.FC = () => {
                       <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }}
                         exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden lg:hidden">
-                        <div className="pt-4 mt-4 border-t border-white/[0.07]">
-                          <p className="font-inter text-white/60 mb-3 leading-relaxed text-[13px]">{s.body}</p>
+                        <div className="pt-4 mt-4 border-t border-[#1A1A1A]/10">
+                          <p className="font-inter text-[#1A1A1A]/70 mb-3 leading-relaxed text-[13px]">{s.body}</p>
                           <div className="flex flex-wrap gap-1.5 mb-3">
                             {s.outcomes.map(o => (
                               <span key={o} className="font-mono text-[9px] px-2.5 py-1 rounded-full border"
@@ -332,7 +332,7 @@ export const HowWeHelp: React.FC = () => {
               {steps.map((s, i) => (
                 <button key={i} onClick={() => setActive(i)}
                   className="h-[3px] rounded-full transition-all duration-500 focus:outline-none"
-                  style={{ flex: active === i ? 3 : 1, background: active === i ? s.color : 'rgba(255,255,255,0.12)' }}/>
+                  style={{ flex: active === i ? 3 : 1, background: active === i ? s.color : 'rgba(26,26,26,0.15)' }}/>
               ))}
             </div>
           </div>
@@ -346,7 +346,7 @@ export const HowWeHelp: React.FC = () => {
                 exit={{ opacity: 0, y: -12, scale: 0.98 }}
                 transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
                 className="rounded-2xl border overflow-hidden"
-                style={{ background: 'rgba(255,255,255,0.03)', borderColor: `${step.color}25`, boxShadow: `0 0 0 1px ${step.color}12, 0 20px 48px rgba(0,0,0,0.35)` }}>
+                style={{ background: 'rgba(255,255,255,0.65)', borderColor: `${step.color}30`, boxShadow: `0 0 0 1px ${step.color}15, 0 20px 48px rgba(26,26,26,0.12)` }}>
 
                 {/* Top accent stripe */}
                 <div className="h-[2px]" style={{ background: `linear-gradient(90deg, transparent, ${step.color}, transparent)` }}/>
@@ -357,7 +357,7 @@ export const HowWeHelp: React.FC = () => {
                     <div>
                       <span className="font-mono text-[10px] font-semibold tracking-widest uppercase block mb-1"
                         style={{ color: step.color }}>Step {step.num} · {step.tag}</span>
-                      <h3 className="font-sans font-bold text-white text-[20px] leading-tight">{step.title}</h3>
+                      <h3 className="font-sans font-bold text-[#1A1A1A] text-[20px] leading-tight">{step.title}</h3>
                     </div>
                     <div className="w-10 h-10 rounded-xl flex items-center justify-center shrink-0 ml-3"
                       style={{ background: `${step.color}18`, color: step.color }}>
@@ -384,10 +384,10 @@ export const HowWeHelp: React.FC = () => {
                   <SpecularButton
                     size="sm"
                     radius={12}
-                    baseColor={`${step.color}22`}
+                    baseColor={step.color}
                     tint={step.color}
-                    tintOpacity={0.4}
-                    lineColor={`${step.color}40`}
+                    tintOpacity={0.3}
+                    lineColor="#ffffff"
                     textColor="#ffffff"
                     thickness={1}
                     speed={0.35}
