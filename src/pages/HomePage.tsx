@@ -4,9 +4,7 @@ import { PartnerMarquee } from '../components/PartnerMarquee';
 import { WhyWeExist } from '../components/WhyWeExist';
 import { MoreThanTech } from '../components/MoreThanTech';
 import { Approach } from '../components/Approach';
-import { IndustriesSection } from '../components/IndustriesSection';
 import { Insights } from '../components/Insights';
-import { Vision } from '../components/Vision';
 
 export const HomePage: React.FC = () => {
   return (
@@ -16,10 +14,7 @@ export const HomePage: React.FC = () => {
       <WhyWeExist />
       <MoreThanTech />
       <Approach />
-
-      <IndustriesSection />
       <Insights />
-      <Vision />
     </>
   );
 };

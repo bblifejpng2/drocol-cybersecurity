@@ -131,6 +131,9 @@ export const ContactPage: React.FC = () => {
               background: 'linear-gradient(90deg, #F5A623, #FFD580)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
+              display: 'inline-block',
+              padding: '0.12em 0.3em',
+              margin: '-0.12em -0.3em',
             }}>confidence</span>{' '}
             together.
           </h1>

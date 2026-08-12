@@ -15,28 +15,23 @@ export const Approach: React.FC = () => {
   return (
     <section id="approach" className="relative bg-[#0F0905] py-16 sm:py-24 md:py-32 overflow-hidden">
 
-      {/* ── Background: circuit-board lines + dual glow ── */}
+      {/* ── Background: fluid drifting color fields ── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <svg className="absolute inset-0 w-full h-full opacity-[0.05]" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice" fill="none" stroke="rgba(255,255,255,0.5)" strokeWidth="1">
-          <line x1="0" y1="175" x2="1440" y2="175"/>
-          <line x1="0" y1="350" x2="1440" y2="350"/>
-          <line x1="0" y1="525" x2="1440" y2="525"/>
-          <line x1="240" y1="0" x2="240" y2="700"/>
-          <line x1="720" y1="0" x2="720" y2="700"/>
-          <line x1="1200" y1="0" x2="1200" y2="700"/>
-          {[[240,175],[720,175],[1200,175],[240,350],[720,350],[1200,350],[240,525],[720,525],[1200,525]].map(([x,y],i) => (
-            <circle key={i} cx={x} cy={y} r="4" fill="rgba(232,119,34,0.4)" stroke="none"/>
-          ))}
-        </svg>
-        <div className="absolute -left-40 top-1/2 -translate-y-1/2 w-[500px] h-[400px] rounded-full opacity-[0.07]"
-          style={{ background: 'radial-gradient(ellipse, #E87722 0%, transparent 70%)', filter: 'blur(80px)' }}/>
-        <div className="absolute -right-40 top-1/2 -translate-y-1/2 w-[400px] h-[400px] rounded-full opacity-[0.05]"
-          style={{ background: 'radial-gradient(ellipse, #3b82f6 0%, transparent 70%)', filter: 'blur(80px)' }}/>
+        <div className="fluid-bg">
+          <span className="fluid-blob fluid-blob--1"/>
+          <span className="fluid-blob fluid-blob--2"/>
+          <span className="fluid-blob fluid-blob--3"/>
+          <span className="fluid-blob fluid-blob--4"/>
+        </div>
+        {/* Vignette so heading + bento cards stay readable over the color fields */}
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse at 50% 40%, transparent 0%, rgba(15,9,5,0.5) 80%, rgba(15,9,5,0.88) 100%)',
+        }}/>
         <div className="absolute inset-0 opacity-[0.04]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: '128px',
         }}/>
-        <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.07) 50%, transparent)' }}/>
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.35) 50%, transparent)' }}/>
         <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.2) 50%, transparent)' }}/>
       </div>
 
@@ -57,7 +52,7 @@ export const Approach: React.FC = () => {
           <h2 className="font-bold tracking-[-0.03em] leading-[1.05] text-white mb-5"
             style={{ fontSize: 'clamp(28px, 4.5vw, 56px)' }}>
             We don't begin with tools.{' '}
-            <span className="text-white/40 font-light italic">We begin with understanding.</span>
+            <span className="font-light italic text-[#E87722]">We begin with understanding.</span>
           </h2>
           <p className="text-white/50 font-inter text-[15px] sm:text-[16px] leading-relaxed">
             Every engagement follows the same disciplined process — from understanding your business context to verifying that improvements have actually landed.
@@ -99,6 +94,71 @@ export const Approach: React.FC = () => {
         </motion.div>
 
       </div>
+
+      <style>{`
+        .fluid-bg {
+          position: absolute;
+          inset: 0;
+          overflow: hidden;
+        }
+        .fluid-blob {
+          position: absolute;
+          border-radius: 50%;
+          filter: blur(80px);
+          will-change: transform;
+        }
+        .fluid-blob--1 {
+          width: 48%;
+          height: 60%;
+          left: -8%;
+          top: 6%;
+          background: radial-gradient(circle, rgba(232,119,34,0.5) 0%, transparent 70%);
+          animation: fluidDrift1 24s ease-in-out infinite alternate;
+        }
+        .fluid-blob--2 {
+          width: 42%;
+          height: 55%;
+          right: -6%;
+          top: 18%;
+          background: radial-gradient(circle, rgba(245,166,35,0.42) 0%, transparent 70%);
+          animation: fluidDrift2 28s ease-in-out infinite alternate;
+        }
+        .fluid-blob--3 {
+          width: 40%;
+          height: 50%;
+          left: 22%;
+          bottom: -12%;
+          background: radial-gradient(circle, rgba(138,69,13,0.55) 0%, transparent 70%);
+          animation: fluidDrift3 21s ease-in-out infinite alternate;
+        }
+        .fluid-blob--4 {
+          width: 34%;
+          height: 44%;
+          right: 14%;
+          bottom: 6%;
+          background: radial-gradient(circle, rgba(255,140,26,0.3) 0%, transparent 70%);
+          animation: fluidDrift4 26s ease-in-out infinite alternate;
+        }
+        @keyframes fluidDrift1 {
+          from { transform: translate(0, 0) scale(1); }
+          to   { transform: translate(14vw, 9vh) scale(1.18); }
+        }
+        @keyframes fluidDrift2 {
+          from { transform: translate(0, 0) scale(1.1); }
+          to   { transform: translate(-12vw, 11vh) scale(0.95); }
+        }
+        @keyframes fluidDrift3 {
+          from { transform: translate(0, 0) scale(1); }
+          to   { transform: translate(9vw, -10vh) scale(1.15); }
+        }
+        @keyframes fluidDrift4 {
+          from { transform: translate(0, 0) scale(1.08); }
+          to   { transform: translate(-8vw, -8vh) scale(1); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .fluid-blob { animation: none; }
+        }
+      `}</style>
     </section>
   );
 };

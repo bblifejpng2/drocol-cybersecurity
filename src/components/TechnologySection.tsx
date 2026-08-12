@@ -1,22 +1,25 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import BounceCards from './BounceCards';
 
-const stages = [
+const STAGES = [
   {
     num: '01',
-    title: 'Automated coverage',
-    body: 'The platform performs broad, repeatable assessment work at speed — across applications, APIs, and cloud environments. It continuously maps your attack surface, re-scans on every change, and works around the clock, so gaps are caught the moment they appear instead of months later at the next scheduled audit.',
+    name: 'Automated coverage',
+    line: 'The platform performs broad, repeatable assessment work at speed.',
+    body: 'The platform performs broad, repeatable assessment work at speed — across applications, APIs, and cloud environments. It continuously maps your attack surface, re-scans on every change, and works around the clock, so gaps are caught the moment they appear.',
     points: [
       'Continuous scanning of web apps, APIs, and cloud configurations',
       'Attack-surface mapping that updates as your estate changes',
       'Re-assessment triggers on every deploy and dependency change',
-      'Findings flow straight into the expert queue — nothing waits on a manual start',
+      'Findings flow straight into the expert queue — nothing waits',
     ],
   },
   {
     num: '02',
-    title: 'Expert validation',
-    body: 'Certified security professionals review, test, and confirm what matters. Machines find; humans judge. Every automated alert is triaged, reproduced, and proven — false positives are filtered out before they ever reach your team, so you only act on what is real.',
+    name: 'Expert validation',
+    line: 'Certified security professionals review, test, and confirm what matters.',
+    body: 'Certified security professionals review, test, and confirm what matters. Machines find; humans judge. Every automated alert is triaged, reproduced, and proven — false positives are filtered out before they ever reach your team.',
     points: [
       'Every finding manually verified by certified testers',
       'False positives filtered out before anything reaches you',
@@ -26,8 +29,9 @@ const stages = [
   },
   {
     num: '03',
-    title: 'Clear findings',
-    body: 'Every finding you receive is validated, prioritized, and explained — no noise, no ambiguity. You get the full picture in one place: what is at risk, how to fix it, and what to fix first, written in language your whole team can act on.',
+    name: 'Clear findings',
+    line: 'Every finding you receive is validated, prioritized, and explained.',
+    body: 'Every finding you receive is validated, prioritized, and explained — no noise, no ambiguity. You get the full picture in one place: what is at risk, how to fix it, and what to fix first.',
     points: [
       'Risk-ranked by exploitability and business impact',
       'Remediation guidance written for developers, not security jargon',
@@ -35,264 +39,283 @@ const stages = [
       'Tracked to closure — re-tested to verify fixes actually landed',
     ],
   },
+  {
+    num: '04',
+    name: 'Attack path mapping',
+    line: 'The routes attackers would take to your crown jewels, mapped continuously.',
+    body: 'Attackers rarely arrive through the front door. The platform maps every path between what is exposed and what matters — identities, credentials, and trust chains — so you see the routes an attacker would actually take.',
+    points: [
+      'Identity, credential, and trust-chain analysis',
+      'Lateral-movement and pivot path mapping',
+      'Exposure-to-crown-jewel reachability scoring',
+      'Paths updated automatically as your estate changes',
+    ],
+  },
+  {
+    num: '05',
+    name: 'Continuous monitoring',
+    line: 'Around-the-clock re-scanning that catches new gaps the moment they appear.',
+    body: 'Your estate changes daily — new code, new dependencies, new services. The platform re-scans on every change, around the clock, so a gap that appears today is caught today, not at the next scheduled audit.',
+    points: [
+      '24/7 re-assessment across your full estate',
+      'Re-scan triggers on every deploy and dependency change',
+      'New services and endpoints picked up automatically',
+      'Alerting the moment a gap appears',
+    ],
+  },
+  {
+    num: '06',
+    name: 'Closure verification',
+    line: 'Every fix re-tested and tracked to closure, so findings stay fixed.',
+    body: 'A fix is only real once it is verified. Every remediation is re-tested to confirm it actually landed, and every finding is tracked to closure — so issues cannot quietly slip back.',
+    points: [
+      'Every fix re-tested after remediation',
+      'Findings tracked to closure in one queue',
+      'Regression checks when environments change',
+      'Full audit trail from finding to verified fix',
+    ],
+  },
 ];
 
-const leftStages  = stages.slice(0, 2);
-const rightStages = stages.slice(2, 3);
-const LAYER_COUNT = stages.length;
+const LEFT_STAGES = STAGES.slice(0, 3);
+const RIGHT_STAGES = STAGES.slice(3);
+
+/* Unique orange shade per slate (base / dark / highlight) */
+const ORANGE_SHADES = [
+  { base: '#9A4D0D', dark: '#5C2C06', hi: '#C2651A' },
+  { base: '#B35A10', dark: '#6F3508', hi: '#D97706' },
+  { base: '#C96615', dark: '#82400A', hi: '#E38B1E' },
+  { base: '#DB731C', dark: '#964A0C', hi: '#EFA63C' },
+  { base: '#E87722', dark: '#A8540F', hi: '#F2B25C' },
+  { base: '#F08A2E', dark: '#C4651A', hi: '#FAC27E' },
+];
+
+const fadeUp = {
+  initial: { opacity: 0, y: 18 },
+  whileInView: { opacity: 1, y: 0 },
+  viewport: { once: true, margin: '-60px' },
+  transition: { duration: 0.55, ease: [0.16, 1, 0.3, 1] as const },
+};
+
+const ArrowDivider = () => (
+  <div className="flex items-center gap-3 py-0.5" aria-hidden="true">
+    <div className="h-px flex-1 bg-white/[0.06]" />
+    <span className="font-mono text-[11px] leading-none text-[#E87722]/60">→</span>
+    <div className="h-px flex-1 bg-white/[0.06]" />
+  </div>
+);
 
 export const TechnologySection: React.FC = () => {
   const [active, setActive] = useState<number>(0);
-  const stage = stages[active];
+  const stage = STAGES[active];
+  /* The visible section: 1-3 or 4-6 */
+  const group = active < 3 ? 0 : 1;
 
   return (
-    <section id="technology" className="relative bg-[#080808] py-10 sm:py-24 md:py-32 overflow-hidden">
-
-      {/* ── Background: hex-grid + center amber corona ── */}
+    <section id="technology" className="relative bg-[#050302] py-16 sm:py-28 overflow-hidden">
+      {/* ── Background: fine grid + center amber ambient + noise + hairlines ── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <svg className="absolute inset-0 w-full h-full opacity-[0.055]" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice">
+        <svg className="absolute inset-0 w-full h-full opacity-[0.04]" viewBox="0 0 1440 700" preserveAspectRatio="xMidYMid slice">
           <defs>
             <pattern id="hex-tech" x="0" y="0" width="56" height="48" patternUnits="userSpaceOnUse">
-              <polygon points="28,2 54,14 54,34 28,46 2,34 2,14" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="0.8"/>
+              <polygon points="28,2 54,14 54,34 28,46 2,34 2,14" fill="none" stroke="rgba(255,255,255,0.4)" strokeWidth="0.8" />
             </pattern>
           </defs>
-          <rect width="100%" height="100%" fill="url(#hex-tech)"/>
+          <rect width="100%" height="100%" fill="url(#hex-tech)" />
         </svg>
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full opacity-[0.2]"
-          style={{ background: 'radial-gradient(ellipse, #E87722 0%, transparent 60%)', filter: 'blur(80px)' }}/>
-        <div className="absolute inset-0 opacity-[0.04]" style={{
+        <div
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[640px] h-[640px] rounded-full opacity-[0.16]"
+          style={{ background: 'radial-gradient(ellipse, #E87722 0%, transparent 60%)', filter: 'blur(90px)' }}
+        />
+        <div className="absolute inset-0 opacity-[0.03]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: '128px',
-        }}/>
-        <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.07) 50%, transparent)' }}/>
-        <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.2) 50%, transparent)' }}/>
+        }} />
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.22) 50%, transparent)' }} />
+        <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.12) 50%, transparent)' }} />
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
+        {/* ── Symmetrical columns: left stages | 16:9 slate | right stages ── */}
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-12 md:gap-14 lg:gap-20 items-center">
 
-        {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: 24 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="mb-6 sm:mb-16 sm:text-center sm:max-w-2xl sm:mx-auto"
-        >
-          <div className="inline-flex items-center gap-2 mb-3 sm:mb-5 px-3 py-1.5 rounded-full border border-[#E87722]/20 bg-[#E87722]/[0.08]">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#E87722]"/>
-            <span className="font-mono text-[10px] sm:text-[11px] font-semibold tracking-widest text-[#E87722] uppercase">Technology</span>
-          </div>
-          <h2 className="font-bold tracking-[-0.03em] leading-[1.05] text-white"
-            style={{ fontSize: 'clamp(22px, 4.5vw, 56px)' }}>
-            Built to amplify expertise.{' '}
-            <span className="text-white/40 font-light italic">Not replace it.</span>
-          </h2>
-        </motion.div>
-
-        {/* ── 3-column interactive stack ── */}
-        <div className="grid grid-cols-3 gap-2 sm:gap-6 lg:gap-8 items-center mb-4 sm:mb-10">
-
-          {/* Left: stages 01–02 */}
-          <div className="flex flex-col gap-1.5 sm:gap-4 lg:gap-5">
-            {leftStages.map((s, i) => {
+          {/* Left — the three given stages (flow) */}
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.05 }} className="flex flex-col justify-center gap-5 order-1">
+            {LEFT_STAGES.map((l, i) => {
               const isActive = active === i;
               return (
-                <motion.div key={s.num}
-                  initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  onClick={() => setActive(i)}
-                  className="cursor-pointer rounded-lg sm:rounded-xl border transition-all duration-300"
-                  style={{
-                    padding: 'clamp(6px, 1.5vw, 20px)',
-                    background: isActive ? 'rgba(232,119,34,0.08)' : 'transparent',
-                    borderColor: isActive ? 'rgba(232,119,34,0.35)' : 'rgba(255,255,255,0.06)',
-                  }}>
-                  <div className="flex items-center gap-1 sm:gap-2.5 mb-0.5 sm:mb-2">
-                    <span className="rounded-full shrink-0 transition-all duration-300"
-                      style={{
-                        width: 'clamp(4px, 0.9vw, 8px)', height: 'clamp(4px, 0.9vw, 8px)',
-                        background: isActive ? '#E87722' : 'rgba(255,255,255,0.25)',
-                        boxShadow: isActive ? '0 0 6px rgba(232,119,34,0.8)' : 'none',
-                      }}/>
-                    <span className="font-mono font-bold tracking-widest uppercase leading-none"
-                      style={{ fontSize: 'clamp(7px, 1.1vw, 12px)', color: isActive ? '#E87722' : 'rgba(255,255,255,0.5)' }}>
-                      {s.title}
-                    </span>
-                  </div>
-                  <p className="font-inter leading-relaxed hidden"
-                    style={{ fontSize: 'clamp(10px, 1.1vw, 13px)', color: isActive ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.35)' }}>
-                    {s.body}
-                  </p>
-                </motion.div>
+                <Fragment key={l.num}>
+                  {i > 0 && <ArrowDivider />}
+                  <button onClick={() => setActive(i)} className="block w-full text-left cursor-pointer group" aria-label={`Layer ${l.num}: ${l.name}`}>
+                    <div className="flex items-center gap-2.5 mb-2">
+                      <span className="font-mono text-[10px] font-bold tracking-widest text-[#E87722]/70">{l.num}</span>
+                      <span
+                        className={`font-mono text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.24em] transition-colors duration-300 ${isActive ? 'text-[#E87722]' : 'text-white/85 group-hover:text-white'}`}
+                      >
+                        {l.name}
+                      </span>
+                    </div>
+                    <p className="font-inter text-[12px] leading-relaxed text-white/40 max-w-[36ch]">{l.line}</p>
+                  </button>
+                </Fragment>
               );
             })}
-          </div>
+          </motion.div>
 
-          {/* Center: 3D isometric stack */}
-          <div className="flex items-center justify-center" style={{ padding: 'clamp(8px, 2vw, 32px) 0' }}>
-            <div style={{
-              width: 'clamp(80px, 13vw, 220px)',
-              height: 'clamp(80px, 13vw, 220px)',
-              transformStyle: 'preserve-3d',
-              transform: 'rotateX(55deg) rotateZ(-45deg)',
-            }}>
-              {stages.map((_, layerIdx) => {
-                const isActive = active === layerIdx;
-                const translateZ = layerIdx * -22;
-                return (
-                  <div key={layerIdx} onClick={() => setActive(layerIdx)}
-                    style={{
-                      position: 'absolute',
-                      width: 'clamp(52px, 8.5vw, 140px)',
-                      height: 'clamp(52px, 8.5vw, 140px)',
-                      left: '50%', top: '50%',
-                      transform: `translate(-50%, -50%) translateZ(${translateZ}px)`,
-                      zIndex: LAYER_COUNT - layerIdx,
-                      cursor: 'pointer',
-                      transition: 'all 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
-                    }}>
-                    <div style={{
-                      position: 'absolute', inset: 0,
-                      borderRadius: 'clamp(5px, 1vw, 12px)',
-                      border: isActive ? '1px solid rgba(232,119,34,0.7)' : '1px solid rgba(255,255,255,0.12)',
-                      background: isActive
-                        ? 'linear-gradient(135deg, rgba(242,169,92,0.55) 0%, rgba(232,119,34,0.35) 100%)'
-                        : 'linear-gradient(135deg, rgba(255,255,255,0.09) 0%, rgba(255,255,255,0.02) 100%)',
-                      boxShadow: isActive
-                        ? '0 0 28px rgba(232,119,34,0.45), inset 0 1px 0 rgba(255,255,255,0.25)'
-                        : '0 4px 12px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.06)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center',
-                      transition: 'all 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
-                    }}>
-                      <div style={{ transform: 'rotateZ(45deg) rotateX(-55deg)', textAlign: 'center' }}>
-                        <div className="font-mono font-bold leading-none mb-0.5 transition-colors duration-300"
-                          style={{ fontSize: 'clamp(8px, 1.3vw, 20px)', color: isActive ? '#fff' : 'rgba(255,255,255,0.35)' }}>
-                          {stages[layerIdx].num}
-                        </div>
-                        <div className="font-mono tracking-widest uppercase transition-colors duration-300"
-                          style={{ fontSize: 'clamp(4px, 0.6vw, 9px)', color: isActive ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.2)' }}>
-                          {stages[layerIdx].title.split(' ')[0]}
-                        </div>
-                      </div>
-                    </div>
+          {/* Center — BounceCards fan of 6 slates, numbered 1–6 */}
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.15 }} className="flex items-center justify-center relative order-2" style={{ padding: 'clamp(14px, 2.5vw, 44px) 0' }}>
+            {/* volumetric under-glow */}
+            <div
+              className="absolute pointer-events-none"
+              style={{
+                left: '50%',
+                top: '68%',
+                transform: 'translateX(-50%)',
+                width: '85%',
+                height: 'clamp(48px, 7vw, 90px)',
+                background: 'radial-gradient(ellipse, rgba(232,119,34,0.3) 0%, rgba(232,119,34,0.09) 45%, transparent 70%)',
+                filter: 'blur(22px)',
+                zIndex: 0,
+              }}
+            />
+            <div className="slate-float relative z-10">
+              <BounceCards
+                className="tech-bounce"
+                cards={STAGES.map((l, i) => (
+                  <div key={l.num} className="flex flex-col items-center justify-center gap-1">
+                    <span className="bounce-card__num">{l.num}</span>
+                    <span className="bounce-card__name">{l.name}</span>
                   </div>
-                );
-              })}
+                ))}
+                containerWidth={520}
+                containerHeight={170}
+                animationDelay={0.6}
+                animationStagger={0.07}
+                onCardClick={setActive}
+                activeIndex={active}
+                cardColors={ORANGE_SHADES}
+                lifted={STAGES.map((_, i) => Math.floor(i / 3) === group)}
+                dimmed={STAGES.map((_, i) => Math.floor(i / 3) !== group)}
+              />
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right: stage 03 */}
-          <div className="flex flex-col gap-1.5 sm:gap-4 lg:gap-5">
-            {rightStages.map((s, i) => {
-              const globalIdx = i + 2;
+          {/* Right — the three added stages (mirrored) */}
+          <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.25 }} className="flex flex-col justify-center gap-5 order-3">
+            {RIGHT_STAGES.map((l, i) => {
+              const globalIdx = i + 3;
               const isActive = active === globalIdx;
               return (
-                <motion.div key={s.num}
-                  initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }} transition={{ duration: 0.5, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-                  onClick={() => setActive(globalIdx)}
-                  className="cursor-pointer rounded-lg sm:rounded-xl border transition-all duration-300"
-                  style={{
-                    padding: 'clamp(6px, 1.5vw, 20px)',
-                    background: isActive ? 'rgba(232,119,34,0.08)' : 'transparent',
-                    borderColor: isActive ? 'rgba(232,119,34,0.35)' : 'rgba(255,255,255,0.06)',
-                  }}>
-                  <div className="flex items-center gap-1 sm:gap-2.5 mb-0.5 sm:mb-2">
-                    <span className="rounded-full shrink-0 transition-all duration-300"
-                      style={{
-                        width: 'clamp(4px, 0.9vw, 8px)', height: 'clamp(4px, 0.9vw, 8px)',
-                        background: isActive ? '#E87722' : 'rgba(255,255,255,0.25)',
-                        boxShadow: isActive ? '0 0 6px rgba(232,119,34,0.8)' : 'none',
-                      }}/>
-                    <span className="font-mono font-bold tracking-widest uppercase leading-none"
-                      style={{ fontSize: 'clamp(7px, 1.1vw, 12px)', color: isActive ? '#E87722' : 'rgba(255,255,255,0.5)' }}>
-                      {s.title}
-                    </span>
-                  </div>
-                  <p className="font-inter leading-relaxed hidden"
-                    style={{ fontSize: 'clamp(10px, 1.1vw, 13px)', color: isActive ? 'rgba(255,255,255,0.85)' : 'rgba(255,255,255,0.35)' }}>
-                    {s.body}
-                  </p>
-                </motion.div>
+                <Fragment key={l.num}>
+                  {i > 0 && <ArrowDivider />}
+                  <button onClick={() => setActive(globalIdx)} className="block w-full text-right cursor-pointer group" aria-label={`Layer ${l.num}: ${l.name}`}>
+                    <div className="flex items-center justify-end gap-2.5 mb-2">
+                      <span
+                        className={`font-mono text-[11px] sm:text-[12px] font-bold uppercase tracking-[0.24em] transition-colors duration-300 ${isActive ? 'text-[#E87722]' : 'text-white/85 group-hover:text-white'}`}
+                      >
+                        {l.name}
+                      </span>
+                      <span className="font-mono text-[10px] font-bold tracking-widest text-[#E87722]/70">{l.num}</span>
+                    </div>
+                    <p className="font-inter text-[12px] leading-relaxed text-white/40 ml-auto max-w-[36ch]">{l.line}</p>
+                  </button>
+                </Fragment>
               );
             })}
-          </div>
+          </motion.div>
 
         </div>
 
-        {/* ── Active stage info box ── */}
-        <div className="mt-3 sm:mt-6">
+        {/* ── Active layer readout (sticky bar on mobile) ── */}
+        <div className="mt-12 sm:mt-16 tech-readout-wrap">
           <AnimatePresence mode="wait">
-            <motion.div key={stage.num}
-              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="rounded-2xl border overflow-hidden"
-              style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(232,119,34,0.25)', boxShadow: '0 0 0 1px rgba(232,119,34,0.1), 0 12px 32px rgba(0,0,0,0.4)' }}>
-              <div className="h-[2px]" style={{ background: 'linear-gradient(90deg, transparent, #E87722, transparent)' }}/>
-              <div className="p-4 sm:p-6">
-                <div className="flex items-center gap-2 mb-3">
-                  <span className="font-mono text-[10px] font-bold tracking-widest text-[#E87722]/60">{stage.num}</span>
-                  <div className="w-px h-3 bg-white/10"/>
-                  <span className="font-mono text-[11px] font-bold tracking-widest uppercase text-[#E87722]">{stage.title}</span>
-                </div>
-                <p className="font-inter text-[13.5px] leading-relaxed text-white/75">{stage.body}</p>
-                <ul className="space-y-2.5 mt-4 mb-5">
-                  {stage.points.map((pt, i) => (
-                    <li key={i} className="flex items-start gap-2.5">
-                      <span className="mt-[3px] shrink-0 w-[5px] h-[5px] rounded-sm" style={{ background: '#E87722' }}/>
-                      <span className="font-inter text-[12.5px] leading-relaxed text-white/55">{pt}</span>
-                    </li>
-                  ))}
-                </ul>
-                <div className="flex items-center gap-2">
-                  {stages.map((_, i) => (
-                    <button key={i} onClick={() => setActive(i)}
-                      className="rounded-full transition-all duration-300 focus:outline-none"
-                      style={{ width: active === i ? '20px' : '6px', height: '6px', background: active === i ? '#E87722' : 'rgba(255,255,255,0.2)' }}
-                      aria-label={`Stage ${i + 1}`}/>
-                  ))}
-                  <span className="font-mono text-[10px] text-white/30 ml-auto">{stage.num} of 03</span>
-                </div>
+            <motion.div
+              key={stage.num}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -8 }}
+              transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <div className="flex items-center gap-3 mb-3">
+                <span className="font-mono text-[10px] font-bold tracking-widest text-[#E87722]/80">{stage.num}</span>
+                <div className="w-px h-3 bg-white/10" />
+                <span className="font-mono text-[12px] font-bold uppercase tracking-[0.24em] text-white/90">{stage.name}</span>
+                <span className="font-mono text-[10px] tracking-widest text-white/25 ml-auto hidden sm:block">
+                  LAYER {stage.num} / 06
+                </span>
+              </div>
+              <p className="font-inter text-[13px] leading-relaxed text-white/65 max-w-3xl">{stage.body}</p>
+              <ul className="hidden sm:grid sm:grid-cols-2 gap-x-10 gap-y-2 mt-4">
+                {stage.points.map((pt, j) => (
+                  <li key={j} className="flex items-start gap-2.5">
+                    <span className="mt-[3px] shrink-0 w-[4px] h-[4px] rounded-sm" style={{ background: '#E87722' }} />
+                    <span className="font-inter text-[12px] leading-relaxed text-white/45">{pt}</span>
+                  </li>
+                ))}
+              </ul>
+              <div className="flex items-center gap-2 mt-5 pt-4 border-t border-white/[0.06]">
+                {STAGES.map((_, i) => (
+                  <button
+                    key={i}
+                    onClick={() => setActive(i)}
+                    aria-label={`Stage ${i + 1}`}
+                    className="rounded-full transition-all duration-300 focus:outline-none"
+                    style={{
+                      width: active === i ? '18px' : '5px',
+                      height: '5px',
+                      background: active === i ? '#E87722' : 'rgba(255,255,255,0.15)',
+                    }}
+                  />
+                ))}
               </div>
             </motion.div>
           </AnimatePresence>
-
-          {/* ── Platform stats ── */}
-          <div className="grid grid-cols-3 gap-2 sm:gap-4 mt-4 sm:mt-5">
-            {[
-              { value: '24/7', label: 'Continuous automated coverage' },
-              { value: '100%', label: 'Findings validated by humans' },
-              { value: '0', label: 'Unverified alerts shipped' },
-            ].map((s) => (
-              <div key={s.label} className="rounded-xl border px-3 sm:px-5 py-3 sm:py-4"
-                style={{ background: 'rgba(255,255,255,0.02)', borderColor: 'rgba(255,255,255,0.07)' }}>
-                <div className="font-mono font-bold leading-none" style={{ fontSize: 'clamp(16px, 2.2vw, 28px)', color: '#E87722' }}>{s.value}</div>
-                <div className="font-inter text-white/45 mt-1.5 leading-snug" style={{ fontSize: 'clamp(9px, 1vw, 12px)' }}>{s.label}</div>
-              </div>
-            ))}
-          </div>
         </div>
 
-        {/* ── Desktop footer note ── */}
-        <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6, delay: 0.3 }}
-          className="hidden sm:flex items-center gap-4 rounded-2xl border px-6 py-5"
-          style={{ background: 'rgba(232,119,34,0.06)', borderColor: 'rgba(232,119,34,0.2)' }}
-        >
-          <div className="shrink-0 w-1 h-8 rounded-full" style={{ background: 'linear-gradient(180deg, #F2A95C, #E8862E)' }}/>
-          <p className="text-[14px] text-white/70 font-inter leading-relaxed">
-            <span className="text-white font-semibold">Automation improves speed. Expertise ensures accuracy.</span>{' '}
-            Every finding that reaches a client is reviewed, validated, and explained by certified security professionals.
-          </p>
+        {/* ── Closing note ── */}
+        <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.1 }} className="mt-12 sm:mt-16 pt-5 sm:pt-6 border-t border-white/[0.06]">
+          <div className="flex items-start gap-3">
+            <div className="shrink-0 w-[3px] h-9 rounded-full mt-0.5" style={{ background: 'linear-gradient(180deg, #F2A95C, #E8862E)' }} />
+            <p className="font-inter text-[13px] leading-relaxed text-white/55 max-w-3xl">
+              <span className="text-white font-semibold">Automation improves speed. Expertise ensures accuracy.</span>{' '}
+              Every finding that reaches a client is reviewed, validated, and explained by certified security professionals.
+            </p>
+          </div>
         </motion.div>
-
       </div>
 
       <style>{`
-        #technology { transform-style: preserve-3d; }
+        .slate-float {
+          will-change: transform;
+          animation: slate-float 7s ease-in-out infinite;
+        }
+        @keyframes slate-float {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-10px); }
+        }
+        @media (prefers-reduced-motion: reduce) {
+          .slate-float { animation: none; }
+        }
+        /* On phones the current slide's info sticks to the bottom of the viewport
+           while scrolling through the section, so it is always in view. */
+        @media (max-width: 767px) {
+          .tech-readout-wrap {
+            position: sticky;
+            bottom: 0;
+            z-index: 30;
+            margin-top: 14px !important;
+            padding: 12px 14px 10px;
+            background: linear-gradient(180deg, rgba(5, 3, 2, 0.55), rgba(5, 3, 2, 0.94));
+            backdrop-filter: blur(14px);
+            -webkit-backdrop-filter: blur(14px);
+            border-top: 1px solid rgba(232, 119, 34, 0.28);
+            border-radius: 16px 16px 0 0;
+          }
+          .tech-readout-wrap .mt-5 {
+            margin-top: 10px !important;
+            padding-top: 10px !important;
+          }
+        }
       `}</style>
     </section>
   );

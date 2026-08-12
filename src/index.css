@@ -35,8 +35,10 @@
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  overflow-x: clip; /* clip keeps position:fixed working on iOS */
+  /* NOTE: no overflow-x on html/body — `overflow-x: clip` computes overflow-y to
+     clip on the root element (CSS Overflow spec), which disables vertical page
+     scroll entirely in Chromium. position:fixed works fine without it; overflow
+     is clipped by individual sections instead. */
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
@@ -45,8 +47,6 @@ html {
 body {
   background: var(--bg-base);
   color: #f0f0f0;
-  overflow-x: hidden;
-  overflow-x: clip; /* clip keeps position:fixed working on iOS */
   margin: 0;
   -webkit-overflow-scrolling: touch;
 }
@@ -273,15 +273,13 @@ body {
 
 html {
   scroll-behavior: smooth;
-  overflow-x: hidden;
-  overflow-x: clip; /* clip keeps position:fixed working on iOS */
+  /* NOTE: no overflow-x on html/body — `overflow-x: clip` disables vertical
+     scroll in Chromium; position:fixed works fine without it. */
 }
 
 body {
   background: var(--cream);
   color: #111;
-  overflow-x: hidden;
-  overflow-x: clip; /* clip keeps position:fixed working on iOS */
   margin: 0;
   -webkit-overflow-scrolling: touch;
 }

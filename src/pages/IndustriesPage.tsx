@@ -1,28 +1,28 @@
 import React from 'react';
 import { PageHero } from '../components/PageHero';
-import { TechnologySection } from '../components/TechnologySection';
+import { IndustriesSection } from '../components/IndustriesSection';
 import { CtaBand } from '../components/CtaBand';
 
-export const TechnologyPage: React.FC = () => {
+export const IndustriesPage: React.FC = () => {
   return (
     <>
       <PageHero
         theme="light"
-        label="Technology"
+        label="Industries"
         title={
           <>
-            Built to amplify expertise.{' '}
+            Security that fits{' '}
             <span className="italic text-transparent bg-clip-text" style={{
               backgroundImage: 'linear-gradient(90deg, #E87722 0%, #F5A623 60%, #E87722 100%)',
               display: 'inline-block',
               padding: '0.12em 0.18em',
               margin: '-0.12em -0.18em',
-            }}>Not replace it.</span>
+            }}>your industry.</span>
           </>
         }
-        intro="Every Drocol engagement benefits from technology we've built ourselves. Our AI-powered security platform accelerates repetitive testing, maps meaningful attack paths, and gives our consultants more time to solve complex security problems."
+        intro="Every industry faces different threats, regulations, and operational realities. Understanding those differences is where good security begins — and where we start every engagement."
       />
-      <TechnologySection />
+      <IndustriesSection />
       <CtaBand />
     </>
   );

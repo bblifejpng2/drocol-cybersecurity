@@ -23,7 +23,12 @@ export const CtaBand: React.FC = () => {
             <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold tracking-[-0.03em] leading-[1.1] text-white mb-2">
               Ready to build{' '}
               <span className="text-transparent bg-clip-text italic font-light"
-                style={{ backgroundImage: 'linear-gradient(90deg, #E87722, #F5A623)' }}>
+                style={{
+                  backgroundImage: 'linear-gradient(90deg, #E87722, #F5A623)',
+                  display: 'inline-block',
+                  padding: '0.12em 0.18em',
+                  margin: '-0.12em -0.18em',
+                }}>
                 confidence
               </span>{' '}
               together?

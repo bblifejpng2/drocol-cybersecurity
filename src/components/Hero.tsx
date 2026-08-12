@@ -43,6 +43,9 @@ export const Hero: React.FC = () => {
               Helping organizations build{' '}
               <span className="text-transparent bg-clip-text" style={{
                 backgroundImage: 'linear-gradient(90deg, #E87722 0%, #F5A623 60%, #E87722 100%)',
+                display: 'inline-block',
+                padding: '0.12em 0.18em',
+                margin: '-0.12em -0.18em',
               }}>confidence</span>{' '}
               in their security.
             </h1>

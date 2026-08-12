@@ -1,134 +1,204 @@
-import React from 'react';
-import { ArrowRight, Shield, Globe, Users } from 'lucide-react';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
 import { SpecularButton, specularPrimary } from './SpecularButton';
 
+/* Partner program types — modelled on Redream's "Solutions by team" expertise card */
+const partnerTabs = [
+  {
+    id: 'technology',
+    label: 'Technology',
+    title: 'Technology partners',
+    lead: 'Deepen your product with security that ships.',
+    today:
+      'Partners build integrations without a security layer, so customers bolt on point tools, review findings by hand, and re-check everything each release.',
+    withDrocol:
+      'Your product surfaces live risk through the Drocol engine — assessments, attack paths, and findings flow through the UX your customers already trust.',
+    before: ['Security features built from scratch, slowly', 'Point tools bolted on after launch', 'Findings managed in spreadsheets'],
+    after: ['Drocol engine embedded in your product', 'Live attack-path and finding views', 'One API for assessment and reporting'],
+  },
+  {
+    id: 'channel',
+    label: 'Channel',
+    title: 'Channel partners',
+    lead: 'Sell security services without building a lab.',
+    today:
+      'Resellers and MSPs turn away security work because building the delivery capability — tooling, training, and specialists — is slow and expensive.',
+    withDrocol:
+      'You white-label assessments and compliance checks. We run the platform end to end; you own the client, the brand, and the relationship.',
+    before: ['Security work declined for lack of capability', 'Delivery depends on scarce specialists', 'Margin eaten by tooling and training'],
+    after: ['White-label assessments under your brand', 'Platform delivery handled end to end', 'Repeatable margin on every engagement'],
+  },
+  {
+    id: 'consulting',
+    label: 'Consulting',
+    title: 'Consulting partners',
+    lead: 'Extend your practice with certified depth.',
+    today:
+      'Consultancies re-perform the same baseline testing on every project, burning billable hours on repeat work while their best people stay buried in checklists.',
+    withDrocol:
+      'Automated coverage frees your consultants for the problems that need them — validation, prioritization, and remediation that clients actually act on.',
+    before: ['Repetitive baseline testing eats billable time', 'Findings arrive without business context', 'Scaling the practice means hiring more'],
+    after: ['Automation handles repeatable coverage', 'Validated, prioritized findings for clients', 'A practice that scales with your team'],
+  },
+  {
+    id: 'community',
+    label: 'Community',
+    title: 'Community partners',
+    lead: 'Turn security education into growth.',
+    today:
+      'Security content and training are generic, and communities struggle to connect what people learn to protections they can actually put in place.',
+    withDrocol:
+      'Co-branded training, webinars, and research turn awareness into action for your audience — and build trust that converts into real demand.',
+    before: ['Generic content with no follow-through', 'Training ends when the session ends', 'Hard to measure real impact'],
+    after: ['Co-branded programs that build trust', 'Learning tied to actionable protections', 'Communities that convert into clients'],
+  },
+];
+
 export const PartnerMarquee: React.FC = () => {
-  const partners = [
-    { name: 'Redream Solutions', handle: '@redreamsolutions', tagline: 'Technology & Innovation' },
-    { name: 'Redream Solutions', handle: '@redreamsolutions', tagline: 'Technology & Innovation' },
-    { name: 'Redream Solutions', handle: '@redreamsolutions', tagline: 'Technology & Innovation' },
-    { name: 'Redream Solutions', handle: '@redreamsolutions', tagline: 'Technology & Innovation' },
-    { name: 'Redream Solutions', handle: '@redreamsolutions', tagline: 'Technology & Innovation' },
-  ];
+  const [activeId, setActiveId] = useState(partnerTabs[0].id);
+  const active = partnerTabs.find(t => t.id === activeId) ?? partnerTabs[0];
 
   return (
-    <section className="relative bg-[#0F0F0F] py-16 md:py-24 overflow-hidden">
-
-      {/* ── Background: dark + subtle dot grid + faint amber centre ── */}
+    <section className="relative bg-[#F3EDE2] py-16 md:py-24 overflow-hidden">
+      {/* ── Background: cream + scattered dot grid + faint amber bloom ── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        <div className="absolute inset-0 opacity-[0.04]" style={{
-          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.35) 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
+        <div className="absolute inset-0 opacity-[0.06]" style={{
+          backgroundImage: 'radial-gradient(circle, rgba(23,23,23,0.5) 1.5px, transparent 1.5px)',
+          backgroundSize: '40px 40px',
         }}/>
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[300px] rounded-full opacity-[0.07]"
-          style={{ background: 'radial-gradient(ellipse, #E87722 0%, transparent 70%)', filter: 'blur(80px)' }}/>
-        <div className="absolute inset-0 opacity-[0.03]" style={{
+        <div className="absolute bottom-0 right-0 w-[700px] h-[400px] rounded-full opacity-[0.05]"
+          style={{ background: 'radial-gradient(ellipse, #E87722 0%, transparent 70%)', filter: 'blur(90px)' }}/>
+        <div className="absolute inset-0 opacity-[0.025]" style={{
           backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
           backgroundSize: '128px',
         }}/>
-        <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.07) 50%, transparent)' }}/>
-        <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.18) 50%, transparent)' }}/>
+        <div className="absolute top-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(23,23,23,0.1) 50%, transparent)' }}/>
+        <div className="absolute bottom-0 inset-x-0 h-px" style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.2) 50%, transparent)' }}/>
       </div>
 
-      {/* ── Header ─────────────────────────────────────── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12 md:mb-16 relative z-10">
-        <div className="flex flex-col md:flex-row md:items-end md:justify-between gap-6">
-          <div>
-            <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full border border-[#E87722]/20 bg-[#E87722]/[0.06]">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#E87722]"/>
-              <span className="text-[11px] font-inter font-semibold tracking-widest text-[#E87722] uppercase">Strategic Partners</span>
-            </div>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-white leading-[1.05]">
-              Our Trusted<br/>
-              <span className="text-transparent bg-clip-text" style={{ backgroundImage: 'linear-gradient(90deg, #E87722, #F5A623)' }}>
-                Ecosystem.
-              </span>
-            </h2>
-            <p className="text-white/50 mt-4 max-w-md font-inter text-sm leading-relaxed">
-              Proudly partnering with Redream Solutions to deliver world-class cybersecurity solutions across Africa.
-            </p>
-          </div>
-
-          {/* Stats pills */}
-          <div className="flex flex-wrap gap-3">
-            {[
-              { icon: <Shield size={14} className="text-[#E87722]"/>, label: '250+', sub: 'Organizations Protected' },
-              { icon: <Globe size={14} className="text-[#E87722]"/>, label: '12+', sub: 'African Countries' },
-              { icon: <Users size={14} className="text-[#E87722]"/>, label: '5+', sub: 'Active Partners' },
-            ].map((stat, i) => (
-              <div key={i} className="flex items-center gap-2.5 px-4 py-2.5 rounded-xl border"
-                style={{ background: 'rgba(255,255,255,0.05)', borderColor: 'rgba(255,255,255,0.09)' }}>
-                {stat.icon}
-                <div>
-                  <div className="text-white font-bold text-sm leading-none">{stat.label}</div>
-                  <div className="text-white/40 text-[10px] font-inter mt-0.5">{stat.sub}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Static partner grid ────────────────────────── */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-5 gap-4 md:gap-5">
-          {partners.map((partner, index) => (
-            <div
-              key={index}
-              className={`group relative flex flex-row items-center gap-4 px-5 py-5 rounded-2xl border transition-colors duration-300 sm:flex-col sm:items-start ${index > 0 ? 'max-sm:hidden' : ''}`}
-              style={{
-                background: 'rgba(255,255,255,0.04)',
-                borderColor: 'rgba(255,255,255,0.08)',
-              }}
-            >
-              {/* Logo mark */}
-              <div className="w-12 h-12 rounded-xl flex items-center justify-center shadow-lg"
-                style={{ background: 'linear-gradient(135deg, #E87722, #F5A623)', boxShadow: '0 4px 16px rgba(232,119,34,0.3)' }}>
-                <svg width="22" height="22" viewBox="0 0 32 32" fill="none">
-                  <path d="M8 6h9c4.4 0 7 2.4 7 6 0 2.5-1.4 4.4-3.6 5.3L24 26h-4.5l-3.2-8H12v8H8V6z" fill="#fff"/>
-                  <path d="M12 10v5h4.5c2 0 3.2-1 3.2-2.5S18.5 10 16.5 10H12z" fill="rgba(255,255,255,0.5)"/>
-                </svg>
-              </div>
 
-              {/* Info */}
-              <div className="min-w-0 flex-1 sm:flex-none">
-                <div className="font-bold text-white text-sm leading-tight truncate">{partner.name}</div>
-                <div className="font-mono text-[10px] text-[#E87722]/70 mt-0.5 truncate">{partner.handle}</div>
-                <div className="hidden sm:block text-white/35 font-inter text-xs mt-2 leading-snug">{partner.tagline}</div>
-              </div>
-
-              {/* Verified badge */}
-              <div className="mt-auto ml-auto sm:ml-0 inline-flex items-center gap-1.5 shrink-0 w-fit rounded-full px-2 py-1"
-                style={{ background: 'rgba(232,119,34,0.12)' }}>
-                <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#E87722" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-                  <polyline points="20 6 9 17 4 12"/>
-                </svg>
-                <span className="text-[10px] font-semibold text-[#E87722] tracking-wide uppercase">Verified</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* ── CTA ─────────────────────────────────────────── */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 mt-10 md:mt-12 relative z-10">
-        <div
-          className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-5 md:px-6 py-4 md:py-5 rounded-2xl border"
-          style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.09)' }}
-        >
-          <div>
-            <div className="text-white font-semibold text-sm">Become a partner</div>
-            <div className="text-white/40 font-inter text-xs mt-0.5">Join our ecosystem and help secure African enterprises together.</div>
+        {/* ── Header ──────────────────────────────────────── */}
+        <div className="max-w-2xl mb-10 md:mb-14">
+          <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full border border-[#E87722]/20 bg-[#E87722]/[0.06]">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E87722]"/>
+            <span className="text-[11px] font-inter font-semibold tracking-widest text-[#E87722] uppercase">Strategic Partners</span>
           </div>
-          <SpecularButton
-            {...specularPrimary}
-            size="md"
-            href="mailto:hello@drocol.ng?subject=Partnership%20Enquiry%20%E2%80%94%20Drocol%20Technologies&body=Hi%20Drocol%20Team%2C%0A%0AI%20am%20interested%20in%20exploring%20a%20partnership%20with%20Drocol%20Technologies.%0A%0AOrganisation%3A%20%0AContact%20name%3A%20%0AWebsite%3A%20%0A%0APlease%20get%20in%20touch%20at%20your%20earliest%20convenience.%0A%0AThank%20you."
-            className="shrink-0"
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-neutral-900 leading-[1.05]">
+            Different partners. Same goal:{' '}
+            <span className="italic text-transparent bg-clip-text" style={{
+              backgroundImage: 'linear-gradient(90deg, #E87722 0%, #F5A623 60%, #E87722 100%)',
+            }}>safer enterprises.</span>
+          </h2>
+          <p className="text-neutral-600 font-inter text-[16px] leading-relaxed mt-4 max-w-xl">
+            Whether you build technology, sell security, or grow communities — expertise stays aligned when
+            Drocol's platform is built into the way your team already works. Proudly partnering with Redream Solutions.
+          </p>
+        </div>
+
+        {/* ── Tabbed partner card (Redream-style) ─────────── */}
+        <div className="rounded-2xl border" style={{
+          background: 'linear-gradient(168deg, #ffffff 0%, #f8f9fb 55%, #f0f3f8 100%)',
+          borderColor: 'rgba(23,23,23,0.08)',
+          boxShadow: '0 20px 50px rgba(23,23,23,0.06)',
+          padding: 'clamp(18px, 3vw, 30px)',
+        }}>
+          {/* Tabs */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 border-b pb-2.5 mb-5" style={{ borderColor: 'rgba(23,23,23,0.08)' }}>
+            {partnerTabs.map(tab => {
+              const isActive = tab.id === activeId;
+              return (
+                <button
+                  key={tab.id}
+                  onClick={() => setActiveId(tab.id)}
+                  className={`relative text-left pb-2 transition-colors duration-200 font-inter cursor-pointer appearance-none border-0 bg-transparent ${
+                    isActive ? 'text-neutral-900 font-semibold' : 'text-neutral-500 hover:text-neutral-800'
+                  }`}
+                  style={{ fontSize: '0.88rem' }}
+                >
+                  {tab.label}
+                  <span
+                    className="absolute left-0 right-0 -bottom-2.5 h-[2px] rounded-full bg-[#E87722] origin-left transition-transform duration-200"
+                    style={{ transform: isActive ? 'scaleX(1)' : 'scaleX(0)' }}
+                  />
+                </button>
+              );
+            })}
+          </div>
+
+          {/* Tab content — keyed mount animation (no exit), matching the reference */}
+          <div className="grid md:grid-cols-[1.15fr_1fr] gap-6 lg:gap-8 items-start">
+            {/* Copy */}
+            <motion.article
+              key={active.id}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <h3 className="text-neutral-900 font-bold mb-2 leading-[1.15]" style={{ fontSize: 'clamp(1.6rem, 3vw, 2.1rem)' }}>
+                {active.title}
+              </h3>
+              <p className="text-neutral-800 font-inter mb-4 leading-[1.4]" style={{ fontSize: 'clamp(1rem, 1.8vw, 1.15rem)' }}>
+                {active.lead}
+              </p>
+              <h4 className="text-[12px] font-inter font-semibold uppercase tracking-[0.08em] text-neutral-500 mt-4 mb-1.5">Today</h4>
+              <p className="text-neutral-600 font-inter text-[14px] leading-relaxed">{active.today}</p>
+              <h4 className="text-[12px] font-inter font-semibold uppercase tracking-[0.08em] text-[#E87722] mt-5 mb-1.5">With Drocol</h4>
+              <p className="text-neutral-600 font-inter text-[14px] leading-relaxed">{active.withDrocol}</p>
+            </motion.article>
+
+            {/* Before / After panel */}
+            <motion.aside
+              key={`panel-${active.id}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.26, ease: [0.22, 1, 0.36, 1] }}
+              className="rounded-xl border p-5 md:p-6"
+              style={{ background: 'linear-gradient(168deg, #ffffff, #f8f9fb 55%, #f0f3f8)', borderColor: 'rgba(23,23,23,0.08)' }}
+            >
+              <h4 className="text-[12px] font-inter font-semibold uppercase tracking-[0.08em] text-neutral-800 mb-2.5">Before</h4>
+              <ul className="space-y-2 mb-6">
+                {active.before.map(item => (
+                  <li key={item} className="flex items-start gap-2.5 text-neutral-500 font-inter text-[13px] leading-relaxed">
+                    <span className="mt-[7px] shrink-0 w-[5px] h-[5px] rounded-full bg-neutral-400"/>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+              <h4 className="text-[12px] font-inter font-semibold uppercase tracking-[0.08em] text-[#E87722] mb-2.5">After</h4>
+              <ul className="space-y-2">
+                {active.after.map(item => (
+                  <li key={item} className="flex items-start gap-2.5 text-neutral-700 font-inter text-[13px] leading-relaxed">
+                    <span className="mt-[7px] shrink-0 w-[5px] h-[5px] rounded-full bg-[#E87722]"/>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </motion.aside>
+          </div>
+        </div>
+
+        {/* ── CTA band (dark panel) ───────────────────────── */}
+        <div className="mt-8 md:mt-10">
+          <div
+            className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 px-5 md:px-6 py-4 md:py-5 rounded-2xl border"
+            style={{ background: 'rgba(15,15,15,0.96)', borderColor: 'rgba(255,255,255,0.09)' }}
           >
-            Partner With Us
-            <ArrowRight size={13} strokeWidth={2.5}/>
-          </SpecularButton>
+            <div>
+              <div className="text-white font-semibold text-sm">Become a partner</div>
+              <div className="text-white/40 font-inter text-xs mt-0.5">Join our ecosystem and help secure African enterprises together.</div>
+            </div>
+            <SpecularButton
+              {...specularPrimary}
+              size="md"
+              href="mailto:hello@drocol.ng?subject=Partnership%20Enquiry%20%E2%80%94%20Drocol%20Technologies&body=Hi%20Drocol%20Team%2C%0A%0AI%20am%20interested%20in%20exploring%20a%20partnership%20with%20Drocol%20Technologies.%0A%0AOrganisation%3A%20%0AContact%20name%3A%20%0AWebsite%3A%20%0A%0APlease%20get%20in%20touch%20at%20your%20earliest%20convenience.%0A%0AThank%20you."
+              className="shrink-0"
+            >
+              Partner With Us
+              <ArrowRight size={13} strokeWidth={2.5}/>
+            </SpecularButton>
+          </div>
         </div>
       </div>
     </section>

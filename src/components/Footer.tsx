@@ -28,6 +28,8 @@ export const Footer: React.FC = () => {
     {
       heading: 'Company',
       links: [
+        { label: 'Company', to: '/company' },
+        { label: 'Industries', to: '/industries' },
         { label: 'Research', to: '/research' },
         { label: 'Insights', to: '/' },
         { label: 'About',    to: '/' },
@@ -74,7 +76,12 @@ export const Footer: React.FC = () => {
             <div className="max-w-xl">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-white leading-[1.05] mb-3">
                 Let's build <span className="text-transparent bg-clip-text italic font-light"
-                  style={{ backgroundImage: 'linear-gradient(90deg, #E87722, #F5A623)' }}>
+                  style={{
+                    backgroundImage: 'linear-gradient(90deg, #E87722, #F5A623)',
+                    display: 'inline-block',
+                    padding: '0.12em 0.18em',
+                    margin: '-0.12em -0.18em',
+                  }}>
                   confidence
                 </span> together.
               </h2>

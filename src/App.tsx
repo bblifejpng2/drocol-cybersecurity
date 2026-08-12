@@ -5,7 +5,9 @@ import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
 import { SolutionsPage } from './pages/SolutionsPage';
 import { TechnologyPage } from './pages/TechnologyPage';
+import { IndustriesPage } from './pages/IndustriesPage';
 import { ResearchPage } from './pages/ResearchPage';
+import { CompanyPage } from './pages/CompanyPage';
 import { ContactPage } from './pages/ContactPage';
 
 // Map each route to the nav key it should light up
@@ -105,7 +107,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/solutions" element={<SolutionsPage />} />
           <Route path="/technology" element={<TechnologyPage />} />
+          <Route path="/industries" element={<IndustriesPage />} />
           <Route path="/research" element={<ResearchPage />} />
+          <Route path="/company" element={<CompanyPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>

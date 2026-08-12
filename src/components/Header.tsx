@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { Phone } from 'lucide-react';
 import PillNav from './PillNav';
+import { SpecularButton, specularPrimary } from './SpecularButton';
 
 interface HeaderProps {
   activeSection: string;
@@ -12,8 +14,9 @@ const navLinks = [
   { id: 'home',       label: 'Home',       path: '/' },
   { id: 'help',       label: 'Solutions',  path: '/solutions' },
   { id: 'technology', label: 'Technology', path: '/technology' },
+  { id: 'industries', label: 'Industries', path: '/industries' },
+  { id: 'company',    label: 'Company',    path: '/company' },
   { id: 'research',   label: 'Research',   path: '/research' },
-  { id: 'contact',    label: 'Contact',    path: '/contact' },
 ];
 
 export const Header: React.FC<HeaderProps> = () => {
@@ -73,18 +76,32 @@ export const Header: React.FC<HeaderProps> = () => {
               src="/drocol-icon.png?v=2"
               alt=""
               aria-hidden="true"
-              className="transition-transform duration-300 group-hover:scale-[1.03]"
-              style={{ height: '40px', width: 'auto', objectFit: 'contain', display: 'block' }}
+              className="transition-transform duration-300 group-hover:scale-[1.03] h-10 max-sm:h-6 w-auto object-contain block"
+              style={{ objectFit: 'contain', display: 'block' }}
               draggable={false}
             />
             <img
               src="/drocol-wordmark-dark.svg?v=1"
               alt="Drocol"
-              className="transition-transform duration-300 group-hover:scale-[1.03]"
-              style={{ height: '26px', width: 'auto', objectFit: 'contain', display: 'block' }}
+              className="transition-transform duration-300 group-hover:scale-[1.03] h-[26px] max-sm:h-4 w-auto object-contain block"
+              style={{ objectFit: 'contain', display: 'block' }}
               draggable={false}
             />
           </Link>
+
+          {/* ── Book a Call button — right, takes you to /contact ── */}
+          <div className="shrink-0 max-sm:scale-[0.6] max-sm:origin-right">
+            <SpecularButton
+              {...specularPrimary}
+              size="sm"
+              to="/contact"
+              ariaLabel="Book a call"
+              className="max-[319px]:hidden"
+            >
+              <Phone size={12} strokeWidth={2.4}/>
+              Book a Call
+            </SpecularButton>
+          </div>
 
           {/* ── Centered pill nav ───────────────────────────── */}
           <PillNav
