@@ -57,11 +57,18 @@ export const ContactPage: React.FC = () => {
       desc: 'For urgent security concerns, incident response and managed clients.',
     },
     {
+      icon: <PhoneCall size={18} strokeWidth={1.8}/>,
+      label: 'Direct Line',
+      value: '+234 813 642 0014',
+      href: 'tel:+2348136420014',
+      desc: 'Mobile line for urgent requests and follow-ups, available 24/7.',
+    },
+    {
       icon: <MapPin size={18} strokeWidth={1.8}/>,
       label: 'Our Location',
-      value: 'Victoria Island, Lagos',
+      value: 'Oniru, Victoria Island, Lagos',
       href: null,
-      desc: '142b Adeola Odeku · Available 24/7, online in any time zone.',
+      desc: 'Available 24/7, online in any time zone.',
     },
   ];
 
@@ -331,8 +338,12 @@ export const ContactPage: React.FC = () => {
                   <a href="tel:+23412804400" className="text-white/85 hover:text-[#F5A623] transition-colors">+234 1 280 4400</a>
                 </div>
                 <div>
+                  <div className="text-white/35 mb-0.5">Mobile / Direct</div>
+                  <a href="tel:+2348136420014" className="text-white/85 hover:text-[#F5A623] transition-colors">+234 813 642 0014</a>
+                </div>
+                <div>
                   <div className="text-white/35 mb-0.5">Office</div>
-                  <div className="text-white/85">142b Adeola Odeku, Victoria Island, Lagos</div>
+                  <div className="text-white/85">Oniru, Victoria Island, Lagos</div>
                 </div>
               </div>
             </div>
@@ -344,10 +355,11 @@ export const ContactPage: React.FC = () => {
               </div>
               <div className="flex gap-2.5">
                 {[
-                  { icon: <Instagram size={15}/>, label: 'Instagram' },
-                  { icon: <Linkedin size={15}/>, label: 'LinkedIn' },
+                  { icon: <Instagram size={15}/>, label: 'Instagram', href: 'https://www.instagram.com/drocol.tech' },
+                  { icon: <Linkedin size={15}/>, label: 'LinkedIn', href: '#' },
                 ].map((s) => (
-                  <a key={s.label} href="#" aria-label={s.label}
+                  <a key={s.label} href={s.href} aria-label={s.label}
+                    {...(s.href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                     className="w-10 h-10 rounded-xl flex items-center justify-center text-white/60 hover:text-white transition-all hover:-translate-y-0.5"
                     style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.08)' }}>
                     {s.icon}

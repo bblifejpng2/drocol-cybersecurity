@@ -241,7 +241,7 @@ export const DemoScheduler: React.FC = () => {
                   style={{ fontSize: 'clamp(7px, 1vw, 12px)', color: 'rgba(245,166,35,0.6)' }}>HQ</div>
                 <div className="font-medium leading-relaxed"
                   style={{ fontSize: 'clamp(10px, 1.3vw, 16px)', color: 'rgba(255,220,160,0.9)' }}>
-                  <span className="hidden sm:inline">142b Adeola Odeku, </span>Victoria Island, Lagos
+                  <span className="hidden sm:inline">Oniru, </span>Victoria Island, Lagos
                 </div>
               </div>
             </div>

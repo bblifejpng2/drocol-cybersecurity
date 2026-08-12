@@ -123,13 +123,14 @@ export const Footer: React.FC = () => {
             {/* Social icons */}
             <div className="flex gap-2">
               {[
-                { icon: <Instagram size={15}/>, label: 'Instagram' },
-                { icon: <Linkedin size={15}/>, label: 'LinkedIn' },
-              ].map(({ icon, label }) => (
+                { icon: <Instagram size={15}/>, label: 'Instagram', href: 'https://www.instagram.com/drocol.tech' },
+                { icon: <Linkedin size={15}/>, label: 'LinkedIn', href: '#' },
+              ].map(({ icon, label, href }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={href}
                   aria-label={label}
+                  {...(href.startsWith('http') ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
                   className="w-8 h-8 rounded-lg border flex items-center justify-center text-white/40 transition-all duration-200"
                   style={{ borderColor: 'rgba(255,255,255,0.08)', background: 'rgba(255,255,255,0.03)' }}
                   onMouseEnter={e => { const el = e.currentTarget; el.style.background = '#E87722'; el.style.borderColor = '#E87722'; el.style.color = '#fff'; }}
