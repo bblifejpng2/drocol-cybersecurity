@@ -1,7 +1,6 @@
 import React from 'react';
 import { PageHero } from '../components/PageHero';
 import { IndustriesSection } from '../components/IndustriesSection';
-import { CtaBand } from '../components/CtaBand';
 
 export const IndustriesPage: React.FC = () => {
   return (
@@ -23,7 +22,6 @@ export const IndustriesPage: React.FC = () => {
         intro="Every industry faces different threats, regulations, and operational realities. Understanding those differences is where good security begins — and where we start every engagement."
       />
       <IndustriesSection />
-      <CtaBand />
     </>
   );
 };

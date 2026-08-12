@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import {
-  Mail, PhoneCall, MapPin, ShieldAlert, Clock, Send,
+  Mail, PhoneCall, MapPin, ShieldAlert, Clock, Send, X,
   MessageSquare, User, Building2, CheckCircle2, Instagram, Linkedin,
 } from 'lucide-react';
 import { SpecularButton, specularPrimary } from '../components/SpecularButton';
@@ -16,6 +17,26 @@ interface MessageData {
 export const ContactPage: React.FC = () => {
   const [sent, setSent] = useState<boolean>(false);
   const [data, setData] = useState<MessageData>({ name: '', email: '', company: '', message: '' });
+  const [showCallPrompt, setShowCallPrompt] = useState<boolean>(false);
+
+  /* Only prompt when the user arrived via a "Let's talk" / "Book a call" CTA
+     (flagged by MarkCallArrival in App.tsx). The flag is NOT cleared on read —
+     React StrictMode double-invokes this effect, so clearing it in the first
+     invocation would make the second see nothing. Instead the flag is cleared
+     exactly when the prompt appears, and the timer restarts cleanly on the
+     second mount. Direct visits to /contact never trigger it. */
+  useEffect(() => {
+    let arrivedViaCta = false;
+    try {
+      arrivedViaCta = sessionStorage.getItem('drocol-call-arrival') === '1';
+    } catch { /* storage unavailable */ }
+    if (!arrivedViaCta) return;
+    const t = setTimeout(() => {
+      try { sessionStorage.removeItem('drocol-call-arrival'); } catch { /* ignore */ }
+      setShowCallPrompt(true);
+    }, 5000);
+    return () => clearTimeout(t);
+  }, []);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -370,6 +391,73 @@ export const ContactPage: React.FC = () => {
           </div>
         </div>
       </div>
+
+      {/* ── Direct-line call prompt — appears 5s after arrival ── */}
+      {createPortal(
+        showCallPrompt && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.25 }}
+            className="fixed inset-0 z-[100] flex items-end sm:items-center justify-center p-4 sm:p-6"
+            style={{ background: 'rgba(0,0,0,0.55)', backdropFilter: 'blur(6px)', WebkitBackdropFilter: 'blur(6px)' }}
+            onClick={() => setShowCallPrompt(false)}
+            role="presentation"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 28, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              onClick={e => e.stopPropagation()}
+              role="dialog"
+              aria-modal="true"
+              aria-label="Call us directly"
+                className="relative w-full max-w-sm rounded-3xl p-6 text-white overflow-hidden"
+                style={{
+                  background: 'linear-gradient(160deg, #1A0B02, #0D0600)',
+                  border: '1px solid rgba(232,119,34,0.35)',
+                  boxShadow: '0 32px 80px rgba(0,0,0,0.6), 0 0 40px rgba(232,119,34,0.18)',
+                }}
+              >
+                <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full pointer-events-none"
+                  style={{ background: 'radial-gradient(ellipse, rgba(232,119,34,0.35) 0%, transparent 70%)', filter: 'blur(30px)' }}/>
+                <button
+                  type="button"
+                  onClick={() => setShowCallPrompt(false)}
+                  aria-label="Dismiss"
+                  className="absolute top-4 right-4 w-8 h-8 rounded-full flex items-center justify-center text-white/50 hover:text-white transition-colors"
+                  style={{ background: 'rgba(255,255,255,0.06)' }}
+                >
+                  <X size={15} strokeWidth={2.2}/>
+                </button>
+
+                <div className="w-12 h-12 rounded-2xl flex items-center justify-center mb-4"
+                  style={{ background: 'rgba(232,119,34,0.15)', color: '#E87722' }}>
+                  <PhoneCall size={22} strokeWidth={2}/>
+                </div>
+                <h3 className="text-lg font-bold leading-snug mb-1">Want to speak to someone now?</h3>
+                <p className="text-sm text-white/50 font-inter leading-relaxed mb-5">
+                  Call our direct line and the team will pick up right away.
+                </p>
+                <a
+                  href="tel:+2348136420014"
+                  className="block rounded-2xl py-3.5 text-center font-bold tracking-wide text-white transition-transform hover:scale-[1.01]"
+                  style={{ fontSize: '15px', background: 'linear-gradient(135deg, #E87722, #F5A623)', boxShadow: '0 8px 28px rgba(232,119,34,0.4)' }}
+                >
+                  Call +234 813 642 0014
+                </a>
+                <button
+                  type="button"
+                  onClick={() => setShowCallPrompt(false)}
+                  className="mt-3 w-full py-2 text-xs text-white/40 hover:text-white/70 font-inter transition-colors"
+                >
+                  Not now
+                </button>
+            </motion.div>
+          </motion.div>
+        ),
+        document.body
+      )}
     </section>
   );
 };

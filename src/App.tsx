@@ -18,6 +18,31 @@ const routeSection: Record<string, string> = {
   '/contact':    'contact',
 };
 
+/**
+ * Marks the session when a CTA link ("Let's talk" / "Book a call" / "Get in touch")
+ * pointing at /contact is clicked. The contact page uses this to show the
+ * direct-line call prompt ~5s after arrival from one of those buttons.
+ */
+const MarkCallArrival = () => {
+  useEffect(() => {
+    const onClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement | null;
+      const a = target?.closest?.('a');
+      if (!a) return;
+      try {
+        const url = new URL(a.getAttribute('href') || '', window.location.href);
+        if (url.pathname === '/contact') {
+          sessionStorage.setItem('drocol-call-arrival', '1');
+        }
+      } catch { /* ignore malformed hrefs */ }
+    };
+    // Capture phase: runs before the router's own click handling / navigation.
+    document.addEventListener('click', onClick, true);
+    return () => document.removeEventListener('click', onClick, true);
+  }, []);
+  return null;
+};
+
 /** Scrolls to the top whenever the route changes (instant, ignoring smooth scroll). */
 const ScrollToTop = () => {
   const { pathname } = useLocation();
@@ -102,6 +127,7 @@ function App() {
   return (
     <>
       <ScrollToTop />
+      <MarkCallArrival />
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />

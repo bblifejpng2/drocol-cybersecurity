@@ -2,7 +2,6 @@ import React from 'react';
 import { PageHero } from '../components/PageHero';
 import { CompanyMission } from '../components/CompanyMission';
 import { Vision } from '../components/Vision';
-import { CtaBand } from '../components/CtaBand';
 
 export const CompanyPage: React.FC = () => {
   return (
@@ -24,7 +23,6 @@ export const CompanyPage: React.FC = () => {
       />
       <CompanyMission />
       <Vision />
-      <CtaBand />
     </>
   );
 };
