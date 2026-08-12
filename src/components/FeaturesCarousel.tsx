@@ -3,13 +3,15 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, ArrowRight, X, Check } from 'lucide-react';
 import { moduleData, ModuleData } from '../lib/data';
 
-// Per-module accent colors and gradients
+// Per-module accent colors and gradients — 7 unique colors
 const moduleAccents = [
-  { color: '#3b82f6', glow: 'rgba(59,130,246,0.25)', bg: 'linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(59,130,246,0.04) 100%)', border: 'rgba(59,130,246,0.2)' },
-  { color: '#8b5cf6', glow: 'rgba(139,92,246,0.25)', bg: 'linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(139,92,246,0.04) 100%)', border: 'rgba(139,92,246,0.2)' },
   { color: '#E87722', glow: 'rgba(232,119,34,0.25)',  bg: 'linear-gradient(135deg, rgba(232,119,34,0.12) 0%, rgba(232,119,34,0.04) 100%)',  border: 'rgba(232,119,34,0.2)' },
-  { color: '#10b981', glow: 'rgba(16,185,129,0.25)', bg: 'linear-gradient(135deg, rgba(16,185,129,0.12) 0%, rgba(16,185,129,0.04) 100%)', border: 'rgba(16,185,129,0.2)' },
-  { color: '#f59e0b', glow: 'rgba(245,158,11,0.25)', bg: 'linear-gradient(135deg, rgba(245,158,11,0.12) 0%, rgba(245,158,11,0.04) 100%)', border: 'rgba(245,158,11,0.2)' },
+  { color: '#ef4444', glow: 'rgba(239,68,68,0.25)',   bg: 'linear-gradient(135deg, rgba(239,68,68,0.12) 0%, rgba(239,68,68,0.04) 100%)',   border: 'rgba(239,68,68,0.2)' },
+  { color: '#8b5cf6', glow: 'rgba(139,92,246,0.25)',  bg: 'linear-gradient(135deg, rgba(139,92,246,0.12) 0%, rgba(139,92,246,0.04) 100%)',  border: 'rgba(139,92,246,0.2)' },
+  { color: '#3b82f6', glow: 'rgba(59,130,246,0.25)',  bg: 'linear-gradient(135deg, rgba(59,130,246,0.12) 0%, rgba(59,130,246,0.04) 100%)',  border: 'rgba(59,130,246,0.2)' },
+  { color: '#10b981', glow: 'rgba(16,185,129,0.25)',  bg: 'linear-gradient(135deg, rgba(16,185,129,0.12) 0%, rgba(16,185,129,0.04) 100%)',  border: 'rgba(16,185,129,0.2)' },
+  { color: '#f59e0b', glow: 'rgba(245,158,11,0.25)',  bg: 'linear-gradient(135deg, rgba(245,158,11,0.12) 0%, rgba(245,158,11,0.04) 100%)',  border: 'rgba(245,158,11,0.2)' },
+  { color: '#ec4899', glow: 'rgba(236,72,153,0.25)',  bg: 'linear-gradient(135deg, rgba(236,72,153,0.12) 0%, rgba(236,72,153,0.04) 100%)',  border: 'rgba(236,72,153,0.2)' },
 ];
 
 const GAP = 20; // 4 * 4px = 16px on mobile, 5 * 4px = 20px on desktop — use 20 as safe value
@@ -101,15 +103,15 @@ export const FeaturesCarousel: React.FC = () => {
           <div>
             <div className="inline-flex items-center gap-2 mb-4 px-3 py-1.5 rounded-full border border-[#E87722]/20 bg-[#E87722]/[0.06]">
               <span className="w-1.5 h-1.5 rounded-full bg-[#E87722]"/>
-              <span className="text-[11px] font-inter font-semibold tracking-widest text-[#E87722] uppercase">Core Capabilities</span>
+              <span className="text-[11px] font-inter font-semibold tracking-widest text-[#E87722] uppercase">Security Modules</span>
             </div>
             <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold tracking-[-0.03em] text-white leading-[1.0]">
-              Everything your<br/>
-              <span className="text-white/40">security team needs.</span>
+              Essential tools your<br/>
+              <span className="text-white/40">security team relies on.</span>
             </h2>
           </div>
           <p className="text-white/40 max-w-sm font-inter text-sm leading-relaxed md:text-right">
-            Five integrated modules that replace a dozen point solutions — built for the realities of Nigerian enterprise infrastructure.
+            Seven integrated modules that replace a dozen point solutions — built for the realities of Nigerian enterprise infrastructure.
           </p>
         </div>
 

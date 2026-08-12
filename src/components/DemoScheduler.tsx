@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Calendar, Clock, User, Mail, Building, CheckCircle, ArrowLeft, ArrowRight, Zap, Rocket, Briefcase, Building2, Globe, Flag, HandHeart, GraduationCap, HeartPulse } from 'lucide-react';
+import { Calendar, Clock, User, Mail, Building, CheckCircle, ArrowLeft, ArrowRight, Rocket, Briefcase, Building2, Globe, Flag, HandHeart, GraduationCap, HeartPulse } from 'lucide-react';
 
 interface ContactData {
   orgType: string;
@@ -97,18 +97,10 @@ export const DemoScheduler: React.FC = () => {
   };
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const { id, value } = e.target;
-    setContactData((prev) => ({ ...prev, [id]: value }));
+    const { name, value } = e.target;
+    setContactData((prev) => ({ ...prev, [name]: value }));
   };
 
-  const handleAutofill = () => {
-    setContactData((prev) => ({
-      ...prev,
-      name: 'Chinedu Okafor',
-      email: 'c.okafor@lagosfinance.ng',
-      company: 'Lagos Finance Group',
-    }));
-  };
 
   const handleNext = () => {
     if (currentStep < totalSteps - 1) {
@@ -131,42 +123,146 @@ export const DemoScheduler: React.FC = () => {
   };
 
   return (
-    <section id="contact" className="bg-[#0B0B0B] py-16 md:py-28 relative">
+    <section id="contact" className="relative py-16 md:py-28 overflow-hidden" style={{ background: '#0D0600' }}>
+
+      {/* ══ Rich orange background ══════════════════════════════════ */}
+      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
+
+        {/* Layer 1 — deep orange-to-black base gradient */}
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse 120% 80% at 0% 50%, rgba(180,72,0,0.45) 0%, transparent 55%), radial-gradient(ellipse 80% 100% at 100% 100%, rgba(232,119,34,0.2) 0%, transparent 55%)',
+        }}/>
+
+        {/* Layer 2 — large primary orange orb top-left */}
+        <div className="absolute -top-40 -left-40 w-[900px] h-[700px] rounded-full"
+          style={{ background: 'radial-gradient(ellipse, rgba(232,119,34,0.35) 0%, transparent 60%)', filter: 'blur(90px)' }}/>
+
+        {/* Layer 3 — secondary amber orb bottom-right */}
+        <div className="absolute -bottom-40 -right-20 w-[700px] h-[500px] rounded-full"
+          style={{ background: 'radial-gradient(ellipse, rgba(245,166,35,0.22) 0%, transparent 65%)', filter: 'blur(100px)' }}/>
+
+        {/* Layer 4 — center warm glow to lift the midfield */}
+        <div className="absolute top-1/2 left-1/3 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full"
+          style={{ background: 'radial-gradient(ellipse, rgba(232,119,34,0.12) 0%, transparent 70%)', filter: 'blur(80px)' }}/>
+
+        {/* Layer 5 — mesh / diagonal grid lines */}
+        <div className="absolute inset-0 opacity-[0.07]" style={{
+          backgroundImage: 'linear-gradient(rgba(232,119,34,0.5) 1px, transparent 1px), linear-gradient(90deg, rgba(232,119,34,0.5) 1px, transparent 1px)',
+          backgroundSize: '72px 72px',
+        }}/>
+
+        {/* Layer 6 — fine diagonal hairlines */}
+        <div className="absolute inset-0 opacity-[0.04]" style={{
+          backgroundImage: 'repeating-linear-gradient(135deg, rgba(232,119,34,0.6) 0px, rgba(232,119,34,0.6) 1px, transparent 1px, transparent 28px)',
+        }}/>
+
+        {/* Layer 7 — noise grain */}
+        <div className="absolute inset-0 opacity-[0.06]" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")`,
+          backgroundSize: '200px',
+        }}/>
+
+        {/* Layer 8 — animated shimmer sweep */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-y-0 w-[300px] opacity-[0.08] animate-[shimmer_6s_ease-in-out_infinite]"
+            style={{ background: 'linear-gradient(90deg, transparent, rgba(255,180,60,0.4), transparent)', left: '-300px' }}/>
+        </div>
+
+        {/* Top separator */}
+        <div className="absolute top-0 inset-x-0 h-[2px]"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.6) 30%, rgba(245,166,35,0.8) 50%, rgba(232,119,34,0.6) 70%, transparent)' }}/>
+
+        {/* Bottom separator */}
+        <div className="absolute bottom-0 inset-x-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.3) 50%, transparent)' }}/>
+      </div>
+
+      <style>{`
+        @keyframes shimmer {
+          0%   { left: -300px; }
+          50%  { left: 110%; }
+          100% { left: 110%; }
+        }
+      `}</style>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="grid grid-cols-2 gap-3 sm:gap-8 lg:gap-16 items-start">
           
           {/* Left Column: Contact Copy */}
-          <div>
-            <div className="section-eyebrow text-[#E87722] font-semibold text-xs tracking-widest uppercase mb-3">
+          <div className="min-w-0">
+            <div className="font-mono font-semibold uppercase tracking-widest mb-2"
+              style={{ fontSize: 'clamp(8px, 1.5vw, 12px)', color: '#F5A623' }}>
               Get in Touch
             </div>
-            <h2 className="text-3xl sm:text-4xl md:text-6xl font-bold tracking-tight text-white leading-[1.05] mb-6">
-              Let's secure what<br/><span className="italic text-[#E87722]">you've built.</span>
+            <h2 className="font-bold tracking-tight leading-[1.05] mb-3 sm:mb-6"
+              style={{
+                fontSize: 'clamp(16px, 3.5vw, 56px)',
+                color: '#fff',
+                textShadow: '0 0 60px rgba(232,119,34,0.4)',
+              }}>
+              Let's build{' '}
+              <span className="italic" style={{
+                background: 'linear-gradient(90deg, #F5A623, #FFD580)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}>confidence</span>{' '}
+              together.
             </h2>
-            <p className="text-neutral-400 font-inter leading-relaxed mb-8 md:mb-10 max-w-md text-sm md:text-base">
-              Book a 30-minute demo with our Nigerian security engineers. We'll show you the top 3 attack paths in your environment — free.
+
+            {/* Body — hidden on mobile to save space */}
+            <p className="hidden sm:block font-inter leading-relaxed mb-8 md:mb-10 max-w-md"
+              style={{ fontSize: 'clamp(12px, 1.4vw, 16px)', color: 'rgba(255,220,160,0.75)' }}>
+              Whether you're preparing for compliance, strengthening your security posture, or evaluating cyber risk — book a conversation with our security team. No pressure, no jargon.
             </p>
-            
-            <div className="space-y-4 font-inter">
-              <div className="contact-info-item border-b border-white/5 pb-4">
-                <div className="contact-info-label text-xs font-mono text-neutral-500 uppercase tracking-wider mb-1">Email</div>
-                <a href="mailto:hello@drocol.ng" className="contact-info-value text-white text-base font-medium hover:text-[#E87722] transition-colors">hello@drocol.ng</a>
+
+            {/* Contact details */}
+            <div className="space-y-2 sm:space-y-4 font-inter">
+              <div className="border-b pb-2 sm:pb-4" style={{ borderColor: 'rgba(232,119,34,0.2)' }}>
+                <div className="font-mono uppercase tracking-wider mb-0.5"
+                  style={{ fontSize: 'clamp(7px, 1vw, 12px)', color: 'rgba(245,166,35,0.6)' }}>Email</div>
+                <a href="mailto:hello@drocol.ng" className="font-medium transition-colors block truncate"
+                  style={{ fontSize: 'clamp(10px, 1.3vw, 16px)', color: 'rgba(255,220,160,0.9)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#F5A623')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,220,160,0.9)')}>
+                  hello@drocol.ng
+                </a>
               </div>
-              <div className="contact-info-item border-b border-white/5 pb-4">
-                <div className="contact-info-label text-xs font-mono text-neutral-500 uppercase tracking-wider mb-1">Phone (Lagos)</div>
-                <a href="tel:+23412804400" className="contact-info-value text-white text-base font-medium hover:text-[#E87722] transition-colors">+234 1 280 4400</a>
+              <div className="border-b pb-2 sm:pb-4" style={{ borderColor: 'rgba(232,119,34,0.2)' }}>
+                <div className="font-mono uppercase tracking-wider mb-0.5"
+                  style={{ fontSize: 'clamp(7px, 1vw, 12px)', color: 'rgba(245,166,35,0.6)' }}>Phone</div>
+                <a href="tel:+23412804400" className="font-medium transition-colors block"
+                  style={{ fontSize: 'clamp(10px, 1.3vw, 16px)', color: 'rgba(255,220,160,0.9)' }}
+                  onMouseEnter={e => (e.currentTarget.style.color = '#F5A623')}
+                  onMouseLeave={e => (e.currentTarget.style.color = 'rgba(255,220,160,0.9)')}>
+                  +234 1 280 4400
+                </a>
               </div>
-              <div className="contact-info-item">
-                <div className="contact-info-label text-xs font-mono text-neutral-500 uppercase tracking-wider mb-1">HQ</div>
-                <div className="contact-info-value text-white text-base font-medium leading-relaxed">
-                  142b Adeola Odeku, Victoria Island, Lagos
+              <div>
+                <div className="font-mono uppercase tracking-wider mb-0.5"
+                  style={{ fontSize: 'clamp(7px, 1vw, 12px)', color: 'rgba(245,166,35,0.6)' }}>HQ</div>
+                <div className="font-medium leading-relaxed"
+                  style={{ fontSize: 'clamp(10px, 1.3vw, 16px)', color: 'rgba(255,220,160,0.9)' }}>
+                  <span className="hidden sm:inline">142b Adeola Odeku, </span>Victoria Island, Lagos
                 </div>
               </div>
             </div>
           </div>
 
           {/* Right Column: Interactive Multi-Step Form */}
-          <div className="bg-white/3 border border-white/8 rounded-3xl p-6 md:p-8 shadow-2xl relative overflow-hidden backdrop-blur-md">
+          <div className="rounded-3xl p-6 md:p-8 shadow-2xl relative"
+            style={{
+              background: 'rgba(15,5,0,0.65)',
+              border: '1px solid rgba(232,119,34,0.3)',
+              backdropFilter: 'blur(24px)',
+              WebkitBackdropFilter: 'blur(24px)',
+              boxShadow: '0 0 0 1px rgba(232,119,34,0.15), 0 32px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(232,119,34,0.2)',
+            }}
+          >
+            {/* Inner top-edge orange glow */}
+            <div className="absolute top-0 inset-x-0 h-[2px] rounded-t-3xl pointer-events-none"
+              style={{ background: 'linear-gradient(90deg, transparent, rgba(232,119,34,0.9) 50%, transparent)' }}/>
+            {/* Corner amber bloom inside panel */}
+            <div className="absolute -top-20 -right-20 w-[300px] h-[200px] rounded-full pointer-events-none"
+              style={{ background: 'radial-gradient(ellipse, rgba(232,119,34,0.12) 0%, transparent 70%)', filter: 'blur(40px)' }}/>
             
             {/* Step Indicators */}
             <div className="step-indicator flex gap-1.5 mb-8">
@@ -485,58 +581,54 @@ export const DemoScheduler: React.FC = () => {
                       We'll send a confirmation and calendar invite.
                     </div>
 
-                    {/* Autofill Button */}
-                    <button 
-                      type="button" 
-                      onClick={handleAutofill}
-                      className="autofill-btn flex items-center gap-2 bg-[#E87722]/10 border border-[#E87722]/30 text-[#E87722] px-3.5 py-1.5 rounded-lg text-xs font-semibold hover:bg-[#E87722]/20 transition-all"
-                    >
-                      <Zap size={12} />
-                      Simulate Autofill
-                    </button>
-
                     <div className="grid sm:grid-cols-2 gap-4">
                       <div>
-                        <label className="form-label text-xs font-mono text-neutral-400 uppercase tracking-wider mb-2 block">
+                        <label htmlFor="name" className="form-label text-xs font-mono text-neutral-400 uppercase tracking-wider mb-2 block">
                           Full Name
                         </label>
-                        <input 
-                          type="text" 
+                        <input
+                          type="text"
                           id="name"
+                          name="name"
+                          autoComplete="name"
                           value={contactData.name}
                           onChange={handleInputChange}
-                          className="form-input bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#E87722]"
-                          placeholder="Chinedu Okafor" 
-                          required 
+                          className="w-full rounded-xl px-4 py-3 text-white text-sm bg-white/5 border border-white/10 focus:outline-none focus:border-[#E87722] focus:bg-white/[0.07] focus:ring-2 focus:ring-[#E87722]/20 transition-all placeholder:text-white/30 cursor-text"
+                          placeholder="Your full name"
+                          required
                         />
                       </div>
                       <div>
-                        <label className="form-label text-xs font-mono text-neutral-400 uppercase tracking-wider mb-2 block">
+                        <label htmlFor="email" className="form-label text-xs font-mono text-neutral-400 uppercase tracking-wider mb-2 block">
                           Work Email
                         </label>
-                        <input 
-                          type="email" 
+                        <input
+                          type="email"
                           id="email"
+                          name="email"
+                          autoComplete="email"
                           value={contactData.email}
                           onChange={handleInputChange}
-                          className="form-input bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#E87722]"
-                          placeholder="you@company.ng" 
-                          required 
+                          className="w-full rounded-xl px-4 py-3 text-white text-sm bg-white/5 border border-white/10 focus:outline-none focus:border-[#E87722] focus:bg-white/[0.07] focus:ring-2 focus:ring-[#E87722]/20 transition-all placeholder:text-white/30 cursor-text"
+                          placeholder="you@company.ng"
+                          required
                         />
                       </div>
                     </div>
                     <div>
-                      <label className="form-label text-xs font-mono text-neutral-400 uppercase tracking-wider mb-2 block">
+                      <label htmlFor="company" className="form-label text-xs font-mono text-neutral-400 uppercase tracking-wider mb-2 block">
                         Company Name
                       </label>
-                      <input 
-                        type="text" 
+                      <input
+                        type="text"
                         id="company"
+                        name="organization"
+                        autoComplete="organization"
                         value={contactData.company}
                         onChange={handleInputChange}
-                        className="form-input bg-neutral-950 border border-neutral-800 rounded-xl px-4 py-3 text-white text-sm focus:outline-none focus:border-[#E87722]"
-                        placeholder="e.g. Lagos Finance Group" 
-                        required 
+                        className="w-full rounded-xl px-4 py-3 text-white text-sm bg-white/5 border border-white/10 focus:outline-none focus:border-[#E87722] focus:bg-white/[0.07] focus:ring-2 focus:ring-[#E87722]/20 transition-all placeholder:text-white/30 cursor-text"
+                        placeholder="Your company name"
+                        required
                       />
                     </div>
                   </motion.div>

@@ -1,40 +1,55 @@
 import { useState, useEffect } from 'react';
+import { Routes, Route, Outlet, Navigate, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
-import { Hero } from './components/Hero';
-import { ThreatDashboard } from './components/ThreatDashboard';
-import { PartnerMarquee } from './components/PartnerMarquee';
-import { PageTransition } from './components/PageTransition';
-import { FeaturesCarousel } from './components/FeaturesCarousel';
-import { AttackPathStack } from './components/AttackPathStack';
-import { LiveScannerTerminal } from './components/LiveScannerTerminal';
-import { Industries } from './components/Industries';
-import { Integrations } from './components/Integrations';
-import { DemoScheduler } from './components/DemoScheduler';
 import { Footer } from './components/Footer';
-import { SectionNav } from './components/SectionNav';
+import { PageTransition } from './components/PageTransition';
+import { HomePage } from './pages/HomePage';
+import { SolutionsPage } from './pages/SolutionsPage';
+import { TechnologyPage } from './pages/TechnologyPage';
+import { ResearchPage } from './pages/ResearchPage';
+import { ContactPage } from './pages/ContactPage';
 
-function App() {
+// Map each route to the nav key it should light up
+const routeSection: Record<string, string> = {
+  '/solutions':  'help',
+  '/technology': 'technology',
+  '/research':   'research',
+  '/contact':    'contact',
+};
+
+/** Scrolls to the top whenever the route changes (instant, ignoring smooth scroll). */
+const ScrollToTop = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'instant' as ScrollBehavior });
+  }, [pathname]);
+  return null;
+};
+
+const Layout = () => {
+  const { pathname } = useLocation();
+  const isHome = pathname === '/';
   const [activeSection, setActiveSection] = useState<string>('home');
-  const [loading, setLoading] = useState(true);
 
   // Site is intentionally dark-only — no theme toggle needed
   const theme: 'light' | 'dark' = 'dark';
   const toggleTheme = () => {};
 
-  // Apply dark theme to document root permanently
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', 'dark');
   }, []);
 
-  // Page load animation
+  // Active nav: sub-pages always map to their own key; home uses the scroll-spy
   useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 5000);
-    return () => clearTimeout(timer);
-  }, []);
+    setActiveSection(routeSection[pathname] ?? 'home');
+  }, [pathname]);
 
+  // Scroll-spy — only meaningful on the single-page home
   useEffect(() => {
-    const sectionIds = ['home', 'threats', 'features', 'attack-path', 'integrations', 'contact'];
-    
+    if (!isHome) return;
+
+    const sectionIds = ['home', 'why', 'approach', 'industries', 'insights', 'vision'];
+
     let ticking = false;
     const handleScroll = () => {
       if (ticking) return;
@@ -67,34 +82,44 @@ function App() {
     handleScroll();
 
     return () => window.removeEventListener('scroll', handleScroll);
+  }, [isHome]);
+
+  return (
+    <div className="min-h-screen bg-[#080808] text-white selection:bg-[#E87722]/30 selection:text-[#E87722] antialiased overflow-x-hidden">
+      <Header activeSection={activeSection} theme={theme} onToggleTheme={toggleTheme} />
+
+      <main>
+        <Outlet />
+      </main>
+
+      <Footer />
+    </div>
+  );
+};
+
+function App() {
+  const [loading, setLoading] = useState(true);
+
+  // Page load animation
+  useEffect(() => {
+    const timer = setTimeout(() => setLoading(false), 5000);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
     <>
       {loading && <PageTransition />}
-      <div className="min-h-screen bg-[#080808] text-white selection:bg-[#E87722]/30 selection:text-[#E87722] antialiased overflow-x-hidden">
-        {/* Scroll Navigation Controls */}
-        <SectionNav activeSection={activeSection} onSectionChange={setActiveSection} />
-
-        {/* Main Sticky Header */}
-        <Header activeSection={activeSection} theme={theme} onToggleTheme={toggleTheme} />
-
-        {/* Main Sections */}
-        <main>
-          <Hero />
-          <ThreatDashboard />
-          <PartnerMarquee />
-          <FeaturesCarousel />
-          <AttackPathStack />
-          <LiveScannerTerminal />
-          <Industries />
-          <Integrations />
-          <DemoScheduler />
-        </main>
-
-        {/* Footer */}
-        <Footer />
-      </div>
+      <ScrollToTop />
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/solutions" element={<SolutionsPage />} />
+          <Route path="/technology" element={<TechnologyPage />} />
+          <Route path="/research" element={<ResearchPage />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Route>
+      </Routes>
     </>
   );
 }

@@ -188,21 +188,22 @@ export interface ModuleData {
 
 export const moduleData: ModuleData[] = [
   {
-    number: '01 / 05',
-    title: 'Cloud Security Posture',
-    description: 'Discover assets across AWS, Azure, and GCP. Map identities, permissions, secrets, and sensitive data. Detect misconfigurations before attackers do.',
+    number: '01 / 07',
+    title: 'InjectionPrompt SOC',
+    description: 'Real-time injection detection and blocking across web, API, mobile, email, and cloud. Protects against SQLi, NoSQLi, XSS, command injection, and more.',
     features: [
-      'Multi-cloud asset discovery and inventory',
-      'Identity and permission mapping',
-      'Secret and credential scanning',
-      'Misconfiguration detection (CIS benchmarks)',
-      'Compliance benchmarking (CBN, PCI DSS, ISO)',
-      'Real-time drift detection and alerts'
+      'SQL injection detection and blocking',
+      'NoSQL injection prevention',
+      'Cross-Site Scripting (XSS) defense',
+      'Command injection protection',
+      'Email header injection sanitization',
+      'Template injection (SSTI) sandboxing',
+      'Cloud infrastructure injection monitoring'
     ],
-    imageUrl: 'https://image.qwenlm.ai/public_source/9253bf66-aa18-4aa0-b6fe-f19fb1fbbfb0/1e068554f-c479-46e8-9679-b98618454a4c.png'
+    imageUrl: '/module-injection.svg'
   },
   {
-    number: '02 / 05',
+    number: '02 / 07',
     title: 'Web & API Pen Testing',
     description: 'Continuous testing for broken access control, IDOR, XSS, session weaknesses, and business logic flaws. Find what scanners miss.',
     features: [
@@ -216,7 +217,7 @@ export const moduleData: ModuleData[] = [
     imageUrl: 'https://image.qwenlm.ai/public_source/9253bf66-aa18-4aa0-b6fe-f19fb1fbbfb0/17be7d7e9-4ded-4e81-ba75-e47dfb0c3af6.png'
   },
   {
-    number: '03 / 05',
+    number: '03 / 07',
     title: 'Attack Path Analysis',
     description: 'Instead of hundreds of isolated alerts, we link vulnerabilities into complete attack paths — so you fix what actually matters.',
     features: [
@@ -230,7 +231,21 @@ export const moduleData: ModuleData[] = [
     imageUrl: 'https://image.qwenlm.ai/public_source/9253bf66-aa18-4aa0-b6fe-f19fb1fbbfb0/14c996218-ff95-4089-b30a-41d5a7a07430.png'
   },
   {
-    number: '04 / 05',
+    number: '04 / 07',
+    title: 'Cloud Security Posture',
+    description: 'Discover assets across AWS, Azure, and GCP. Map identities, permissions, secrets, and sensitive data. Detect misconfigurations before attackers do.',
+    features: [
+      'Multi-cloud asset discovery and inventory',
+      'Identity and permission mapping',
+      'Secret and credential scanning',
+      'Misconfiguration detection (CIS benchmarks)',
+      'Compliance benchmarking (CBN, PCI DSS, ISO)',
+      'Real-time drift detection and alerts'
+    ],
+    imageUrl: 'https://image.qwenlm.ai/public_source/9253bf66-aa18-4aa0-b6fe-f19fb1fbbfb0/1e068554f-c479-46e8-9679-b98618454a4c.png'
+  },
+  {
+    number: '05 / 07',
     title: 'Auto-Remediation',
     description: 'Proof of exploitation, step-by-step guidance, draft PRs, and runbooks. We integrate with your dev workflow — not just report issues.',
     features: [
@@ -244,7 +259,22 @@ export const moduleData: ModuleData[] = [
     imageUrl: 'https://image.qwenlm.ai/public_source/9253bf66-aa18-4aa0-b6fe-f19fb1fbbfb0/1d9d75a9b-233b-4261-95aa-08f2edcf7a7a.png'
   },
   {
-    number: '05 / 05',
+    number: '06 / 07',
+    title: 'Compliance & Governance',
+    description: 'Automated compliance monitoring for CBN, NDPR, PCI DSS, ISO 27001, and SOC 2. Generate audit-ready reports with a single click.',
+    features: [
+      'CBN compliance monitoring',
+      'NDPR data protection enforcement',
+      'PCI DSS readiness scanning',
+      'ISO 27001 gap analysis',
+      'SOC 2 report generation',
+      'Automated audit trail logging',
+      'Regulatory change tracking'
+    ],
+    imageUrl: '/module-compliance.svg'
+  },
+  {
+    number: '07 / 07',
     title: 'Developer-Ready APIs',
     description: 'RESTful APIs, SDKs for Python, Node, Go, and Java. Ship security into your product in an afternoon, not a quarter.',
     features: [

@@ -1,46 +1,45 @@
 import React, { useState } from 'react';
-import { Twitter, Linkedin, Github, ArrowRight } from 'lucide-react';
+import { Link, useLocation } from 'react-router-dom';
+import { Instagram, Linkedin, ArrowRight } from 'lucide-react';
 
 export const Footer: React.FC = () => {
   const [isSpinning, setIsSpinning] = useState(false);
+  const { pathname } = useLocation();
 
-  const handleLogoClick = (e: React.MouseEvent) => {
-    e.preventDefault();
+  // Hide the top CTA banner on the sub-pages that already have their own CTA band
+  const showCtaBanner = !['/solutions', '/technology', '/research'].includes(pathname);
+
+  const handleLogoClick = () => {
     setIsSpinning(true);
-    document.getElementById('home')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setTimeout(() => setIsSpinning(false), 900);
-  };
-
-  const navScroll = (id: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   };
 
   const cols = [
     {
-      heading: 'Product',
+      heading: 'Solutions',
       links: [
-        { label: 'Cloud Security',  id: 'features' },
-        { label: 'Pen Testing',     id: 'features' },
-        { label: 'Attack Paths',    id: 'attack-path' },
-        { label: 'Integrations',    id: 'integrations' },
+        { label: 'Assess',  to: '/solutions' },
+        { label: 'Advise',  to: '/solutions' },
+        { label: 'Train',   to: '/solutions' },
+        { label: 'Build',   to: '/technology' },
       ],
     },
     {
       heading: 'Company',
       links: [
-        { label: 'Careers',  id: '' },
-        { label: 'Blog',     id: '' },
-        { label: 'Contact',  id: 'contact' },
+        { label: 'Research', to: '/research' },
+        { label: 'Insights', to: '/' },
+        { label: 'About',    to: '/' },
+        { label: 'Contact',  to: '/contact' },
       ],
     },
     {
       heading: 'Legal',
       links: [
-        { label: 'Privacy Policy',       id: '' },
-        { label: 'Terms of Service',     id: '' },
-        { label: 'Security Disclosure',  id: '' },
-        { label: 'NDPR Compliance',      id: '' },
+        { label: 'Privacy Policy',      to: '' },
+        { label: 'Terms of Service',    to: '' },
+        { label: 'Security Disclosure', to: '' },
+        { label: 'NDPR Compliance',     to: '' },
       ],
     },
   ];
@@ -48,87 +47,84 @@ export const Footer: React.FC = () => {
   return (
     <footer className="relative bg-[#060606] overflow-hidden">
 
-      {/* ── Background ─────────────────────────────────── */}
+      {/* ── Background: darkest + angled gradient stripes + amber edge ── */}
       <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {/* Noise */}
-        <div className="absolute inset-0 opacity-[0.025]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat', backgroundSize: '128px',
+        {/* Very subtle angled ruled lines */}
+        <div className="absolute inset-0 opacity-[0.03]" style={{
+          backgroundImage: 'repeating-linear-gradient(160deg, rgba(255,255,255,0.2) 0px, rgba(255,255,255,0.2) 1px, transparent 1px, transparent 40px)',
         }}/>
-        {/* Top separator with orange accent */}
-        <div className="absolute top-0 inset-x-0 h-px"
-          style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06) 30%, rgba(232,119,34,0.2) 50%, rgba(255,255,255,0.06) 70%, transparent)' }}/>
-        {/* Subtle bottom-center glow */}
-        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[200px] opacity-[0.04]"
+        {/* Top-center orange accent glow */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[200px] opacity-[0.08]"
           style={{ background: 'radial-gradient(ellipse, #E87722 0%, transparent 70%)', filter: 'blur(60px)' }}/>
+        {/* Bottom-center faint glow */}
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[500px] h-[150px] opacity-[0.05]"
+          style={{ background: 'radial-gradient(ellipse, #E87722 0%, transparent 70%)', filter: 'blur(50px)' }}/>
+        {/* Top separator */}
+        <div className="absolute top-0 inset-x-0 h-px"
+          style={{ background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.06) 30%, rgba(232,119,34,0.25) 50%, rgba(255,255,255,0.06) 70%, transparent)' }}/>
       </div>
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
 
-        {/* ── Top CTA Banner ─────────────────────────────── */}
+        {/* ── Top CTA Banner (hidden on Solutions / Technology / Research) ── */}
+        {showCtaBanner && (
         <div className="py-14 md:py-20 border-b" style={{ borderColor: 'rgba(255,255,255,0.06)' }}>
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-8">
             <div className="max-w-xl">
               <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-[-0.03em] text-white leading-[1.05] mb-3">
-                Ready to secure your<br/>
-                <span className="text-transparent bg-clip-text italic font-light"
+                Let's build <span className="text-transparent bg-clip-text italic font-light"
                   style={{ backgroundImage: 'linear-gradient(90deg, #E87722, #F5A623)' }}>
-                  enterprise stack?
-                </span>
+                  confidence
+                </span> together.
               </h2>
               <p className="text-white/40 font-inter text-sm leading-relaxed">
-                Join 250+ Nigerian organizations that trust Drocol to protect their most critical infrastructure.
+                Whether you're preparing for compliance, strengthening your security posture, or building the next generation of digital services — we're here to help.
               </p>
             </div>
             <div className="flex flex-col sm:flex-row gap-3 shrink-0">
-              <a
-                href="#contact"
-                onClick={navScroll('contact')}
+              <Link
+                to="/contact"
                 className="group inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300"
                 style={{ background: 'linear-gradient(135deg, #E87722 0%, #F5A623 100%)', boxShadow: '0 0 0 1px rgba(232,119,34,0.3), 0 8px 24px rgba(232,119,34,0.2)' }}
               >
-                Book a Demo
+                Let's talk
                 <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
-              </a>
-              <a
-                href="#features"
-                onClick={navScroll('features')}
-                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white/70 border border-white/10 bg-white/[0.03] hover:bg-white/[0.07] hover:text-white transition-all duration-300"
-              >
-                Explore Features
-              </a>
+              </Link>
+              <Link to="/solutions" className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white/70 border border-white/10 bg-white/[0.03] hover:bg-white/[0.07] hover:text-white transition-all duration-300">
+                Explore Solutions
+              </Link>
             </div>
           </div>
         </div>
+        )}
 
         {/* ── Main Footer Grid ────────────────────────────── */}
         <div className="py-12 md:py-16 grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-10">
 
           {/* Brand column */}
           <div className="col-span-2 md:col-span-1">
-            <a
-              href="#home"
+            <Link
+              to="/"
               onClick={handleLogoClick}
               className="inline-flex items-center mb-6 select-none no-underline"
               style={{ gap: '0.4cm' }}
               aria-label="Drocol Technologies Limited"
             >
-              <img src="/drocol-icon.svg" alt="" aria-hidden="true"
+              <img src="/drocol-icon-light.png?v=1" alt="" aria-hidden="true"
                 style={{ height: '36px', width: 'auto', objectFit: 'contain', display: 'block' }}
                 draggable={false}/>
               <img src="/drocol-wordmark.svg" alt="Drocol"
                 style={{ height: '26px', width: 'auto', objectFit: 'contain', display: 'block' }}
                 draggable={false}/>
-            </a>
+            </Link>
             <p className="text-white/35 font-inter text-sm leading-relaxed mb-6">
-              Enterprise cybersecurity,<br/>built in Lagos for Africa.
+              Better security creates stronger organizations. Stronger organizations create a more secure digital future.
             </p>
             {/* Social icons */}
             <div className="flex gap-2">
               {[
-                { icon: <Twitter size={15}/>, label: 'Twitter' },
+                { icon: <Instagram size={15}/>, label: 'Instagram' },
                 { icon: <Linkedin size={15}/>, label: 'LinkedIn' },
-                { icon: <Github size={15}/>, label: 'GitHub' },
               ].map(({ icon, label }) => (
                 <a
                   key={label}
@@ -152,13 +148,21 @@ export const Footer: React.FC = () => {
               <ul className="space-y-3">
                 {col.links.map(link => (
                   <li key={link.label}>
-                    <a
-                      href={link.id ? `#${link.id}` : '#'}
-                      onClick={link.id ? navScroll(link.id) : undefined}
-                      className="text-sm text-white/40 font-inter transition-colors duration-150 hover:text-white"
-                    >
-                      {link.label}
-                    </a>
+                    {link.to ? (
+                      <Link
+                        to={link.to}
+                        className="text-sm text-white/40 font-inter transition-colors duration-150 hover:text-white"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href="#"
+                        className="text-sm text-white/40 font-inter transition-colors duration-150 hover:text-white"
+                      >
+                        {link.label}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>

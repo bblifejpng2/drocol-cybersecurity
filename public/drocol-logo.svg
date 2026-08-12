@@ -12,7 +12,7 @@
   <!-- NO background rect — transparent so it sits on any surface -->
 
   <g fill="none" stroke="#f8f8f8" stroke-linecap="round" stroke-linejoin="round" filter="url(#softGlow)">
-    <path d="M72 184 L177 123 L282 184 L177 246 Z" stroke-width="19"/>
+    <path d="M72 184 L177 123 L282 184 L177 246 Z" stroke-width="18"/>
     <path d="M72 236 L177 297 L282 236" stroke-width="18"/>
     <path d="M72 286 L177 347 L282 286" stroke-width="18"/>
   </g>
@@ -25,7 +25,7 @@
     <path d="M500 280 V209 C500 185 514 172 537 172 H552"/>
     <path d="M625 203 H599 C575 203 561 218 561 244 C561 267 575 280 599 280 H625 C649 280 663 267 663 244 C663 218 649 203 625 203 Z"/>
     <path d="M751 205 H723 C699 205 685 219 685 243 C685 267 699 280 723 280 H751"/>
-    <path d="M831 203 H805 C781 203 767 218 767 244 C767 267 781 280 805 280 H831 C855 280 869 267 869 244 C869 218 855 203 831 203 Z"/>
+    <rect x="767" y="203" width="102" height="77" rx="14"/>
     <path d="M905 167 V280"/>
   </g>
 

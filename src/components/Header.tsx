@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ArrowRight, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -9,18 +10,19 @@ interface HeaderProps {
 }
 
 const navLinks = [
-  { id: 'home',        label: 'Home' },
-  { id: 'threats',     label: 'Threats' },
-  { id: 'features',    label: 'Features' },
-  { id: 'attack-path', label: 'How It Works' },
-  { id: 'integrations',label: 'Integrations' },
-  { id: 'contact',     label: 'Contact' },
+  { id: 'home',        label: 'Home',       path: '/' },
+  { id: 'help',        label: 'Solutions',  path: '/solutions' },
+  { id: 'technology',  label: 'Technology', path: '/technology' },
+  { id: 'research',    label: 'Research',   path: '/research' },
+  { id: 'contact',     label: 'Contact',    path: '/contact' },
 ];
 
 export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onToggleTheme }) => {
   const [isOpen, setIsOpen]       = useState(false);
   const [scrolled, setScrolled]   = useState(false);
   const menuRef                   = useRef<HTMLDivElement>(null);
+  const navigate                  = useNavigate();
+  const { pathname }              = useLocation();
 
   /* Scroll shadow */
   useEffect(() => {
@@ -36,9 +38,14 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onToggleTh
     return () => window.removeEventListener('resize', onResize);
   }, []);
 
-  const scrollTo = (id: string) => (e: React.MouseEvent) => {
+  // Navigate to a route; when already on that route, smooth-scroll to the section if it exists
+  const goTo = (id: string, path: string) => (e: React.MouseEvent) => {
     e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (pathname === path) {
+      document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    } else {
+      navigate(path);
+    }
   };
 
   const openMobile  = () => { setIsOpen(true);  document.body.style.overflow = 'hidden'; };
@@ -52,42 +59,42 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onToggleTh
         className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
         style={{
           background: scrolled
-            ? 'rgba(8,8,8,0.92)'
-            : 'rgba(8,8,8,0.6)',
+            ? 'linear-gradient(135deg, rgba(250,247,240,0.94), rgba(244,237,224,0.9))'
+            : 'linear-gradient(135deg, rgba(250,247,240,0.78), rgba(244,237,224,0.66))',
           backdropFilter: 'blur(20px) saturate(160%)',
           WebkitBackdropFilter: 'blur(20px) saturate(160%)',
           borderBottom: scrolled
-            ? '1px solid rgba(255,255,255,0.07)'
-            : '1px solid rgba(255,255,255,0.04)',
-          boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.4)' : 'none',
+            ? '1px solid rgba(26,26,26,0.08)'
+            : '1px solid rgba(26,26,26,0.06)',
+          boxShadow: scrolled ? '0 8px 32px rgba(26,26,26,0.10)' : 'none',
         }}
       >
-        {/* Subtle orange accent line at very top */}
+        {/* Subtle warm accent line at very top */}
         <div className="absolute top-0 inset-x-0 h-px"
-          style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(232,119,34,0.5) 50%, transparent 100%)' }}/>
+          style={{ background: 'linear-gradient(90deg, transparent 0%, rgba(232,119,34,0.6) 50%, transparent 100%)' }}/>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-5 h-[64px] flex items-center justify-between gap-4">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-5 h-[64px] flex items-center justify-between gap-4">
 
           {/* ── Logo ─────────────────────────────────────────── */}
           <a
-            href="#home"
-            onClick={scrollTo('home')}
+            href="/"
+            onClick={goTo('home', '/')}
             className="flex items-center shrink-0 select-none no-underline group"
             style={{ gap: '0.35cm' }}
             aria-label="Drocol Technologies Limited"
           >
             <img
-              src="/drocol-icon.svg"
+              src="/drocol-icon.png?v=2"
               alt=""
               aria-hidden="true"
-              className="transition-transform duration-300 group-hover:scale-105"
-              style={{ height: '34px', width: 'auto', objectFit: 'contain', display: 'block' }}
+              className="transition-transform duration-300 group-hover:scale-[1.03]"
+              style={{ height: '40px', width: 'auto', objectFit: 'contain', display: 'block' }}
               draggable={false}
             />
             <img
-              src="/drocol-wordmark.svg"
+              src="/drocol-wordmark-dark.svg?v=1"
               alt="Drocol"
-              className="transition-opacity duration-300 group-hover:opacity-90"
+              className="transition-transform duration-300 group-hover:scale-[1.03]"
               style={{ height: '26px', width: 'auto', objectFit: 'contain', display: 'block' }}
               draggable={false}
             />
@@ -96,28 +103,43 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onToggleTh
           {/* ── Desktop nav — centre pill cluster ──────────────── */}
           <nav className="hidden lg:flex items-center" aria-label="Main navigation">
             <div className="flex items-center gap-0.5 px-1.5 py-1.5 rounded-2xl border"
-              style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.07)' }}>
+              style={{ background: 'rgba(255,255,255,0.5)', borderColor: 'rgba(26,26,26,0.08)' }}>
               {navLinks.map(link => {
-                const isActive = activeSection === link.id;
+                const isActive = pathname === link.path || (pathname === '/' && activeSection === link.id);
                 return (
                   <a
                     key={link.id}
-                    href={`#${link.id}`}
-                    onClick={scrollTo(link.id)}
+                    href={link.path}
+                    onClick={goTo(link.id, link.path)}
                     className="relative px-3.5 py-1.5 rounded-xl text-[13px] font-medium transition-all duration-200 select-none"
                     style={{
-                      color: isActive ? '#fff' : 'rgba(255,255,255,0.5)',
-                      background: isActive ? 'rgba(255,255,255,0.1)' : 'transparent',
+                      color: isActive ? '#1A1A1A' : 'rgba(26,26,26,0.62)',
+                      background: isActive ? 'rgba(232,119,34,0.16)' : 'transparent',
+                      backdropFilter: isActive ? 'blur(8px)' : 'none',
                       fontFamily: "'Inter', sans-serif",
                     }}
-                    onMouseEnter={e => { if (!isActive) (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.85)'; }}
-                    onMouseLeave={e => { if (!isActive) (e.currentTarget as HTMLElement).style.color = 'rgba(255,255,255,0.5)'; }}
+                    onMouseEnter={e => {
+                      const el = e.currentTarget as HTMLElement;
+                      if (!isActive) {
+                        el.style.color = 'rgba(26,26,26,0.9)';
+                        el.style.background = 'rgba(232,119,34,0.1)';
+                        el.style.backdropFilter = 'blur(8px)';
+                      }
+                    }}
+                    onMouseLeave={e => {
+                      const el = e.currentTarget as HTMLElement;
+                      if (!isActive) {
+                        el.style.color = 'rgba(26,26,26,0.62)';
+                        el.style.background = 'transparent';
+                        el.style.backdropFilter = 'none';
+                      }
+                    }}
                   >
                     {isActive && (
                       <motion.span
                         layoutId="nav-active"
                         className="absolute inset-0 rounded-xl"
-                        style={{ background: 'rgba(255,255,255,0.09)' }}
+                        style={{ background: 'rgba(232,119,34,0.16)', backdropFilter: 'blur(8px)' }}
                         transition={{ type: 'spring', stiffness: 400, damping: 36 }}
                       />
                     )}
@@ -131,43 +153,20 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onToggleTh
           {/* ── Right actions ──────────────────────────────────── */}
           <div className="flex items-center gap-2 shrink-0">
 
-            {/* Live status pill — desktop only */}
-            <div className="hidden xl:flex items-center gap-1.5 px-3 py-1.5 rounded-full border"
-              style={{ background: 'rgba(16,185,129,0.06)', borderColor: 'rgba(16,185,129,0.2)' }}>
-              <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse shadow-[0_0_6px_rgba(74,222,128,0.8)]"/>
-              <span className="text-[11px] font-inter font-semibold text-green-400 tracking-wide">All Systems Live</span>
-            </div>
-
-            {/* Theme toggle */}
+            {/* Let's talk CTA */}
             <a
-              href="https://github.com/drocol-technologies"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative flex items-center justify-center w-8 h-8 rounded-lg border transition-all duration-200"
-              style={{ background: 'rgba(255,255,255,0.04)', borderColor: 'rgba(255,255,255,0.08)' }}
-              aria-label="GitHub"
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.09)'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.background = 'rgba(255,255,255,0.04)'; }}
-            >
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="rgba(255,255,255,0.6)">
-                <path d="M12 0C5.37 0 0 5.37 0 12c0 5.3 3.44 9.8 8.2 11.38.6.11.82-.26.82-.58v-2.03c-3.34.72-4.04-1.61-4.04-1.61-.54-1.38-1.33-1.75-1.33-1.75-1.09-.74.08-.73.08-.73 1.2.09 1.84 1.24 1.84 1.24 1.07 1.83 2.8 1.3 3.49 1 .1-.78.42-1.3.76-1.6-2.67-.3-5.47-1.33-5.47-5.93 0-1.31.47-2.38 1.24-3.22-.12-.3-.54-1.52.12-3.18 0 0 1.01-.32 3.3 1.23a11.5 11.5 0 0 1 3-.4c1.02.005 2.04.14 3 .4 2.28-1.55 3.29-1.23 3.29-1.23.66 1.66.24 2.88.12 3.18.77.84 1.24 1.91 1.24 3.22 0 4.61-2.81 5.63-5.48 5.92.43.37.82 1.1.82 2.22v3.29c0 .32.21.7.83.58C20.57 21.8 24 17.3 24 12c0-6.63-5.37-12-12-12z"/>
-              </svg>
-            </a>
-
-            {/* Book Demo CTA */}
-            <a
-              href="#contact"
-              onClick={scrollTo('contact')}
+              href="/contact"
+              onClick={goTo('contact', '/contact')}
               className="hidden md:inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition-all duration-200 group"
               style={{
                 background: 'linear-gradient(135deg, #E87722, #F5A623)',
-                boxShadow: '0 0 0 1px rgba(232,119,34,0.3), 0 4px 16px rgba(232,119,34,0.2)',
+                boxShadow: '0 0 0 1px rgba(26,26,26,0.08), 0 4px 16px rgba(180,70,10,0.3)',
                 fontFamily: "'Inter', sans-serif",
               }}
-              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px rgba(232,119,34,0.5), 0 6px 24px rgba(232,119,34,0.35)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'; }}
-              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px rgba(232,119,34,0.3), 0 4px 16px rgba(232,119,34,0.2)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}
+              onMouseEnter={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px rgba(26,26,26,0.12), 0 6px 24px rgba(180,70,10,0.45)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)'; }}
+              onMouseLeave={e => { (e.currentTarget as HTMLElement).style.boxShadow = '0 0 0 1px rgba(26,26,26,0.08), 0 4px 16px rgba(180,70,10,0.3)'; (e.currentTarget as HTMLElement).style.transform = 'translateY(0)'; }}
             >
-              Book Demo
+              Let's talk
               <ArrowRight size={13} className="transition-transform duration-200 group-hover:translate-x-0.5" strokeWidth={2.5}/>
             </a>
 
@@ -177,14 +176,14 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onToggleTh
               aria-label={isOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={isOpen}
               className="flex lg:hidden w-10 h-10 items-center justify-center rounded-xl border transition-all duration-200"
-              style={{ background: isOpen ? 'rgba(232,119,34,0.12)' : 'rgba(255,255,255,0.04)', borderColor: isOpen ? 'rgba(232,119,34,0.3)' : 'rgba(255,255,255,0.08)' }}
+              style={{ background: isOpen ? 'rgba(232,119,34,0.15)' : 'rgba(26,26,26,0.06)', borderColor: isOpen ? 'rgba(232,119,34,0.4)' : 'rgba(26,26,26,0.12)' }}
             >
               <div className="w-[18px] flex flex-col gap-[5px]">
-                <span className="block h-[1.5px] bg-white rounded-full transition-all duration-300"
+                <span className="block h-[1.5px] bg-[#1A1A1A] rounded-full transition-all duration-300"
                   style={{ transform: isOpen ? 'translateY(6.5px) rotate(45deg)' : 'none', opacity: 1 }}/>
-                <span className="block h-[1.5px] bg-white rounded-full transition-all duration-300"
+                <span className="block h-[1.5px] bg-[#1A1A1A] rounded-full transition-all duration-300"
                   style={{ opacity: isOpen ? 0 : 1, transform: isOpen ? 'scaleX(0)' : 'scaleX(1)' }}/>
-                <span className="block h-[1.5px] bg-white rounded-full transition-all duration-300"
+                <span className="block h-[1.5px] bg-[#1A1A1A] rounded-full transition-all duration-300"
                   style={{ transform: isOpen ? 'translateY(-6.5px) rotate(-45deg)' : 'none', opacity: 1 }}/>
               </div>
             </button>
@@ -230,15 +229,15 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onToggleTh
               {/* Nav links */}
               <nav className="py-2">
                 {navLinks.map((link, i) => {
-                  const isActive = activeSection === link.id;
+                  const isActive = pathname === link.path || (pathname === '/' && activeSection === link.id);
                   return (
                     <motion.a
                       key={link.id}
-                      href={`#${link.id}`}
+                      href={link.path}
                       initial={{ opacity: 0, x: -8 }}
                       animate={{ opacity: 1, x: 0 }}
                       transition={{ delay: i * 0.04, duration: 0.2 }}
-                      onClick={e => { scrollTo(link.id)(e); closeMobile(); }}
+                      onClick={e => { goTo(link.id, link.path)(e); closeMobile(); }}
                       className="flex items-center justify-between px-4 py-3.5 transition-colors duration-150"
                       style={{
                         background: isActive ? 'rgba(232,119,34,0.07)' : 'transparent',
@@ -265,30 +264,14 @@ export const Header: React.FC<HeaderProps> = ({ activeSection, theme, onToggleTh
               {/* Bottom CTA */}
               <div className="p-4 flex flex-col gap-2.5">
                 <a
-                  href="#contact"
-                  onClick={e => { scrollTo('contact')(e); closeMobile(); }}
+                  href="/contact"
+                  onClick={e => { goTo('contact', '/contact')(e); closeMobile(); }}
                   className="flex items-center justify-center gap-2 py-3 rounded-xl font-semibold text-sm text-white transition-all duration-200"
                   style={{ background: 'linear-gradient(135deg, #E87722, #F5A623)', boxShadow: '0 4px 16px rgba(232,119,34,0.3)', fontFamily: "'Inter', sans-serif" }}
                 >
-                  Book a Demo
+                  Let's talk
                   <ArrowRight size={14} strokeWidth={2.5}/>
                 </a>
-
-                {/* Live status + theme in one row */}
-                <div className="flex items-center justify-between px-1">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-1.5 h-1.5 rounded-full bg-green-400 animate-pulse"/>
-                    <span className="text-[11px] font-inter text-green-400 font-medium">All Systems Live</span>
-                  </div>
-                  <a
-                    href="https://github.com/drocol-technologies"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-[11px] font-inter text-white/40 hover:text-white/70 transition-colors"
-                  >
-                    GitHub ↗
-                  </a>
-                </div>
               </div>
             </motion.div>
           </>

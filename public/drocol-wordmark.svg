@@ -83,8 +83,8 @@
     "/>
 
     <!-- ═══════════════════════════════════════════════════════════
-         o₂  —  identical squircle to o₁.
-                Hosts orange accent square in the counter center.
+         o₂  —  identical to o₁ (squircle, rx 14). Hosts the orange
+                accent square.
     ═══════════════════════════════════════════════════════════════ -->
     <rect x="296" y="30" width="62" height="62" rx="14" ry="14"/>
 

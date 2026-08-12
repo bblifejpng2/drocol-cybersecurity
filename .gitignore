@@ -28,5 +28,8 @@ dist-ssr
 # Browser extension (not part of the website)
 number-extractor-extension/
 
+# Freebuff desktop app state (binary DBs break Tailwind's scanner)
+.freebuff/
+
 .vercel
 .env*

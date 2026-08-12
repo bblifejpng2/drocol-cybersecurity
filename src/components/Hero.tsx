@@ -1,182 +1,148 @@
-import React from 'react';
+﻿import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
-import { ArrowRight, Shield, Zap } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 export const Hero: React.FC = () => {
+  const navigate = useNavigate();
+
   return (
-    <section id="home" className="relative min-h-[92vh] flex items-center overflow-hidden bg-[#F3EDE2]">
+    <section id="home" className="relative min-h-[100svh] flex items-center overflow-hidden bg-[#F3EDE2]">
 
-      {/* ── Aurora background ─────────────────────────────────── */}
-      <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-        {/* Noise texture overlay */}
-        <div className="absolute inset-0 opacity-[0.035]" style={{
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E")`,
-          backgroundRepeat: 'repeat',
-          backgroundSize: '128px',
-        }}/>
-        {/* Primary orange aurora */}
-        <div className="absolute -top-40 -left-40 w-[900px] h-[700px] rounded-full opacity-[0.12]"
-          style={{ background: 'radial-gradient(ellipse, #E87722 0%, transparent 70%)', filter: 'blur(80px)' }}/>
-        {/* Secondary blue aurora */}
-        <div className="absolute -bottom-60 right-0 w-[700px] h-[600px] rounded-full opacity-[0.07]"
-          style={{ background: 'radial-gradient(ellipse, #3b82f6 0%, transparent 70%)', filter: 'blur(100px)' }}/>
-        {/* Tertiary purple */}
-        <div className="absolute top-1/3 right-1/4 w-[400px] h-[400px] rounded-full opacity-[0.05]"
-          style={{ background: 'radial-gradient(ellipse, #8b5cf6 0%, transparent 70%)', filter: 'blur(80px)' }}/>
-        {/* Fine dot grid */}
-        <div className="absolute inset-0 opacity-[0.12]" style={{
-          backgroundImage: 'radial-gradient(circle, rgba(23,23,23,0.4) 1px, transparent 1px)',
-          backgroundSize: '32px 32px',
-        }}/>
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-[#F3EDE2] to-transparent"/>
-      </div>
+      <div className="w-full relative z-10 px-5 sm:px-8 md:px-10 max-w-7xl mx-auto py-10 sm:py-16 md:py-24 lg:py-28">
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 w-full relative z-10 py-20 md:py-28">
-        <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+        {/* ── Mobile: stacked, generous sizes. sm+: side by side ── */}
+        <div className="flex flex-col sm:grid sm:grid-cols-2 gap-8 sm:gap-10 lg:gap-20 items-center">
 
-          {/* ── Left Column ──────────────────────────────────── */}
+          {/* Left: copy */}
           <motion.div
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col items-start"
+            className="flex flex-col items-start w-full"
           >
             {/* Eyebrow pill */}
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.1, duration: 0.6 }}
-              className="inline-flex items-center gap-2.5 mb-8 px-4 py-2 rounded-full border border-neutral-900/10 bg-neutral-900/[0.04] backdrop-blur-sm"
+              className="inline-flex items-center gap-2 mb-5 sm:mb-6 lg:mb-8 px-3.5 py-1.5 rounded-full border border-neutral-900/10 bg-neutral-900/[0.04]"
             >
-              <span className="relative flex h-2 w-2">
+              <span className="relative flex h-2 w-2 shrink-0">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E87722] opacity-75"/>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E87722]"/>
               </span>
-              <span className="text-[11px] font-inter font-semibold tracking-widest text-neutral-600 uppercase">Protecting 250+ Nigerian Organizations</span>
+              <span className="text-[10px] sm:text-[11px] font-inter font-semibold tracking-[0.12em] text-neutral-600 uppercase">
+                Building the future of cybersecurity
+              </span>
             </motion.div>
 
             {/* Headline */}
-            <h1 className="text-5xl sm:text-6xl md:text-[80px] font-bold leading-[1.0] tracking-[-0.03em] mb-6 text-neutral-900 font-sans">
-              Enterprise<br/>
-              <span className="text-neutral-900">Cyber</span><span className="text-transparent bg-clip-text" style={{
+            <h1 className="text-[34px] xs:text-[38px] sm:text-5xl md:text-[56px] lg:text-[68px] xl:text-[72px] font-medium leading-[1.08] tracking-[-0.025em] mb-4 sm:mb-5 lg:mb-6 text-neutral-900 font-sans">
+              Helping organizations build{' '}
+              <span className="text-transparent bg-clip-text" style={{
                 backgroundImage: 'linear-gradient(90deg, #E87722 0%, #F5A623 60%, #E87722 100%)',
-              }}>security</span><br/>
-              <span className="italic font-light text-neutral-500 text-4xl sm:text-5xl md:text-[64px] tracking-[-0.02em]">Made Intelligent.</span>
+              }}>confidence</span>{' '}
+              in their security.
             </h1>
 
-            <p className="text-base md:text-lg text-neutral-600 max-w-lg mb-10 font-inter leading-relaxed">
-              Real-time threat detection, attack path analysis, and developer-ready APIs. Built by Nigerians, for Nigerian enterprises.
+            {/* Body */}
+            <p className="text-[15px] sm:text-base lg:text-lg text-neutral-600 max-w-lg mb-6 sm:mb-8 lg:mb-10 font-inter leading-relaxed">
+              Cybersecurity is more than preventing attacks. Drocol combines expert consulting, original research, and AI-powered technology to help you understand your risks, strengthen your defenses, and prepare for what's next.
             </p>
 
-            {/* CTA Row */}
-            <div className="flex flex-wrap gap-3 mb-12">
+            {/* CTAs */}
+            <div className="flex flex-wrap gap-3 mb-5 sm:mb-8">
               <a
-                href="#contact"
-                onClick={(e) => { e.preventDefault(); document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
-                className="group inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300"
-                style={{ background: 'linear-gradient(135deg, #E87722 0%, #F5A623 100%)', boxShadow: '0 0 0 1px rgba(232,119,34,0.3), 0 8px 32px rgba(232,119,34,0.25)' }}
+                href="/contact"
+                onClick={(e) => { e.preventDefault(); navigate('/contact'); }}
+                className="group inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-white transition-all duration-300"
+                style={{
+                  background: 'linear-gradient(135deg, #E87722 0%, #F5A623 100%)',
+                  boxShadow: '0 0 0 1px rgba(232,119,34,0.3), 0 8px 32px rgba(232,119,34,0.25)',
+                }}
               >
-                Start Free Trial
-                <ArrowRight size={15} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
+                Let's talk
+                <ArrowRight size={14} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
               </a>
               <a
-                href="#features"
-                onClick={(e) => { e.preventDefault(); document.getElementById('features')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); }}
-                className="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl font-semibold text-sm text-neutral-700 border border-neutral-900/10 bg-neutral-900/[0.04] backdrop-blur-sm hover:bg-neutral-900/[0.08] hover:text-neutral-900 transition-all duration-300"
+                href="/solutions"
+                onClick={(e) => { e.preventDefault(); navigate('/solutions'); }}
+                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-semibold text-sm text-neutral-700 border border-neutral-900/10 bg-neutral-900/[0.04] hover:bg-neutral-900/[0.08] transition-all duration-300"
               >
-                Learn About Us
+                Explore our approach
               </a>
             </div>
 
-            {/* Trust stats row */}
-            <div className="flex flex-wrap items-center gap-6 text-sm">
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-neutral-900/[0.06] border border-neutral-900/10 flex items-center justify-center">
-                  <Shield size={14} className="text-[#E87722]"/>
-                </div>
-                <div>
-                  <div className="text-neutral-900 font-semibold text-xs">99.98% Uptime</div>
-                  <div className="text-neutral-500 text-[11px] font-inter">SLA guaranteed</div>
-                </div>
-              </div>
-              <div className="w-px h-8 bg-neutral-900/10"/>
-              <div className="flex items-center gap-2">
-                <div className="w-8 h-8 rounded-lg bg-neutral-900/[0.06] border border-neutral-900/10 flex items-center justify-center">
-                  <Zap size={14} className="text-[#E87722]"/>
-                </div>
-                <div>
-                  <div className="text-neutral-900 font-semibold text-xs">45M+ Threats</div>
-                  <div className="text-neutral-500 text-[11px] font-inter">Blocked this month</div>
-                </div>
-              </div>
-              <div className="w-px h-8 bg-neutral-900/10"/>
-              <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"/>
-                <span className="text-neutral-600 text-[11px] font-inter font-medium">24/7 Nigerian Support</span>
-              </div>
-            </div>
+            <p className="text-[12px] sm:text-[13px] text-neutral-500 font-inter">
+              No pressure. No jargon. Just a practical conversation about your security.
+            </p>
           </motion.div>
 
-          {/* ── Right Column ─────────────────────────────────── */}
+          {/* Right: image */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.92, y: 20 }}
+            initial={{ opacity: 0, scale: 0.94, y: 20 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
-            className="relative flex items-center justify-center"
+            className="relative flex items-center justify-center w-full"
           >
-            {/* Image frame */}
-            <div className="relative w-full max-w-[520px] mx-auto">
-              {/* Outer glow ring */}
-              <div className="absolute -inset-4 rounded-3xl opacity-30"
-                style={{ background: 'radial-gradient(ellipse, rgba(232,119,34,0.3) 0%, transparent 70%)', filter: 'blur(20px)' }}/>
+            {/* Constrain width on mobile so it doesn't dominate */}
+            <motion.div
+              animate={{ y: [0, -10, 0] }}
+              transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+              whileHover={{ scale: 1.03 }}
+              className="relative w-full max-w-[340px] sm:max-w-full mx-auto group"
+            >
 
-              {/* Main image card */}
-              <div className="relative rounded-2xl overflow-hidden border border-neutral-900/10"
-                style={{ background: 'linear-gradient(135deg, rgba(255,255,255,0.6) 0%, rgba(255,255,255,0.3) 100%)', boxShadow: '0 32px 80px rgba(0,0,0,0.25), inset 0 1px 0 rgba(255,255,255,0.5)' }}>
+              {/* Soft ambient glow behind the render */}
+              <div className="absolute -inset-6 sm:-inset-10 opacity-20 group-hover:opacity-30 transition-opacity duration-500 pointer-events-none"
+                style={{ background: 'radial-gradient(ellipse, rgba(232,119,34,0.3) 0%, transparent 65%)', filter: 'blur(30px)' }}/>
+
+              {/* Render — integrated into the background */}
+              <div className="relative">
                 <img
-                  src="/17851250071b80.png"
-                  alt="Drocol layered security intelligence visualization"
-                  className="w-full h-full object-cover"
-                  style={{ aspectRatio: '1/1' }}
+                  src="/dtlpng-butter.png"
+                  alt="Drocol security intelligence platform"
+                  className="w-full h-auto block"
                 />
-                {/* Image overlay gradient */}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent pointer-events-none"/>
               </div>
 
-              {/* Floating badge — threats */}
+              {/* Badge — threats */}
               <motion.div
-                initial={{ opacity: 0, x: -20, y: 10 }}
+                initial={{ opacity: 0, x: -16, y: 8 }}
                 animate={{ opacity: 1, x: 0, y: 0 }}
                 transition={{ delay: 0.6, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -bottom-5 -left-4 md:-left-8 flex items-center gap-3 px-4 py-3 rounded-2xl border border-white/10 backdrop-blur-xl"
-                style={{ background: 'rgba(8,8,8,0.85)', boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)' }}
+                className="absolute -bottom-4 -left-3 sm:-bottom-5 sm:-left-6 flex items-center gap-2.5 px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl border border-white/10 backdrop-blur-xl"
+                style={{ background: 'rgba(8,8,8,0.88)', boxShadow: '0 8px 24px rgba(0,0,0,0.5)' }}
               >
-                <div className="w-10 h-10 rounded-xl flex items-center justify-center text-lg shrink-0"
-                  style={{ background: 'linear-gradient(135deg, #E87722, #F5A623)', boxShadow: '0 4px 12px rgba(232,119,34,0.4)' }}>
-                  🛡️
+                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
+                  style={{ background: 'linear-gradient(135deg, #E87722, #F5A623)' }}>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                  </svg>
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-white">45M+ Threats Blocked</div>
-                  <div className="text-[10px] text-white/40 font-inter">This month across Nigeria</div>
+                  <div className="text-[11px] font-bold text-white leading-tight">45M+ Threats Blocked</div>
+                  <div className="text-[9px] text-white/40 font-inter mt-0.5">This month · Nigeria</div>
                 </div>
               </motion.div>
 
-              {/* Floating badge — uptime */}
+              {/* Badge — uptime */}
               <motion.div
-                initial={{ opacity: 0, x: 20, y: -10 }}
+                initial={{ opacity: 0, x: 16, y: -8 }}
                 animate={{ opacity: 1, x: 0, y: 0 }}
                 transition={{ delay: 0.75, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -top-4 -right-4 md:-right-6 px-4 py-3 rounded-2xl border border-white/10 backdrop-blur-xl"
-                style={{ background: 'rgba(8,8,8,0.85)', boxShadow: '0 8px 32px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.08)' }}
+                className="absolute -top-3 -right-3 sm:-top-4 sm:-right-5 px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-white/10 backdrop-blur-xl"
+                style={{ background: 'rgba(8,8,8,0.88)', boxShadow: '0 8px 24px rgba(0,0,0,0.5)' }}
               >
-                <div className="text-[10px] font-inter text-white/40 mb-0.5">System Uptime</div>
-                <div className="text-lg font-bold text-white flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-green-400 shadow-[0_0_6px_rgba(74,222,128,0.8)]"/>
+                <div className="text-[9px] font-inter text-white/40 mb-0.5">System Uptime</div>
+                <div className="text-sm sm:text-base font-bold text-white flex items-center gap-1.5">
+                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_5px_rgba(74,222,128,0.8)] shrink-0"/>
                   99.98%
                 </div>
               </motion.div>
-            </div>
+
+            </motion.div>
           </motion.div>
 
         </div>

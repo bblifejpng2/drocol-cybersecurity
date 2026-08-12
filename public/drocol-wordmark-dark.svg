@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 100" fill="none" shape-rendering="geometricPrecision">
+  <!--
+    DROCOL — vector wordmark (dark, for light surfaces)
+    Same brand DNA as the footer lockup, rebuilt as a crisp dark asset:
+      Canvas height : 100px
+      Cap line      : y = 8
+      Baseline      : y = 92
+      x-height      : y = 30
+      Stroke weight : 11.5px (original weight)
+      Linecap       : round
+      Linejoin      : round
+      Color         : #1a1a1a (near-black for the cream header)
+      Accent        : #ff6e19 (orange square inside last 'o')
+  -->
+
+  <g stroke="#1a1a1a" stroke-width="11.5" stroke-linecap="round" stroke-linejoin="round">
+
+    <!-- D — cap height 8→92, rounded-rect counter opening right -->
+    <path d="
+      M 12 8
+      L 12 92
+      M 12 8
+      Q 12 8  38 8
+      Q 72 8  72 50
+      Q 72 92  38 92
+      L 12 92
+    "/>
+
+    <!-- r — x-height 30→92, stem + short 45° arm -->
+    <line x1="92" y1="30" x2="92" y2="92"/>
+    <path d="
+      M 92 52
+      C 92 36  102 30  120 30
+    "/>
+
+    <!-- o₁ — squircle ring -->
+    <rect x="136" y="30" width="62" height="62" rx="14" ry="14"/>
+
+    <!-- c — open squircle, generous aperture -->
+    <path d="
+      M 278 38
+      C 278 30  268 30  256 30
+      C 230 30  222 38  222 61
+      C 222 84  230 92  256 92
+      C 268 92  278 92  278 84
+    "/>
+
+    <!-- o₂ — identical ring, hosts the orange accent -->
+    <rect x="296" y="30" width="62" height="62" rx="14" ry="14"/>
+
+    <!-- l — full cap height stem -->
+    <line x1="380" y1="8" x2="380" y2="92"/>
+
+  </g>
+
+  <!-- Orange accent — rounded square centered in o₂ -->
+  <rect x="319" y="53" width="16" height="16" rx="4" fill="#ff6e19"/>
+
+</svg>
