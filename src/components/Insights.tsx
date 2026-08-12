@@ -1,30 +1,17 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { articles } from '../data/articles';
 
-const posts = [
-  {
-    tag: 'Compliance',
-    tagColor: '#3b82f6',
-    title: 'The NDPA in practice: what compliance actually requires',
-    excerpt: 'The practical steps Nigerian organizations need to take, and the common gaps we see.',
-    readTime: '6 min read',
-  },
-  {
-    tag: 'Offensive Security',
-    tagColor: '#8b5cf6',
-    title: 'Inside a penetration test: what happens, what you receive, and how to prepare',
-    excerpt: 'A clear walkthrough of a professional engagement, written for teams commissioning their first test.',
-    readTime: '8 min read',
-  },
-  {
-    tag: 'Technology',
-    tagColor: '#E87722',
-    title: "AI in security assessments: where automation helps, and where it doesn't",
-    excerpt: "An honest look at what machines do well, what they miss, and why expert judgment still decides what matters.",
-    readTime: '5 min read',
-  },
-];
+const posts = articles.map(a => ({
+  slug: a.slug,
+  tag: a.tag,
+  tagColor: a.tagColor,
+  title: a.title,
+  excerpt: a.excerpt,
+  readTime: a.readTime,
+}));
 
 export const Insights: React.FC = () => {
   return (
@@ -69,7 +56,14 @@ export const Insights: React.FC = () => {
               Latest thinking<br/>from Drocol.
             </h2>
           </div>
-          <a href="#" className="group inline-flex items-center gap-2 text-[13px] font-semibold text-white/50 hover:text-white transition-colors shrink-0">
+          <a
+            href="#insights"
+            onClick={e => {
+              e.preventDefault();
+              document.getElementById('insights')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }}
+            className="group inline-flex items-center gap-2 text-[13px] font-semibold text-white/50 hover:text-white transition-colors shrink-0 cursor-pointer"
+          >
             View all articles <ArrowRight size={13} className="transition-transform group-hover:translate-x-0.5" strokeWidth={2.5}/>
           </a>
         </motion.div>
@@ -111,15 +105,20 @@ export const Insights: React.FC = () => {
                 <span className="font-inter text-[11px] text-white/30">{post.readTime}</span>
               </div>
 
-              <h3 className="text-[17px] font-bold text-white leading-snug tracking-tight flex-1">{post.title}</h3>
+              <Link to={`/insights/${post.slug}`} className="block">
+                <h3 className="text-[17px] font-bold text-white leading-snug tracking-tight flex-1 mb-2 transition-colors duration-200 group-hover:text-[#F5A623]">
+                  {post.title}
+                </h3>
+              </Link>
               <p className="text-[13.5px] text-white/50 font-inter leading-relaxed">{post.excerpt}</p>
 
-              <a href="#"
+              <Link
+                to={`/insights/${post.slug}`}
                 className="inline-flex items-center gap-1.5 text-[12px] font-semibold transition-all duration-200 group-hover:gap-2.5"
                 style={{ color: post.tagColor }}
               >
                 Read article <ArrowRight size={12} strokeWidth={2.5}/>
-              </a>
+              </Link>
             </motion.article>
           ))}
         </div>

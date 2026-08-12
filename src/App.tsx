@@ -9,6 +9,7 @@ import { IndustriesPage } from './pages/IndustriesPage';
 import { ResearchPage } from './pages/ResearchPage';
 import { CompanyPage } from './pages/CompanyPage';
 import { ContactPage } from './pages/ContactPage';
+import { ArticlePage } from './pages/ArticlePage';
 
 // Map each route to the nav key it should light up
 const routeSection: Record<string, string> = {
@@ -74,7 +75,7 @@ const Layout = () => {
   useEffect(() => {
     if (!isHome) return;
 
-    const sectionIds = ['home', 'why', 'approach', 'industries', 'insights', 'vision'];
+    const sectionIds = ['home', 'why', 'approach'];
 
     let ticking = false;
     const handleScroll = () => {
@@ -137,6 +138,7 @@ function App() {
           <Route path="/research" element={<ResearchPage />} />
           <Route path="/company" element={<CompanyPage />} />
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/insights/:slug" element={<ArticlePage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Route>
       </Routes>

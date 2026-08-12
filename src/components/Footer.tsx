@@ -31,7 +31,7 @@ export const Footer: React.FC = () => {
         { label: 'Company', to: '/company' },
         { label: 'Industries', to: '/industries' },
         { label: 'Research', to: '/research' },
-        { label: 'Insights', to: '/' },
+        { label: 'Insights', to: '/research' },
         { label: 'About',    to: '/' },
         { label: 'Contact',  to: '/contact' },
       ],
