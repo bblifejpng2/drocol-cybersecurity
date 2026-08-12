@@ -20,18 +20,6 @@ export const Header: React.FC<HeaderProps> = () => {
   const [scrolled, setScrolled] = useState(false);
   const { pathname } = useLocation();
 
-  /* iOS Safari scrolls position:fixed elements that carry backdrop-filter;
-     drop the blur on phones and rely on a near-opaque background instead. */
-  const [isMobile, setIsMobile] = useState<boolean>(() =>
-    typeof window !== 'undefined' ? window.matchMedia('(max-width: 767px)').matches : false
-  );
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 767px)');
-    const onChange = () => setIsMobile(mq.matches);
-    mq.addEventListener('change', onChange);
-    return () => mq.removeEventListener('change', onChange);
-  }, []);
-
   /* Scroll shadow */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -55,12 +43,10 @@ export const Header: React.FC<HeaderProps> = () => {
         className="fixed top-0 inset-x-0 z-50 transition-all duration-300"
         style={{
           background: scrolled
-            ? 'linear-gradient(135deg, rgba(250,247,240,0.96), rgba(244,237,224,0.94))'
-            : isMobile
-              ? 'linear-gradient(135deg, rgba(250,247,240,0.95), rgba(244,237,224,0.92))'
-              : 'linear-gradient(135deg, rgba(250,247,240,0.78), rgba(244,237,224,0.66))',
-          backdropFilter: isMobile ? 'none' : 'blur(20px) saturate(160%)',
-          WebkitBackdropFilter: isMobile ? 'none' : 'blur(20px) saturate(160%)',
+            ? 'linear-gradient(135deg, rgba(250,247,240,0.94), rgba(244,237,224,0.9))'
+            : 'linear-gradient(135deg, rgba(250,247,240,0.78), rgba(244,237,224,0.66))',
+          backdropFilter: 'blur(20px) saturate(160%)',
+          WebkitBackdropFilter: 'blur(20px) saturate(160%)',
           borderBottom: scrolled
             ? '1px solid rgba(26,26,26,0.08)'
             : '1px solid rgba(26,26,26,0.06)',
