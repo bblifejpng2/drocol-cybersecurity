@@ -3,6 +3,26 @@ import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 import { articles } from '../data/articles';
+import BorderGlow from './BorderGlow';
+
+/* Convert a hex tag color to an HSL string so each card glows in its own hue. */
+function hexToHue(hex: string): string {
+  const m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  if (!m) return '40 80 80';
+  const r = parseInt(m[1], 16) / 255;
+  const g = parseInt(m[2], 16) / 255;
+  const b = parseInt(m[3], 16) / 255;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  let h = 0;
+  if (max !== min) {
+    if (max === r) h = ((g - b) / (max - min)) * 60;
+    else if (max === g) h = 120 + ((b - r) / (max - min)) * 60;
+    else h = 240 + ((r - g) / (max - min)) * 60;
+  }
+  if (h < 0) h += 360;
+  return `${Math.round(h)} 70 55`;
+}
 
 const posts = articles.map(a => ({
   slug: a.slug,
@@ -68,58 +88,57 @@ export const Insights: React.FC = () => {
           </a>
         </motion.div>
 
-        {/* Cards */}
+        {/* Cards — whole card is clickable, bordered by the BorderGlow effect */}
         <div className="grid md:grid-cols-3 gap-5">
           {posts.map((post, i) => (
-            <motion.article
+            <motion.div
               key={post.title}
               initial={{ opacity: 0, y: 24 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: '-50px' }}
               transition={{ duration: 0.55, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-              className="group relative flex flex-col gap-5 rounded-2xl border p-6 transition-all duration-300 overflow-hidden"
-              style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(255,255,255,0.07)' }}
-              onMouseEnter={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = `${post.tagColor}0c`;
-                el.style.borderColor = `${post.tagColor}30`;
-                el.style.transform = 'translateY(-4px)';
-              }}
-              onMouseLeave={e => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.background = 'rgba(255,255,255,0.03)';
-                el.style.borderColor = 'rgba(255,255,255,0.07)';
-                el.style.transform = 'translateY(0)';
-              }}
+              className="h-full"
             >
-              {/* Top accent */}
-              <div className="absolute top-0 inset-x-0 h-[2px] rounded-t-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{ background: `linear-gradient(90deg, ${post.tagColor}, ${post.tagColor}60)` }}/>
-
-              {/* Tag + read time */}
-              <div className="flex items-center justify-between">
-                <span className="font-mono text-[11px] font-semibold uppercase tracking-widest"
-                  style={{ color: post.tagColor }}>
-                  {post.tag}
-                </span>
-                <span className="font-inter text-[11px] text-white/30">{post.readTime}</span>
-              </div>
-
-              <Link to={`/insights/${post.slug}`} className="block">
-                <h3 className="text-[17px] font-bold text-white leading-snug tracking-tight flex-1 mb-2 transition-colors duration-200 group-hover:text-[#F5A623]">
-                  {post.title}
-                </h3>
-              </Link>
-              <p className="text-[13.5px] text-white/50 font-inter leading-relaxed">{post.excerpt}</p>
-
-              <Link
-                to={`/insights/${post.slug}`}
-                className="inline-flex items-center gap-1.5 text-[12px] font-semibold transition-all duration-200 group-hover:gap-2.5"
-                style={{ color: post.tagColor }}
+              <BorderGlow
+                persistent
+                glowColor={hexToHue(post.tagColor)}
+                backgroundColor="#120F17"
+                borderRadius={18}
+                glowRadius={26}
+                glowIntensity={1.0}
+                coneSpread={25}
+                edgeSensitivity={28}
+                fillOpacity={0.25}
+                colors={[post.tagColor, post.tagColor, post.tagColor]}
+                className="h-full"
               >
-                Read article <ArrowRight size={12} strokeWidth={2.5}/>
-              </Link>
-            </motion.article>
+                <Link
+                  to={`/insights/${post.slug}`}
+                  className="group flex flex-col gap-5 p-6 h-full no-underline"
+                >
+                  {/* Tag + read time */}
+                  <div className="flex items-center justify-between">
+                    <span className="font-mono text-[11px] font-semibold uppercase tracking-widest"
+                      style={{ color: post.tagColor }}>
+                      {post.tag}
+                    </span>
+                    <span className="font-inter text-[11px] text-white/30">{post.readTime}</span>
+                  </div>
+
+                  <h3 className="text-[17px] font-bold text-white leading-snug tracking-tight flex-1 transition-colors duration-200 group-hover:text-[#F5A623]">
+                    {post.title}
+                  </h3>
+                  <p className="text-[13.5px] text-white/50 font-inter leading-relaxed">{post.excerpt}</p>
+
+                  <span
+                    className="inline-flex items-center gap-1.5 text-[12px] font-semibold transition-all duration-200 group-hover:gap-2.5"
+                    style={{ color: post.tagColor }}
+                  >
+                    Read article <ArrowRight size={12} strokeWidth={2.5}/>
+                  </span>
+                </Link>
+              </BorderGlow>
+            </motion.div>
           ))}
         </div>
       </div>

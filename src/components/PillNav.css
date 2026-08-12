@@ -12,9 +12,17 @@
   }
 }
 
-/* Site: logo + wordmark live outside the pill nav — hide the pill's own logo circle */
+/* Site: logo + wordmark live outside the pill nav; the pill's own circular logo
+   shows on desktop as a separate circle beside the Home pill. On mobile the
+   header already shows its own logo + wordmark, so keep it hidden there. */
 .pill-nav .pill-logo {
-  display: none;
+  margin-right: 0;
+}
+
+@media (max-width: 768px) {
+  .pill-nav .pill-logo {
+    display: none;
+  }
 }
 
 /* Site: center the pill cluster in the fixed header on desktop */
@@ -35,10 +43,10 @@
 }
 
 .pill-nav {
-  --nav-h: 42px;
-  --logo: 36px;
-  --pill-pad-x: 18px;
-  --pill-gap: 3px;
+  --nav-h: 34px;
+  --logo: 28px;
+  --pill-pad-x: 13px;
+  --pill-gap: 2px;
   width: max-content;
   display: flex;
   align-items: center;
@@ -109,10 +117,10 @@
   border-radius: 9999px;
   box-sizing: border-box;
   font-weight: 600;
-  font-size: 16px;
+  font-size: 12px;
   line-height: 0;
   text-transform: uppercase;
-  letter-spacing: 0.2px;
+  letter-spacing: 0.1px;
   white-space: nowrap;
   cursor: pointer;
   position: relative;
@@ -156,22 +164,9 @@
   will-change: transform, opacity;
 }
 
-/* Active item — keep the site's orange accent */
+/* Active item — keep the site's orange accent (dot removed) */
 .pill.is-active {
   background: rgba(232, 119, 34, 0.16);
-}
-
-.pill.is-active::after {
-  content: '';
-  position: absolute;
-  bottom: -6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 12px;
-  height: 12px;
-  background: #E87722;
-  border-radius: 50px;
-  z-index: 4;
 }
 
 .desktop-only {

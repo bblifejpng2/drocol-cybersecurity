@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Search, BookOpen, Users, Cpu, Terminal, FileCheck, ShieldAlert, Code2 } from 'lucide-react';
@@ -206,7 +206,16 @@ export const HowWeHelp: React.FC = () => {
   const step = steps[active];
   const navigate = useNavigate();
 
-  // Click only — no auto-cycle
+  /* Auto-cycle the solutions: each step shows for 3s, the last step lingers
+     for a 5s cooldown, then the cycle repeats. Manual clicks still work and
+     reset the timer. */
+  useEffect(() => {
+    const delay = active === steps.length - 1 ? 5000 : 3000;
+    const t = window.setTimeout(() => {
+      setActive(prev => (prev + 1) % steps.length);
+    }, delay);
+    return () => window.clearTimeout(t);
+  }, [active]);
 
   // CTAs point at other pages (contact / technology) or scroll on the home page
   const goTo = (id: string) => (e: React.MouseEvent) => {
