@@ -90,7 +90,7 @@ export const Header: React.FC<HeaderProps> = () => {
           </Link>
 
           {/* ── Book a Call button — right, takes you to /contact ── */}
-          <div className="shrink-0 max-sm:scale-[0.6] max-sm:origin-right">
+          <div className="shrink-0 max-sm:hidden">
             <SpecularButton
               {...specularPrimary}
               size="sm"
