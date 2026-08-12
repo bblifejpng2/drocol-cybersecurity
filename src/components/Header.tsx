@@ -51,6 +51,9 @@ export const Header: React.FC<HeaderProps> = () => {
             ? '1px solid rgba(26,26,26,0.08)'
             : '1px solid rgba(26,26,26,0.06)',
           boxShadow: scrolled ? '0 8px 32px rgba(26,26,26,0.10)' : 'none',
+          /* Keep the header composited so iOS renders it fixed with the blur */
+          transform: 'translateZ(0)',
+          WebkitTransform: 'translateZ(0)',
         }}
       >
         {/* Subtle warm accent line at very top */}
