@@ -1,6 +1,6 @@
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useState, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import BounceCards from './BounceCards';
+import Stack from './Stack';
 
 const STAGES = [
   {
@@ -108,8 +108,28 @@ const ArrowDivider = () => (
 export const TechnologySection: React.FC = () => {
   const [active, setActive] = useState<number>(0);
   const stage = STAGES[active];
-  /* The visible section: 1-3 or 4-6 */
-  const group = active < 3 ? 0 : 1;
+
+  /* The six orange slates — stable identity so the deck keeps its order. */
+  const slateCards = useMemo(
+    () =>
+      STAGES.map((l, i) => (
+        <div
+          key={l.num}
+          className="stack-slate"
+          style={
+            {
+              '--slate-base': ORANGE_SHADES[i].base,
+              '--slate-dark': ORANGE_SHADES[i].dark,
+              '--slate-hi': ORANGE_SHADES[i].hi,
+            } as React.CSSProperties
+          }
+        >
+          <span className="stack-slate__num">{l.num}</span>
+          <span className="stack-slate__name">{l.name}</span>
+        </div>
+      )),
+    []
+  );
 
   return (
     <section id="technology" className="relative bg-[#050302] py-16 sm:py-28 overflow-hidden">
@@ -137,7 +157,7 @@ export const TechnologySection: React.FC = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10">
         {/* ── Symmetrical columns: left stages | 16:9 slate | right stages ── */}
-        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-12 md:gap-14 lg:gap-20 items-center">
+        <div className="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-8 md:gap-6 lg:gap-8 items-center">
 
           {/* Left — the three given stages (flow) */}
           <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.05 }} className="flex flex-col justify-center gap-5 order-1">
@@ -162,7 +182,7 @@ export const TechnologySection: React.FC = () => {
             })}
           </motion.div>
 
-          {/* Center — BounceCards fan of 6 slates, numbered 1–6 */}
+          {/* Center — Stack deck of 6 orange slates, numbered 1–6 */}
           <motion.div {...fadeUp} transition={{ ...fadeUp.transition, delay: 0.15 }} className="flex items-center justify-center relative order-2" style={{ padding: 'clamp(14px, 2.5vw, 44px) 0' }}>
             {/* volumetric under-glow */}
             <div
@@ -172,30 +192,25 @@ export const TechnologySection: React.FC = () => {
                 top: '68%',
                 transform: 'translateX(-50%)',
                 width: '85%',
-                height: 'clamp(48px, 7vw, 90px)',
+                height: 'clamp(26px, 3.5vw, 46px)',
                 background: 'radial-gradient(ellipse, rgba(232,119,34,0.3) 0%, rgba(232,119,34,0.09) 45%, transparent 70%)',
                 filter: 'blur(22px)',
                 zIndex: 0,
               }}
             />
-            <div className="slate-float relative z-10">
-              <BounceCards
-                className="tech-bounce"
-                cards={STAGES.map((l, i) => (
-                  <div key={l.num} className="flex flex-col items-center justify-center gap-1">
-                    <span className="bounce-card__num">{l.num}</span>
-                    <span className="bounce-card__name">{l.name}</span>
-                  </div>
-                ))}
-                containerWidth={520}
-                containerHeight={170}
-                animationDelay={0.6}
-                animationStagger={0.07}
-                onCardClick={setActive}
+            <div className="slate-float relative z-10" style={{ width: 'clamp(150px, 16vw, 230px)', aspectRatio: '16 / 9' }}>
+              <Stack
+                cards={slateCards}
                 activeIndex={active}
-                cardColors={ORANGE_SHADES}
-                lifted={STAGES.map((_, i) => Math.floor(i / 3) === group)}
-                dimmed={STAGES.map((_, i) => Math.floor(i / 3) !== group)}
+                onTopChange={setActive}
+                autoplay
+                autoplayDelay={3000}
+                pauseOnHover
+                sendToBackOnClick
+                mobileClickOnly
+                mobileBreakpoint={768}
+                sensitivity={140}
+                animationConfig={{ stiffness: 260, damping: 20 }}
               />
             </div>
           </motion.div>
