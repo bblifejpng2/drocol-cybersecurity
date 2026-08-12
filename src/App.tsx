@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import { Routes, Route, Outlet, Navigate, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
-import { PageTransition } from './components/PageTransition';
 import { HomePage } from './pages/HomePage';
 import { SolutionsPage } from './pages/SolutionsPage';
 import { TechnologyPage } from './pages/TechnologyPage';
@@ -98,17 +97,8 @@ const Layout = () => {
 };
 
 function App() {
-  const [loading, setLoading] = useState(true);
-
-  // Page load animation
-  useEffect(() => {
-    const timer = setTimeout(() => setLoading(false), 5000);
-    return () => clearTimeout(timer);
-  }, []);
-
   return (
     <>
-      {loading && <PageTransition />}
       <ScrollToTop />
       <Routes>
         <Route element={<Layout />}>
