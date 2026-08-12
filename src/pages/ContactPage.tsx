@@ -44,13 +44,6 @@ export const ContactPage: React.FC = () => {
 
   const contactCards = [
     {
-      icon: <Mail size={18} strokeWidth={1.8}/>,
-      label: 'General Enquiries',
-      value: 'hello@drocol.ng',
-      href: 'mailto:hello@drocol.ng',
-      desc: 'For project consultations, partnerships and general questions.',
-    },
-    {
       icon: <ShieldAlert size={18} strokeWidth={1.8}/>,
       label: 'Technical Support',
       value: '+234 1 280 4400',
@@ -321,35 +314,6 @@ export const ContactPage: React.FC = () => {
 
           {/* Right: details sidebar */}
           <div className="space-y-5 lg:space-y-6">
-
-            {/* Contact Details */}
-            <div className="rounded-2xl border p-5" style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(232,119,34,0.2)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}>
-              <div className="font-mono uppercase tracking-wider mb-4" style={{ fontSize: '10px', color: 'rgba(245,166,35,0.6)' }}>
-                Contact Details
-              </div>
-              <div className="space-y-3.5 font-inter text-[13px]">
-                <div>
-                  <div className="text-white/35 mb-0.5">General</div>
-                  <a href="mailto:hello@drocol.ng" className="text-white/85 hover:text-[#F5A623] transition-colors">hello@drocol.ng</a>
-                </div>
-                <div>
-                  <div className="text-white/35 mb-0.5">Technical Support</div>
-                  <a href="tel:+23412804400" className="text-white/85 hover:text-[#F5A623] transition-colors">+234 1 280 4400</a>
-                </div>
-                <div>
-                  <div className="text-white/35 mb-0.5">Phone</div>
-                  <a href="tel:+23412804400" className="text-white/85 hover:text-[#F5A623] transition-colors">+234 1 280 4400</a>
-                </div>
-                <div>
-                  <div className="text-white/35 mb-0.5">Mobile / Direct</div>
-                  <a href="tel:+2348136420014" className="text-white/85 hover:text-[#F5A623] transition-colors">+234 813 642 0014</a>
-                </div>
-                <div>
-                  <div className="text-white/35 mb-0.5">Office</div>
-                  <div className="text-white/85">Oniru, Victoria Island, Lagos</div>
-                </div>
-              </div>
-            </div>
 
             {/* Follow Us */}
             <div className="rounded-2xl border p-5" style={{ background: 'rgba(255,255,255,0.03)', borderColor: 'rgba(232,119,34,0.2)', backdropFilter: 'blur(16px)', WebkitBackdropFilter: 'blur(16px)' }}>
