@@ -52,6 +52,24 @@ export const WhyWeExist: React.FC = () => {
             Organizations should not have to wait for a breach, failed audit, or security incident to understand their risk. Drocol helps organizations identify weaknesses early, make better security decisions, and build resilience before a crisis happens.
           </p>
         </motion.div>
+
+        {/* Global reach image — dotted globe with active regions */}
+        <motion.div
+          initial={{ opacity: 0, y: 28 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.8, delay: 0.15, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-3xl mx-auto mt-10 sm:mt-14"
+        >
+          <div className="overflow-hidden rounded-2xl sm:rounded-3xl border border-neutral-900/10 bg-white shadow-[0_24px_60px_-24px_rgba(23,23,23,0.25)]">
+            <img
+              src="/why-we-exist.png"
+              alt="Security consulting in practice — focused work on threat identification and risk management"
+              className="w-full h-auto block"
+              loading="lazy"
+            />
+          </div>
+        </motion.div>
       </div>
     </section>
   );

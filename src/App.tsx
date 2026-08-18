@@ -3,6 +3,7 @@ import { Routes, Route, Outlet, Navigate, useLocation } from 'react-router-dom';
 import { Header } from './components/Header';
 import { Footer } from './components/Footer';
 import { HomePage } from './pages/HomePage';
+import { GlobePage } from './pages/GlobePage';
 import { SolutionsPage } from './pages/SolutionsPage';
 import { TechnologyPage } from './pages/TechnologyPage';
 import { IndustriesPage } from './pages/IndustriesPage';
@@ -132,6 +133,8 @@ function App() {
       <ScrollToTop />
       <MarkCallArrival />
       <Routes>
+        {/* Full-screen standalone page — no site header/footer */}
+        <Route path="/globe" element={<GlobePage />} />
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />
           <Route path="/solutions" element={<SolutionsPage />} />
