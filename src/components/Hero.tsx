@@ -52,7 +52,7 @@ export const Hero: React.FC = () => {
 
             {/* Body */}
             <p className="text-[15px] sm:text-base lg:text-lg text-neutral-600 max-w-lg mb-6 sm:mb-8 lg:mb-10 font-inter leading-relaxed">
-              Cybersecurity is more than preventing attacks. Drocol combines expert consulting, original research, and AI-powered technology to help you understand your risks, strengthen your defenses, and prepare for what's next.
+              Drocol helps organizations identify vulnerabilities, manage cyber risk, strengthen their security, and build better security capabilities through expert consulting and technology.
             </p>
 
             {/* CTAs */}
@@ -72,7 +72,7 @@ export const Hero: React.FC = () => {
                 href="/solutions"
                 onClick={(e) => { e.preventDefault(); navigate('/solutions'); }}
               >
-                Explore our approach
+                Solutions
               </SpecularButton>
             </div>
 
@@ -108,41 +108,6 @@ export const Hero: React.FC = () => {
                   className="w-full h-auto block"
                 />
               </div>
-
-              {/* Badge — threats */}
-              <motion.div
-                initial={{ opacity: 0, x: -16, y: 8 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ delay: 0.6, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -bottom-4 -left-3 sm:-bottom-5 sm:-left-6 flex items-center gap-2.5 px-3 py-2.5 sm:px-4 sm:py-3 rounded-xl border border-white/10 backdrop-blur-xl"
-                style={{ background: 'rgba(8,8,8,0.88)', boxShadow: '0 8px 24px rgba(0,0,0,0.5)' }}
-              >
-                <div className="w-8 h-8 rounded-lg flex items-center justify-center shrink-0"
-                  style={{ background: 'linear-gradient(135deg, #E87722, #F5A623)' }}>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-                  </svg>
-                </div>
-                <div>
-                  <div className="text-[11px] font-bold text-white leading-tight">45M+ Threats Blocked</div>
-                  <div className="text-[9px] text-white/40 font-inter mt-0.5">This month · Nigeria</div>
-                </div>
-              </motion.div>
-
-              {/* Badge — uptime */}
-              <motion.div
-                initial={{ opacity: 0, x: 16, y: -8 }}
-                animate={{ opacity: 1, x: 0, y: 0 }}
-                transition={{ delay: 0.75, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute -top-3 -right-3 sm:-top-4 sm:-right-5 px-3 py-2 sm:px-4 sm:py-3 rounded-xl border border-white/10 backdrop-blur-xl"
-                style={{ background: 'rgba(8,8,8,0.88)', boxShadow: '0 8px 24px rgba(0,0,0,0.5)' }}
-              >
-                <div className="text-[9px] font-inter text-white/40 mb-0.5">System Uptime</div>
-                <div className="text-sm sm:text-base font-bold text-white flex items-center gap-1.5">
-                  <span className="w-1.5 h-1.5 rounded-full bg-green-400 shadow-[0_0_5px_rgba(74,222,128,0.8)] shrink-0"/>
-                  99.98%
-                </div>
-              </motion.div>
 
             </motion.div>
           </motion.div>

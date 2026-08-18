@@ -26,28 +26,28 @@ const pillars = [
   {
     icon: <Monitor size={22} strokeWidth={1.6}/>,
     title: 'Technology',
-    body: 'Security tools create visibility — but only what they are configured to see. The right platform accelerates detection, maps attack paths, and reduces manual effort so experts can focus on what matters.',
+    body: 'Tools create visibility — but only what they are configured to see. The right platform accelerates detection and reduces manual effort.',
     examples: ['Threat detection', 'Automated scanning', 'Attack path mapping'],
     color: '#3b82f6',
   },
   {
     icon: <UserCheck size={22} strokeWidth={1.6}/>,
     title: 'People',
-    body: 'Experience creates understanding. Skilled security professionals interpret what tools surface, make judgment calls under pressure, and communicate risk in terms the business actually understands.',
+    body: 'Skilled professionals interpret what tools surface, make judgment calls under pressure, and communicate risk in business terms.',
     examples: ['Expert analysis', 'Incident response', 'Risk communication'],
     color: '#8b5cf6',
   },
   {
     icon: <GitBranch size={22} strokeWidth={1.6}/>,
     title: 'Process',
-    body: 'Good decisions create resilience. Consistent, documented processes ensure that security holds even when people change, systems evolve, and new threats emerge. Discipline is what makes security repeatable.',
+    body: 'Consistent, documented processes make security repeatable — even when people change and systems evolve.',
     examples: ['Change management', 'Vulnerability tracking', 'Compliance workflows'],
     color: '#10b981',
   },
   {
     icon: <Heart size={22} strokeWidth={1.6}/>,
     title: 'Culture',
-    body: 'Organizations become secure when security becomes part of how they operate — not a department, not a checkbox. When every team member understands their role, the entire organization becomes harder to compromise.',
+    body: 'Security becomes real when it is part of how the organization operates — not a department, not a checkbox.',
     examples: ['Security awareness', 'Leadership buy-in', 'Shared responsibility'],
     color: '#E87722',
   },
@@ -95,7 +95,7 @@ export const MoreThanTech: React.FC = () => {
             Security is more<br/>than technology.
           </h2>
           <p className="text-[15px] sm:text-[16px] text-neutral-600 font-inter leading-relaxed max-w-xl">
-            A firewall does not make an organization secure. Neither does a single policy document or an annual training. Real security is the result of four things working together — and a weakness in any one of them creates exposure.
+            A firewall does not make an organization secure. Real security is the result of four things working together — and a weakness in any one of them creates exposure.
           </p>
         </motion.div>
 

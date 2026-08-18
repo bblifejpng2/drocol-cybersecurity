@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ArrowRight, Search, BookOpen, Users, Cpu, Terminal, FileCheck, ShieldAlert, Code2 } from 'lucide-react';
+import { ArrowRight, Search, BookOpen, Users, Cpu, FileCheck, ShieldAlert, Code2 } from 'lucide-react';
 import { SpecularButton } from './SpecularButton';
 
 const steps = [
   {
     num: '01',
+    anchor: 'assess',
     title: 'Assess',
     subtitle: 'Find what attackers find — first.',
     body: 'Penetration testing across web applications, APIs, cloud environments, and internal networks. We show you what an attacker would find before an attacker does. Vulnerability assessments and architecture reviews that give you a clear picture of your real exposure.',
@@ -20,6 +21,7 @@ const steps = [
   },
   {
     num: '02',
+    anchor: 'advise',
     title: 'Advise',
     subtitle: 'Practical guidance, not generic frameworks.',
     body: 'Compliance, risk management, and security strategy built around how your business actually operates — not generic checklists. NDPA, ISO 27001, CBN guidelines, and industry-specific regulations translated into action your team can execute.',
@@ -33,6 +35,7 @@ const steps = [
   },
   {
     num: '03',
+    anchor: 'train',
     title: 'Train',
     subtitle: 'People are your first and last line of defence.',
     body: 'Practical awareness training that helps your team recognize real-world threats and respond with confidence. Security tools cannot protect an organization whose people are unprepared. We build the human side of your security.',
@@ -46,6 +49,7 @@ const steps = [
   },
   {
     num: '04',
+    anchor: 'build',
     title: 'Build',
     subtitle: 'Technology that amplifies expert judgment.',
     body: 'We build AI-powered technology that improves how security assessments are performed — increasing coverage, reducing noise, and giving our consultants more time to solve complex security problems that only humans can solve.',
@@ -205,6 +209,7 @@ export const HowWeHelp: React.FC = () => {
   const [active, setActive] = useState(0);
   const step = steps[active];
   const navigate = useNavigate();
+  const { hash } = useLocation();
 
   /* Auto-cycle the solutions: each step shows for 3s, the last step lingers
      for a 5s cooldown, then the cycle repeats. Manual clicks still work and
@@ -216,6 +221,19 @@ export const HowWeHelp: React.FC = () => {
     }, delay);
     return () => window.clearTimeout(t);
   }, [active]);
+
+  /* Deep links from the homepage (What We Do / footer) activate the matching
+     step and scroll it into view. */
+  useEffect(() => {
+    const anchor = hash.replace('#', '');
+    const idx = steps.findIndex(s => s.anchor === anchor);
+    if (idx === -1) return;
+    const t = window.setTimeout(() => {
+      setActive(idx);
+      document.getElementById(anchor)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, 60);
+    return () => window.clearTimeout(t);
+  }, [hash]);
 
   // CTAs point at other pages (contact / technology) or scroll on the home page
   const goTo = (id: string) => (e: React.MouseEvent) => {
@@ -271,7 +289,8 @@ export const HowWeHelp: React.FC = () => {
               const isActive = active === i;
               return (
                 <motion.button key={s.num} onClick={() => setActive(i)}
-                  className="group w-full text-left rounded-2xl border p-4 sm:p-5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E87722]"
+                  id={s.anchor}
+                  className="group w-full text-left rounded-2xl border p-4 sm:p-5 transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-[#E87722] scroll-mt-24"
                   style={{
                     background: isActive ? `${s.color}10` : 'rgba(255,255,255,0.6)',
                     borderColor: isActive ? `${s.color}45` : 'rgba(26,26,26,0.1)',

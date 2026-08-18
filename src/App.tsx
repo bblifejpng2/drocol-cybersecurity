@@ -13,9 +13,11 @@ import { ArticlePage } from './pages/ArticlePage';
 
 // Map each route to the nav key it should light up
 const routeSection: Record<string, string> = {
-  '/solutions':  'help',
-  '/technology': 'technology',
+  '/solutions':  'solutions',
+  '/technology': 'solutions',
+  '/industries': 'industries',
   '/research':   'research',
+  '/company':    'company',
   '/contact':    'contact',
 };
 

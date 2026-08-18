@@ -3,12 +3,11 @@ import { motion } from 'framer-motion';
 import MagicBento from './MagicBento';
 
 const approachCards = [
-  { color: '#0D0600', label: 'Phase 01', title: 'Understand', description: 'We learn how you operate and where your real risks lie — business context before technology.' },
-  { color: '#0D0600', label: 'Phase 02', title: 'Discover', description: 'We map what attackers can reach: assets, identities, secrets, and the paths between them.' },
-  { color: '#0D0600', label: 'Phase 03', title: 'Prioritize', description: 'Findings ranked by business impact, so the fixes that matter most come first.' },
-  { color: '#0D0600', label: 'Phase 04', title: 'Improve', description: 'Practical remediation guidance — moving from findings to measurable change.' },
-  { color: '#0D0600', label: 'Phase 05', title: 'Verify', description: 'Re-testing and validation to confirm the remediation actually holds.' },
-  { color: '#0D0600', label: 'Phase 06', title: 'Sustain', description: 'Continuous improvement so security keeps pace as your business evolves.' },
+  { color: '#0D0600', label: 'Phase 01', title: 'Understand', description: 'Learn about your organization, environment, objectives, and risks.' },
+  { color: '#0D0600', label: 'Phase 02', title: 'Assess', description: 'Identify vulnerabilities, weaknesses, and security gaps.' },
+  { color: '#0D0600', label: 'Phase 03', title: 'Prioritize', description: 'Determine which risks require immediate attention.' },
+  { color: '#0D0600', label: 'Phase 04', title: 'Improve', description: 'Implement practical security improvements.' },
+  { color: '#0D0600', label: 'Phase 05', title: 'Verify', description: 'Validate that the improvements have actually reduced the risk.' },
 ];
 
 export const Approach: React.FC = () => {
@@ -55,7 +54,7 @@ export const Approach: React.FC = () => {
             <span className="font-light italic text-[#E87722]">We begin with understanding.</span>
           </h2>
           <p className="text-white/50 font-inter text-[15px] sm:text-[16px] leading-relaxed">
-            Every engagement follows the same disciplined process — from understanding your business context to verifying that improvements have actually landed.
+            Before recommending a solution, we understand your organization, technology, risks, and objectives. We then identify the most important security gaps, prioritize what matters, and help you improve.
           </p>
         </motion.div>
 
@@ -89,7 +88,7 @@ export const Approach: React.FC = () => {
           <div className="shrink-0 w-1 h-8 rounded-full" style={{ background: 'linear-gradient(180deg, #F2A95C, #E8862E)' }}/>
           <p className="text-[13px] sm:text-[14px] text-white/70 font-inter leading-relaxed">
             <span className="text-white font-semibold">Our work doesn't end with a report.</span>{' '}
-            Security improves when recommendations are implemented — and we stay with you until they are.
+            We help you understand what needs to change, how to change it, and whether the improvement actually worked.
           </p>
         </motion.div>
 

@@ -19,10 +19,10 @@ export const Footer: React.FC = () => {
     {
       heading: 'Solutions',
       links: [
-        { label: 'Assess',  to: '/solutions' },
-        { label: 'Advise',  to: '/solutions' },
-        { label: 'Train',   to: '/solutions' },
-        { label: 'Build',   to: '/technology' },
+        { label: 'Assess',  to: '/solutions#assess' },
+        { label: 'Advise',  to: '/solutions#advise' },
+        { label: 'Train',   to: '/solutions#train' },
+        { label: 'Build',   to: '/solutions#build' },
       ],
     },
     {

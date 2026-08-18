@@ -11,12 +11,10 @@ interface HeaderProps {
 }
 
 const navLinks = [
-  { id: 'home',       label: 'Home',       path: '/' },
-  { id: 'help',       label: 'Solutions',  path: '/solutions' },
-  { id: 'technology', label: 'Technology', path: '/technology' },
+  { id: 'solutions',  label: 'Solutions',  path: '/solutions' },
   { id: 'industries', label: 'Industries', path: '/industries' },
-  { id: 'company',    label: 'Company',    path: '/company' },
   { id: 'research',   label: 'Research',   path: '/research' },
+  { id: 'company',    label: 'Company',    path: '/company' },
 ];
 
 export const Header: React.FC<HeaderProps> = () => {
@@ -105,8 +103,6 @@ export const Header: React.FC<HeaderProps> = () => {
 
           {/* ── Centered pill nav ───────────────────────────── */}
           <PillNav
-            logo="/drocol-icon.png?v=2"
-            logoAlt="Drocol Technologies Limited"
             items={items}
             activeHref={activeHref}
             baseColor="#FAF7F0"
