@@ -37,20 +37,25 @@
   </head>
   <body>
     <script>
-      /* Detect iOS "Request Desktop Site" and add a data attribute so CSS
-         can force the desktop layout while keeping phone-sized text.
-
+      /* Detect iOS "Request Desktop Site" and force a desktop-width viewport.
          iOS Safari changes the UA to look like macOS but keeps the real
          device width (~390 px).  CSS media queries then still pick the
-         mobile breakpoint.  We fix this by setting data-desktop="true"
-         on <html>, then use CSS overrides to show the desktop nav and
-         grid layout at the phone's native width. */
+         mobile breakpoint.  We fix this by spotting the discrepancy and
+         rewriting the viewport meta before any layout runs. */
       (function () {
         var ua = navigator.userAgent || '';
         var isTouch = navigator.maxTouchPoints > 0 || 'ontouchstart' in window;
+        // Desktop UA markers that iOS sends when "Request Desktop Site" is on
         var looksDesktop = /Macintosh|Mac OS X/.test(ua) && !/iPhone|iPad|iPod/.test(ua);
         if (isTouch && looksDesktop) {
-          document.documentElement.setAttribute('data-desktop', 'true');
+          var meta = document.querySelector('meta[name="viewport"]');
+          if (meta) {
+            // Scale so the 1280px desktop layout fits the actual phone screen
+            var targetW = 1280;
+            var screenW = window.innerWidth || 390;
+            var scale = Math.round((screenW / targetW) * 1000) / 1000;
+            meta.setAttribute('content', 'width=' + targetW + ', initial-scale=' + scale);
+          }
         }
       })();
     </script>

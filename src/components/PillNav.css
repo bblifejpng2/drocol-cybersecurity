@@ -170,8 +170,7 @@
 }
 
 .desktop-only {
-  display: flex;
-  align-items: center;
+  display: block;
 }
 
 .mobile-only {
