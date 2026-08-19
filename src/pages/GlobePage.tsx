@@ -149,7 +149,7 @@ export function InteractiveGlobe({ className = '' }: InteractiveGlobeProps) {
         className="pointer-events-none absolute inset-0"
         style={{
           background:
-            'radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.6) 55%, #FFFFFF 75%)',
+            'radial-gradient(circle at center, transparent 0%, rgba(255,255,255,0.3) 45%, #FFFFFF 60%)',
         }}
       />
     </div>
