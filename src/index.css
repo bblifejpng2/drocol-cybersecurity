@@ -814,12 +814,84 @@ body {
   padding-bottom: 3rem;
 }
 
-/* Hero: keep text centered but slightly smaller for readability */
+/* Scale everything up 30% for readability on phone desktop mode */
+[data-desktop="true"] section * {
+  /* 1.3x scale for all text */
+}
+
+/* Hero */
 [data-desktop="true"] #home h1 {
-  font-size: clamp(24px, 6vw, 72px) !important;
+  font-size: clamp(30px, 7.5vw, 72px) !important;
+  line-height: 1.1 !important;
 }
 [data-desktop="true"] #home p {
-  font-size: clamp(13px, 2.5vw, 17px) !important;
+  font-size: clamp(16px, 3.2vw, 17px) !important;
+}
+[data-desktop="true"] #home .text-\[10px\],
+[data-desktop="true"] #home .text-\[11px\] {
+  font-size: 14px !important;
+}
+[data-desktop="true"] #home .text-\[12px\],
+[data-desktop="true"] #home .text-\[13px\] {
+  font-size: 16px !important;
+}
+
+/* Section headings */
+[data-desktop="true"] h2 {
+  font-size: clamp(36px, 6.5vw, 56px) !important;
+}
+[data-desktop="true"] h3 {
+  font-size: 24px !important;
+}
+
+/* Body text */
+[data-desktop="true"] p {
+  font-size: clamp(16px, 2.3vw, 17px) !important;
+  line-height: 1.65 !important;
+}
+
+/* Card text */
+[data-desktop="true"] .text-\[12px\] {
+  font-size: 15px !important;
+}
+[data-desktop="true"] .text-\[13px\] {
+  font-size: 17px !important;
+}
+[data-desktop="true"] .text-\[14px\] {
+  font-size: 18px !important;
+}
+[data-desktop="true"] .text-\[15px\] {
+  font-size: 19px !important;
+}
+[data-desktop="true"] .text-\[16px\] {
+  font-size: 20px !important;
+}
+[data-desktop="true"] .text-\[18px\] {
+  font-size: 23px !important;
+}
+[data-desktop="true"] .text-\[19px\] {
+  font-size: 25px !important;
+}
+[data-desktop="true"] .text-\[20px\] {
+  font-size: 26px !important;
+}
+[data-desktop="true"] .text-\[24px\] {
+  font-size: 31px !important;
+}
+
+/* Eyebrow badges */
+[data-desktop="true"] .text-\[10px\],
+[data-desktop="true"] .text-\[11px\] {
+  font-size: 14px !important;
+}
+
+/* Buttons — slightly larger touch targets */
+[data-desktop="true"] .btn-primary,
+[data-desktop="true"] .btn-accent,
+[data-desktop="true"] .btn-ghost,
+[data-desktop="true"] .btn-outline {
+  padding: 14px 28px !important;
+  font-size: 15px !important;
 }
 
 /* Approach section: side-by-side layout */
