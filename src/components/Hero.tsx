@@ -9,10 +9,10 @@ export const Hero: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="home" className="relative flex min-h-[85vh] sm:min-h-[90vh] items-center overflow-hidden bg-[#FFFFFF]">
+    <section id="home" className="relative flex min-h-[50vh] sm:min-h-[55vh] items-center overflow-hidden bg-[#FFFFFF]">
       {/* Interactive globe — absolute, centered BEHIND the content */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <InteractiveGlobe className="w-[min(700px,80vw,65vh)]" />
+        <InteractiveGlobe className="w-[min(380px,60vw,40vh)]" />
       </div>
 
       {/* Content — layered above the globe */}
