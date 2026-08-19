@@ -50,7 +50,11 @@
         if (isTouch && looksDesktop) {
           var meta = document.querySelector('meta[name="viewport"]');
           if (meta) {
-            meta.setAttribute('content', 'width=1280, initial-scale=0.65');
+            // Scale so the 1280px desktop layout fits the actual phone screen
+            var targetW = 1280;
+            var screenW = window.innerWidth || 390;
+            var scale = Math.round((screenW / targetW) * 1000) / 1000;
+            meta.setAttribute('content', 'width=' + targetW + ', initial-scale=' + scale);
           }
         }
       })();
