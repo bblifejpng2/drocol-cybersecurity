@@ -11,7 +11,6 @@ import { ResearchPage } from './pages/ResearchPage';
 import { CompanyPage } from './pages/CompanyPage';
 import { ContactPage } from './pages/ContactPage';
 import { ArticlePage } from './pages/ArticlePage';
-
 // Map each route to the nav key it should light up
 const routeSection: Record<string, string> = {
   '/solutions':  'solutions',
@@ -20,6 +19,7 @@ const routeSection: Record<string, string> = {
   '/research':   'research',
   '/company':    'company',
   '/contact':    'contact',
+
 };
 
 /**
@@ -133,7 +133,7 @@ function App() {
       <ScrollToTop />
       <MarkCallArrival />
       <Routes>
-        {/* Full-screen standalone page — no site header/footer */}
+        {/* Full-screen standalone pages — no site header/footer */}
         <Route path="/globe" element={<GlobePage />} />
         <Route element={<Layout />}>
           <Route path="/" element={<HomePage />} />

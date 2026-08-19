@@ -27,5 +27,13 @@ export default defineConfig(({ mode }) => {
       strictPort: true,
       allowedHosts: true,
     },
+    build: {
+      rollupOptions: {
+        input: {
+          main: 'index.html',
+          pro: 'pro.html',
+        },
+      },
+    },
   };
 })
