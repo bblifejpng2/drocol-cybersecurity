@@ -9,16 +9,14 @@ export const Hero: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="home" className="relative flex min-h-[100vh] items-center overflow-hidden bg-[#FFFFFF]">
-      {/* Interactive globe — absolute, centered BEHIND the content; sized to
-          always fit fully on screen (never wider than the viewport, never
-          taller than 78% of it) */}
+    <section id="home" className="relative flex min-h-[85vh] sm:min-h-[90vh] items-center overflow-hidden bg-[#FFFFFF]">
+      {/* Interactive globe — absolute, centered BEHIND the content */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <InteractiveGlobe className="w-[min(1000px,92vw,78vh)]" />
+        <InteractiveGlobe className="w-[min(700px,80vw,65vh)]" />
       </div>
 
       {/* Content — layered above the globe */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 py-16 sm:py-20 md:py-24">
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 py-10 sm:py-14 md:py-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -30,19 +28,19 @@ export const Hero: React.FC = () => {
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.1, duration: 0.6 }}
-            className="inline-flex items-center gap-2 mb-5 sm:mb-6 px-3.5 py-1.5 rounded-full border border-neutral-900/10 bg-neutral-900/[0.04]"
+            className="inline-flex items-center gap-2 mb-4 sm:mb-5 px-4 py-2 rounded-full border border-neutral-900/10 bg-neutral-900/[0.04]"
           >
-            <span className="relative flex h-2 w-2 shrink-0">
+            <span className="relative flex h-2.5 w-2.5 shrink-0">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#E87722] opacity-75"/>
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-[#E87722]"/>
+              <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-[#E87722]"/>
             </span>
-            <span className="text-[10px] sm:text-[11px] font-inter font-semibold tracking-[0.12em] text-neutral-600 uppercase">
+            <span className="text-[12px] sm:text-[13px] font-inter font-semibold tracking-[0.12em] text-neutral-600 uppercase">
               Building the future of cybersecurity
             </span>
           </motion.div>
 
-          {/* Headline */}
-          <h1 className="text-[34px] xs:text-[38px] sm:text-5xl md:text-[56px] lg:text-[68px] xl:text-[72px] font-medium leading-[1.08] tracking-[-0.025em] mb-4 sm:mb-5 lg:mb-6 text-neutral-900 font-sans max-w-4xl">
+          {/* Headline — bigger, bolder */}
+          <h1 className="text-[38px] xs:text-[44px] sm:text-6xl md:text-[64px] lg:text-[76px] xl:text-[82px] font-bold leading-[1.05] tracking-[-0.03em] mb-4 sm:mb-5 lg:mb-6 text-neutral-900 font-sans max-w-4xl">
             Helping organizations build{' '}
             <span className="text-transparent bg-clip-text" style={{
               backgroundImage: 'linear-gradient(90deg, #E87722 0%, #F5A623 60%, #E87722 100%)',
@@ -53,8 +51,8 @@ export const Hero: React.FC = () => {
             in their security.
           </h1>
 
-          {/* Body */}
-          <p className="text-[15px] sm:text-base lg:text-lg text-neutral-600 max-w-xl font-inter leading-relaxed mx-auto mb-6 sm:mb-8 lg:mb-10">
+          {/* Body — slightly larger */}
+          <p className="text-[16px] sm:text-[17px] lg:text-[19px] text-neutral-600 max-w-xl font-inter leading-relaxed mx-auto mb-6 sm:mb-8 lg:mb-10">
             Drocol helps organizations identify vulnerabilities, manage cyber risk, strengthen their security, and build better security capabilities through expert consulting and technology.
           </p>
 
@@ -79,7 +77,7 @@ export const Hero: React.FC = () => {
             </SpecularButton>
           </div>
 
-          <p className="text-[12px] sm:text-[13px] text-neutral-500 font-inter">
+          <p className="text-[13px] sm:text-[14px] text-neutral-500 font-inter">
             No pressure. No jargon. Just a practical conversation about your security.
           </p>
         </motion.div>
