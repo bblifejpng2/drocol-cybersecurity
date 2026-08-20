@@ -14,7 +14,7 @@ export const Hero: React.FC = () => {
           always fit fully on screen (never wider than the viewport, never
           taller than 78% of it) */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <InteractiveGlobe className="w-[min(1000px,92vw,78vh)]" />
+        <InteractiveGlobe className="w-[min(1300px,98vw,92vh)]" />
       </div>
 
       {/* Content — layered above the globe */}
