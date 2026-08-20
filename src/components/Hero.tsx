@@ -9,16 +9,9 @@ export const Hero: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="home" className="relative flex min-h-[100vh] items-center overflow-hidden bg-[#FFFFFF]">
-      {/* Interactive globe — absolute, centered BEHIND the content; sized to
-          always fit fully on screen (never wider than the viewport, never
-          taller than 78% of it) */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <InteractiveGlobe className="w-[min(1300px,98vw,92vh)]" />
-      </div>
-
-      {/* Content — layered above the globe */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 py-16 sm:py-20 md:py-24">
+    <section id="home" className="relative flex flex-col min-h-[100vh] overflow-hidden bg-[#FFFFFF]">
+      {/* Content — top of section, above the globe */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -83,6 +76,11 @@ export const Hero: React.FC = () => {
             No pressure. No jargon. Just a practical conversation about your security.
           </p>
         </motion.div>
+      </div>
+
+      {/* Globe — fills remaining space below the content */}
+      <div className="relative z-0 flex-1 flex items-center justify-center -mt-8">
+        <InteractiveGlobe className="w-[min(1300px,98vw,70vh)]" />
       </div>
     </section>
   );
