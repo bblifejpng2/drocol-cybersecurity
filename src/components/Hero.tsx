@@ -9,9 +9,14 @@ export const Hero: React.FC = () => {
   const navigate = useNavigate();
 
   return (
-    <section id="home" className="relative flex flex-col min-h-[100vh] overflow-hidden bg-[#FFFFFF]">
-      {/* Content — top of section, above the globe */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 pt-20 sm:pt-24 md:pt-28 pb-4">
+    <section id="home" className="relative flex min-h-[100vh] items-start overflow-hidden bg-[#FFFFFF]">
+      {/* Interactive globe — absolute, centered behind the content */}
+      <div className="absolute inset-0 flex items-center justify-center">
+        <InteractiveGlobe className="w-[min(1300px,98vw,92vh)]" />
+      </div>
+
+      {/* Content — positioned above the globe */}
+      <div className="relative z-10 mx-auto w-full max-w-7xl px-5 sm:px-8 md:px-10 pt-16 sm:pt-20 md:pt-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
@@ -76,11 +81,6 @@ export const Hero: React.FC = () => {
             No pressure. No jargon. Just a practical conversation about your security.
           </p>
         </motion.div>
-      </div>
-
-      {/* Globe — fills remaining space below the content */}
-      <div className="relative z-0 flex-1 flex items-center justify-center -mt-8">
-        <InteractiveGlobe className="w-[min(1300px,98vw,70vh)]" />
       </div>
     </section>
   );
