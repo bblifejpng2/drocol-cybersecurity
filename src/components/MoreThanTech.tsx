@@ -85,7 +85,7 @@ export const MoreThanTech: React.FC = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-80px' }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-2xl mb-14"
+          className="max-w-2xl mx-auto text-center mb-14"
         >
           <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-full border border-[#E87722]/20 bg-[#E87722]/[0.06]">
             <span className="w-1.5 h-1.5 rounded-full bg-[#E87722]"/>
